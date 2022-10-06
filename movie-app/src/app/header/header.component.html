@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button>
+            <mat-icon>movie</mat-icon>
+        </button>
+        <span>Movie Database</span>
+
+        <div class="nav-links">
+            <button mat-button [routerLink]="['/home']">Home</button>
+            <button mat-button [routerLink]="['/browse']">Browse</button>
+        </div>
+
+        <span class="spacer"></span>
+
+        <button mat-icon-button>
+            <mat-icon>share</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,19 @@
+<mat-card class="section-categories">
+    <div class="section-heading">
+        <h2>Categories</h2>
+        <mat-form-field appearance="legacy">
+            <mat-label>Quick search</mat-label>
+            <input matInput [(ngModel)]="filterKeyword">
+            <mat-icon matSuffix>filter_list</mat-icon>
+        </mat-form-field>
+    </div>
+    <div class="section-content">
+        <div class="loading-box" *ngIf="!genres.length">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+        <button mat-raised-button color="accent" *ngFor="let genre of filteredGenres">{{genre.name}}</button>
+        <div class="no-filtered" *ngIf="!filteredGenres.length">
+            <p style="font-size: 1.2rem;"> No genres found by search criteria! </p>
+        </div>
+    </div>
+</mat-card>

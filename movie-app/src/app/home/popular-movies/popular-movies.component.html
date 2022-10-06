@@ -1,0 +1,34 @@
+<mat-card class="section-popularMovies">
+    <div class="section-heading">
+        <h2>Popular Movies/Shows</h2>
+        <div class="switch-box">
+            Movies <mat-slide-toggle [checked]="isShows" (change)="onChange($event)">Shows</mat-slide-toggle>
+        </div>
+
+        <!-- <mat-form-field appearance="legacy">
+            <mat-label>Quick search</mat-label>
+            <input matInput>
+            <mat-icon matSuffix>filter_list</mat-icon>
+        </mat-form-field> -->
+    </div>
+
+    <div class="section-content">
+        <div class="loading-box" *ngIf="!movies.length">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+
+        <mat-card class="movie-card" *ngFor="let movie of movies">
+            <img *ngIf="movie.poster_path" [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w185' + movie.poster_path
+                : '/assets/images/picture4044.png'" [alt]=" movie.name" loading="lazy">
+
+            <div *ngIf="!movie.poster_path" class="img-box"
+                style="background: url(/assets/images/picture4044.png) center center;">
+            </div>
+
+            <p class="movie-name">{{movie.title}}</p>
+        </mat-card>
+    </div>
+
+    <mat-paginator [length]="100" [pageSize]="20" (page)="fetchNewPageData($event)" #paginator>
+    </mat-paginator>
+</mat-card>
