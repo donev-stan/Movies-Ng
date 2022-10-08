@@ -15,45 +15,51 @@ export class MovieDBService {
 
   constructor(private http: HttpClient) {}
 
+  getTrendingItems(
+    media_type: string = 'all',
+    time_window: string = 'day',
+    page: number = 1
+  ): Observable<any> {
+    const url = this.api_url.concat(`/trending/${media_type}/${time_window}`);
+    const params = this.params.append('page', page);
+
+    return this.http.get(url, { params }).pipe(
+      // tap((response) => console.log(response)),
+      map((response: any) => response.results),
+      map((response: any) => response.slice(0, 10))
+      // tap((response) => console.log(response))
+    );
+  }
+
+  getTopRated(media_type: string = 'movie', page: number = 1): Observable<any> {
+    const url = this.api_url.concat(`/${media_type}/top_rated`);
+    const params = this.params.append('page', page);
+
+    return this.http.get(url, { params }).pipe(
+      // tap((response) => console.log(response)),
+      map((response: any) => response.results),
+      map((response: any) => response.slice(0, 10))
+      // tap((response) => console.log(response))
+    );
+  }
+
+  getPopular(media_type: string = 'movie', page: number = 1): Observable<any> {
+    const url = this.api_url.concat(`/${media_type}/popular`);
+    const params = this.params.append('page', page);
+
+    return this.http.get(url, { params }).pipe(
+      // tap((response) => console.log(response)),
+      map((response: any) => response.results),
+      map((response: any) => response.slice(0, 10)),
+      tap((response) => console.log(response))
+    );
+  }
+
   getMovieGenres(): Observable<any[]> {
     const url = this.api_url.concat('/genre/movie/list');
+
     return this.http
       .get(url, { params: this.params })
       .pipe(map((response: any) => response.genres));
-  }
-
-  getPopularActors(page: number = 1): Observable<any> {
-    const url = this.api_url.concat('/person/popular');
-    const params = this.params.append('page', page);
-
-    return this.http
-      .get(url, { params })
-      .pipe(
-        map((response: any) =>
-          response.results.filter(
-            (actor: any) => actor.known_for_department === 'Acting'
-          )
-        )
-      );
-  }
-
-  getPopularMovies(page: number = 1): Observable<any> {
-    const url = this.api_url.concat('/movie/popular');
-    const params = this.params.append('page', page);
-
-    return this.http.get(url, { params }).pipe(
-      map((response: any) => response.results),
-      tap((data) => console.log(data))
-    );
-  }
-
-  getPopularShows(page: number = 1): Observable<any> {
-    const url = this.api_url.concat('/tv/popular');
-    const params = this.params.append('page', page);
-
-    return this.http.get(url, { params }).pipe(
-      map((response: any) => response.results),
-      tap((data) => console.log(data))
-    );
   }
 }

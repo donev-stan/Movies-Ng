@@ -1,0 +1,60 @@
+<mat-expansion-panel [expanded]="isExpanded" title="">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <h2 class="section-heading">{{title}}</h2>
+        </mat-panel-title>
+        <mat-panel-description>
+            {{description}}
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-drawer-container [hasBackdrop]="true">
+        <mat-drawer #drawer mode="over">
+            <div class="section-filters">
+                <ng-content select="filters"></ng-content>
+            </div>
+        </mat-drawer>
+        <mat-drawer-content>
+            <div class="section-content">
+                <!-- <ng-content select="content"></ng-content> -->
+
+                <div class="loading-box" *ngIf="!items.length">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                </div>
+
+                <mat-card class="card" *ngFor="let item of items" [title]="item.title || item.name"
+                    [class.mat-elevation-z8]="true">
+
+                    <div class="avg-vote-box" [title]='"Vote: " + item.vote_average'>
+                        <img src="/assets/images/avg_vote.png" class="avg-vote-img" alt="">
+                        <p class="avg-vote-text">{{(item.vote_average | number : ".0-1" || item.popularity)}}</p>
+                    </div>
+
+                    <div *ngIf="item.poster_path || item.profile_path; then normalImg else errorImg"></div>
+
+                    <ng-template #normalImg>
+                        <img [src]="'https://image.tmdb.org/t/p/w185' + (item.profile_path || item.poster_path)"
+                            loading="lazy" alt="" />
+                    </ng-template>
+
+                    <ng-template #errorImg>
+                        <div *ngIf="!item.poster_path && !item.profile_path" class="img-404">
+                        </div>
+                    </ng-template>
+                </mat-card>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+
+    <div class="footer">
+        <button mat-flat-button color="accent" (click)="drawer.toggle()">Toggle Filters</button>
+
+        <ng-content select="filter-chips"></ng-content>
+
+        <mat-paginator [length]="100" [pageSize]="items.length" (page)="fetchNewPageData($event)" #paginator>
+        </mat-paginator>
+    </div>
+
+</mat-expansion-panel>

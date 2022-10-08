@@ -1,26 +1,24 @@
-.section-categories {
-  max-width: 1560px;
-  margin: auto;
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
 
-  .section-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 30px;
+  margin: 0 10px !important;
 
-    h2 {
-      color: white;
-    }
+  h2 {
+    font-size: 1.5rem;
+    color: white;
   }
+}
 
-  .section-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+.section-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 
-    .loading-box {
-      width: 100%;
-    }
+  .loading-box {
+    width: 100%;
   }
 }

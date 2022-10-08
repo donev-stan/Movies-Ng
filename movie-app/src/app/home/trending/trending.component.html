@@ -1,0 +1,40 @@
+<app-section-panel title="Trending" description="Get the daily or weekly trending movies, shows or people."
+    [items]="trendingItems" (fetchNewPage)="fetchTrendingItems($event)" [resetPage]="resetPage">
+    <ng-container ngProjectAs="filters">
+        <mat-form-field appearance="fill">
+            <mat-label>Media Type</mat-label>
+            <mat-select [(ngModel)]="selectedMedia">
+                <mat-option value="all">All</mat-option>
+                <mat-option value="movie">Movie</mat-option>
+                <mat-option value="tv">TV</mat-option>
+                <mat-option value="person">People</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Time Window</mat-label>
+            <mat-select [(ngModel)]="selectedTimeWindow">
+                <mat-option value="day">Day</mat-option>
+                <mat-option value="week">Week</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-container>
+
+    <ng-container ngProjectAs="content">
+    </ng-container>
+
+    <ng-container ngProjectAs="filter-chips">
+        <mat-chip-list>
+            <mat-chip [selected]="selectedMedia == 'all'">All</mat-chip>
+            <mat-chip [selected]="selectedMedia == 'movie'">Movies</mat-chip>
+            <mat-chip [selected]="selectedMedia == 'tv'">Shows</mat-chip>
+            <mat-chip [selected]="selectedMedia == 'person'">People</mat-chip>
+        </mat-chip-list>
+
+        <mat-chip-list>
+            <mat-chip color="accent" [selected]="selectedTimeWindow == 'day'">Day</mat-chip>
+            <mat-chip color="accent" [selected]="selectedTimeWindow == 'week'">Week</mat-chip>
+        </mat-chip-list>
+    </ng-container>
+
+</app-section-panel>

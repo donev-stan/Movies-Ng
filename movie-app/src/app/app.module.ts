@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,11 +11,11 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { BrowseComponent } from './browse/browse.component';
 import { DetailsComponent } from './details/details.component';
-import { HttpClientModule } from '@angular/common/http';
 import { CategoriesComponent } from './home/categories/categories.component';
-import { FormsModule } from '@angular/forms';
-import { PopularActorsComponent } from './home/popular-actors/popular-actors.component';
-import { PopularMoviesComponent } from './home/popular-movies/popular-movies.component';
+import { TrendingComponent } from './home/trending/trending.component';
+import { SectionPanelComponent } from './home/shared/section-panel/section-panel.component';
+import { TopRatedComponent } from './home/top-rated/top-rated.component';
+import { PopularComponent } from './home/popular/popular.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,10 @@ import { PopularMoviesComponent } from './home/popular-movies/popular-movies.com
     BrowseComponent,
     DetailsComponent,
     CategoriesComponent,
-    PopularActorsComponent,
-    PopularMoviesComponent,
+    TrendingComponent,
+    SectionPanelComponent,
+    TopRatedComponent,
+    PopularComponent,
   ],
   imports: [
     BrowserModule,
