@@ -23,7 +23,8 @@
     <ng-container ngProjectAs="filter-chips">
         <mat-chip-list>
             <mat-chip [selected]="selectedMedia == 'all'">All</mat-chip>
-            <mat-chip [selected]="selectedMedia == 'movie'">Movies</mat-chip>
+            <mat-chip [selected]=" selectedMedia == 'movie'">
+                Movies</mat-chip>
             <mat-chip [selected]="selectedMedia == 'tv'">Shows</mat-chip>
             <mat-chip [selected]="selectedMedia == 'person'">People</mat-chip>
         </mat-chip-list>
