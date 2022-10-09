@@ -50,8 +50,8 @@ export class MovieDBService {
     return this.http.get(url, { params }).pipe(
       // tap((response) => console.log(response)),
       map((response: any) => response.results),
-      map((response: any) => response.slice(0, 10))
-      // tap((response) => console.log(response))
+      map((response: any) => response.slice(0, 10)),
+      tap((response) => console.log(response))
     );
   }
 
