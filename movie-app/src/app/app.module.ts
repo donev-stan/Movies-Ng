@@ -16,6 +16,7 @@ import { TrendingComponent } from './home/trending/trending.component';
 import { SectionPanelComponent } from './home/shared/section-panel/section-panel.component';
 import { TopRatedComponent } from './home/top-rated/top-rated.component';
 import { PopularComponent } from './home/popular/popular.component';
+import { PreviewComponent } from './home/preview/preview.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { PopularComponent } from './home/popular/popular.component';
     SectionPanelComponent,
     TopRatedComponent,
     PopularComponent,
+    PreviewComponent,
   ],
   imports: [
     BrowserModule,

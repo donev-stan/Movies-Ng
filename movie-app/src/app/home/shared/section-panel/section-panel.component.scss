@@ -31,7 +31,7 @@
 
     padding: 0;
     cursor: pointer;
-    height: 277px;
+    min-height: 277px;
     widows: 185px;
     display: flex;
     align-items: center;
@@ -48,8 +48,8 @@
       justify-content: center;
       align-items: center;
 
-      top: -10px;
-      right: -10px;
+      top: -12px;
+      right: -12px;
 
       .avg-vote-img {
         width: 50px;
@@ -70,6 +70,20 @@
       height: 277px;
       background: url("/assets/images/picture4044.png") center center;
       background-repeat: no-repeat;
+    }
+
+    .item-name {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      text-align: center;
+      font-size: 1rem;
+
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        1px 1px 0 #000;
     }
   }
 }

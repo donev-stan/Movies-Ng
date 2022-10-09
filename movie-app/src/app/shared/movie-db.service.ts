@@ -26,8 +26,8 @@ export class MovieDBService {
     return this.http.get(url, { params }).pipe(
       // tap((response) => console.log(response)),
       map((response: any) => response.results),
-      map((response: any) => response.slice(0, 10))
-      // tap((response) => console.log(response))
+      map((response: any) => response.slice(0, 10)),
+      tap((response) => console.log(response))
     );
   }
 
@@ -50,8 +50,8 @@ export class MovieDBService {
     return this.http.get(url, { params }).pipe(
       // tap((response) => console.log(response)),
       map((response: any) => response.results),
-      map((response: any) => response.slice(0, 10)),
-      tap((response) => console.log(response))
+      map((response: any) => response.slice(0, 10))
+      // tap((response) => console.log(response))
     );
   }
 
@@ -59,6 +59,19 @@ export class MovieDBService {
     const url = this.api_url.concat(`/${media_type}/popular`);
 
     return this.http.get(url, { params: this.params }).pipe(
+      // tap((response) => console.log(response)),
+      tap((response) => console.log(response))
+    );
+  }
+
+  multiSearch(query: string, page: number = 1): Observable<any> {
+    const url = this.api_url.concat(`/search/multi`);
+    const params = this.params
+      .append('query', query)
+      .append('page', page)
+      .append('include_adul', true);
+
+    return this.http.get(url, { params }).pipe(
       // tap((response) => console.log(response)),
       tap((response) => console.log(response))
     );

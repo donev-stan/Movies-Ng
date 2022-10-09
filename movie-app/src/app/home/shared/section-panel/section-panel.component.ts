@@ -24,6 +24,7 @@ export class SectionPanelComponent implements OnInit {
   }
 
   fetchNewPageData(event: PageEvent): void {
+    this.items = [];
     const page = event ? event.pageIndex + 1 : 1;
     this.fetchNewPage.next(page);
   }
