@@ -55,8 +55,17 @@ export class MovieDBService {
     );
   }
 
-  getMovieGenres(): Observable<any[]> {
-    const url = this.api_url.concat('/genre/movie/list');
+  getLatest(media_type: string = 'movie'): Observable<any> {
+    const url = this.api_url.concat(`/${media_type}/popular`);
+
+    return this.http.get(url, { params: this.params }).pipe(
+      // tap((response) => console.log(response)),
+      tap((response) => console.log(response))
+    );
+  }
+
+  getGenres(media_type: string = 'movie'): Observable<any[]> {
+    const url = this.api_url.concat(`/genre/${media_type}/list`);
 
     return this.http
       .get(url, { params: this.params })

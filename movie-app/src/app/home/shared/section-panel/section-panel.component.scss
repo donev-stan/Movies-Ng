@@ -16,7 +16,8 @@
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  justify-content: center;
+  // justify-content: center;
+  justify-content: space-around;
   padding: 20px 0;
 
   .loading-box {
@@ -111,6 +112,14 @@ mat-drawer-container {
 @media (max-width: 600px) {
   mat-panel-description {
     display: none;
+  }
+
+  ::ng-deep .mat-paginator-page-size {
+    display: none !important;
+  }
+
+  ::ng-deep .mat-paginator-range-label {
+    display: none !important;
   }
 
   .footer {

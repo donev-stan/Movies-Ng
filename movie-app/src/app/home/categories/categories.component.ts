@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IGenresList } from 'src/app/shared/models/genres-list';
+import { Component, OnInit } from '@angular/core';
 import { MovieDBService } from 'src/app/shared/movie-db.service';
 
 @Component({
@@ -8,14 +7,14 @@ import { MovieDBService } from 'src/app/shared/movie-db.service';
   styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent implements OnInit {
-  genres: IGenresList[] = [];
-  filteredGenres: IGenresList[] = [];
+  genres: any[] = [];
+  filteredGenres: any[] = [];
   private _filterKeyword: string = '';
 
   constructor(private db: MovieDBService) {}
 
   ngOnInit(): void {
-    this.db.getMovieGenres().subscribe({
+    this.db.getGenres().subscribe({
       next: (genres) => {
         this.genres = genres;
         this.filterKeyword = '';
@@ -32,8 +31,8 @@ export class CategoriesComponent implements OnInit {
     this.filteredGenres = this.filterGeneres(value);
   }
 
-  filterGeneres(keyword: string): IGenresList[] {
-    return this.genres.filter((genre: IGenresList) =>
+  filterGeneres(keyword: string): any[] {
+    return this.genres.filter((genre: any) =>
       genre.name.toLowerCase().includes(keyword.toLowerCase())
     );
   }

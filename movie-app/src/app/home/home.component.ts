@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { IGenresList } from '../shared/models/genres-list';
-import { MovieDBService } from '../shared/movie-db.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +7,7 @@ import { MovieDBService } from '../shared/movie-db.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private db: MovieDBService) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {}
 }

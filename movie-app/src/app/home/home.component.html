@@ -1,5 +1,5 @@
 <div class="container">
-    <mat-tab-group mat-align-tabs="center">
+    <mat-tab-group mat-align-tabs="center" [selectedIndex]="0">
         <mat-tab class="tab" label="Trending">
             <div class="container">
                 <app-trending></app-trending>
@@ -17,7 +17,7 @@
         </mat-tab>
     </mat-tab-group>
 
-    <div style="padding: 0 20px;">
+    <!-- <div class="container">
         <app-categories></app-categories>
-    </div>
+    </div> -->
 </div>
