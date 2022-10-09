@@ -13,6 +13,8 @@ export class MovieDBService {
     .set('api_key', this.api_key)
     .set('language', 'en-US');
 
+  private arrayLength: number = 12;
+
   constructor(private http: HttpClient) {}
 
   getTrendingItems(
@@ -26,7 +28,7 @@ export class MovieDBService {
     return this.http.get(url, { params }).pipe(
       // tap((response) => console.log(response)),
       map((response: any) => response.results),
-      map((response: any) => response.slice(0, 10)),
+      map((response: any) => response.slice(0, this.arrayLength)),
       tap((response) => console.log(response))
     );
   }
@@ -38,7 +40,7 @@ export class MovieDBService {
     return this.http.get(url, { params }).pipe(
       // tap((response) => console.log(response)),
       map((response: any) => response.results),
-      map((response: any) => response.slice(0, 10))
+      map((response: any) => response.slice(0, this.arrayLength))
       // tap((response) => console.log(response))
     );
   }
@@ -50,7 +52,7 @@ export class MovieDBService {
     return this.http.get(url, { params }).pipe(
       // tap((response) => console.log(response)),
       map((response: any) => response.results),
-      map((response: any) => response.slice(0, 10)),
+      map((response: any) => response.slice(0, this.arrayLength)),
       tap((response) => console.log(response))
     );
   }

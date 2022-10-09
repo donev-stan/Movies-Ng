@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ShareDialogComponent } from '../share-dialog/share-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -10,8 +9,4 @@ import { ShareDialogComponent } from '../share-dialog/share-dialog.component';
 export class HeaderComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
   ngOnInit(): void {}
-
-  openShareDialog(): void {
-    this.dialog.open(ShareDialogComponent);
-  }
 }

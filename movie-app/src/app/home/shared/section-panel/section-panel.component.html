@@ -54,7 +54,8 @@
 
         <ng-content select="filter-chips"></ng-content>
 
-        <mat-paginator [length]="100" [pageSize]="items.length" (page)="fetchNewPageData($event)" #paginator>
+        <mat-paginator [length]="items.length * 10" [pageSize]="items.length" (page)="fetchNewPageData($event)"
+            #paginator>
         </mat-paginator>
     </div>
 

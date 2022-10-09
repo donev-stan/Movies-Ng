@@ -124,6 +124,10 @@ mat-drawer-container {
 
 // Media Queries
 @media (max-width: 600px) {
+  .section-heading {
+    font-size: 1.3rem;
+  }
+
   mat-panel-description {
     display: none;
   }
