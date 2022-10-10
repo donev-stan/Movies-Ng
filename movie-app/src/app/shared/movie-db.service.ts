@@ -13,7 +13,7 @@ export class MovieDBService {
     .set('api_key', this.api_key)
     .set('language', 'en-US');
 
-  private arrayLength: number = 12;
+  arrayLength: number = 12;
 
   constructor(private http: HttpClient) {}
 
