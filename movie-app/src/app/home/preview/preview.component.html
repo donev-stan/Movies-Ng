@@ -74,7 +74,7 @@
 
         <div class="action-btns">
           <button mat-mini-fab color="primary">
-            <mat-icon>list</mat-icon>
+            <mat-icon>playlist_add</mat-icon>
           </button>
 
           <button mat-mini-fab color="primary">
@@ -96,7 +96,7 @@
       </div>
 
       <div class="info">
-        <div class="overview" *ngIf="singleData.overview.length">
+        <div class="overview" *ngIf="singleData.overview?.length">
           <h2 class="unselectable">Overview</h2>
           <p class="overview-text">{{ singleData.overview }}</p>
         </div>

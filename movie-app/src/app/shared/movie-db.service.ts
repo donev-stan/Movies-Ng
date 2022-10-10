@@ -101,4 +101,12 @@ export class MovieDBService {
       .get(url, { params: this.params })
       .pipe(tap((response) => console.log(response)));
   }
+
+  getLatestMovie(): Observable<any> {
+    const url = this.api_url.concat(`/movie/latest`);
+
+    return this.http
+      .get(url, { params: this.params })
+      .pipe(tap((response) => console.log(response)));
+  }
 }

@@ -17,7 +17,7 @@ mat-card {
     top: 0;
     left: 0;
     width: 100%;
-    height: auto;
+    // height: auto;
 
     opacity: 0.3;
     transition: all 0.4s;
@@ -117,6 +117,14 @@ mat-card {
       .info {
         display: flex;
       }
+
+      .view-more-btn-box {
+        button {
+          color: white;
+          text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+            1px 1px 0 #000;
+        }
+      }
     }
   }
 }
@@ -160,7 +168,7 @@ mat-card {
 }
 
 .animate-card {
-  animation: fadeInCard 0.5s ease 0s 1 normal forwards;
+  animation: fadeInCard 0.3s ease 0s 1 normal forwards;
 }
 
 .animate-background {

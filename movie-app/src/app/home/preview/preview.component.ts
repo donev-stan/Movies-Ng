@@ -16,17 +16,29 @@ export class PreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      const id = params['id'];
-      const media_type = params['type'];
-
       this.animate = false;
+      this.singleData = {};
 
-      this.db.getSingle(media_type, id).subscribe({
-        next: (data) => {
-          this.singleData = data;
-          this.animate = true;
-        },
-      });
+      console.log(Object.keys(params).length);
+
+      if (Object.keys(params).length) {
+        const id = params['id'];
+        const media_type = params['type'];
+
+        this.db.getSingle(media_type, id).subscribe({
+          next: (data) => {
+            this.singleData = data;
+            this.animate = true;
+          },
+        });
+      } else {
+        this.db.getTopRated().subscribe({
+          next: (data) => {
+            this.singleData = data[0];
+            this.animate = true;
+          },
+        });
+      }
 
       if (window.scrollY) {
         window.scroll({

@@ -11,6 +11,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     children: [
+      { path: '', component: PreviewComponent },
       {
         path: ':id/:type',
         component: PreviewComponent,
