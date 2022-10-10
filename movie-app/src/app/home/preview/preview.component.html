@@ -2,10 +2,10 @@
   <img
     *ngIf="singleData.backdrop_path"
     class="background-img"
-    [class.animate-background]="animate"
     [src]="'https://image.tmdb.org/t/p/original' + singleData.backdrop_path"
     loading="lazy"
   />
+  <!-- [class.animate-background]="animate" -->
 
   <div class="content">
     <div class="poster-box">

@@ -24,11 +24,15 @@
 
         <mat-card
           class="card"
-          [routerLink]="[
-            '/home',
-            item.id,
-            media_type !== 'all' ? media_type : item.media_type
-          ]"
+          [routerLink]="
+            media_type !== 'person'
+              ? [
+                  '/home',
+                  item.id,
+                  media_type !== 'all' ? media_type : item.media_type
+                ]
+              : []
+          "
           *ngFor="let item of items"
           [title]="item.title || item.name"
           [class.mat-elevation-z8]="true"

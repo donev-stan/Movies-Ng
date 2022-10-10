@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "tmdb-stan",
-    "public": "dist",
+    "public": "dist/movie-app",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
