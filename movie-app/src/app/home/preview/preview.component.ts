@@ -19,8 +19,6 @@ export class PreviewComponent implements OnInit {
       this.animate = false;
       this.singleData = {};
 
-      console.log(Object.keys(params).length);
-
       if (Object.keys(params).length) {
         const id = params['id'];
         const media_type = params['type'];

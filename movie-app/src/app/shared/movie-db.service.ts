@@ -28,8 +28,8 @@ export class MovieDBService {
     return this.http.get(url, { params }).pipe(
       // tap((response) => console.log(response)),
       map((response: any) => response.results),
-      map((response: any) => response.slice(0, this.arrayLength)),
-      tap((response) => console.log(response))
+      map((response: any) => response.slice(0, this.arrayLength))
+      // tap((response) => console.log(response))
     );
   }
 
@@ -43,8 +43,8 @@ export class MovieDBService {
     return this.http.get(url, { params }).pipe(
       // tap((response) => console.log(response)),
       map((response: any) => response.results),
-      map((response: any) => response.slice(0, this.arrayLength)),
-      tap((response) => console.log(response))
+      map((response: any) => response.slice(0, this.arrayLength))
+      // tap((response) => console.log(response))
     );
   }
 
@@ -66,10 +66,9 @@ export class MovieDBService {
   getLatest(media_type: string = 'movie'): Observable<any> {
     const url = this.api_url.concat(`/${media_type}/popular`);
 
-    return this.http.get(url, { params: this.params }).pipe(
-      // tap((response) => console.log(response)),
-      tap((response) => console.log(response))
-    );
+    return this.http
+      .get(url, { params: this.params })
+      .pipe(tap((response) => console.log(response)));
   }
 
   multiSearch(query: string, page: number = 1): Observable<any> {
@@ -79,10 +78,9 @@ export class MovieDBService {
       .append('page', page)
       .append('include_adult', true);
 
-    return this.http.get(url, { params }).pipe(
-      // tap((response) => console.log(response)),
-      tap((response) => console.log(response))
-    );
+    return this.http
+      .get(url, { params })
+      .pipe(tap((response) => console.log(response)));
   }
 
   getGenres(media_type: string = 'movie'): Observable<any[]> {
@@ -97,16 +95,14 @@ export class MovieDBService {
     const url = this.api_url.concat(`/${media_type}/${id}`);
     // const params = this.params.append('append_to_response', 'videos,images');
 
-    return this.http
-      .get(url, { params: this.params })
-      .pipe(tap((response) => console.log(response)));
+    return this.http.get(url, { params: this.params });
+    // .pipe(tap((response) => console.log(response)));
   }
 
   getLatestMovie(): Observable<any> {
     const url = this.api_url.concat(`/movie/latest`);
 
-    return this.http
-      .get(url, { params: this.params })
-      .pipe(tap((response) => console.log(response)));
+    return this.http.get(url, { params: this.params });
+    // .pipe(tap((response) => console.log(response)));
   }
 }

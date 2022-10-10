@@ -1,3 +1,5 @@
+$minContentHeight: 614px;
+
 .section-filters {
   display: flex;
   flex-direction: column;
@@ -21,8 +23,17 @@
   padding: 20px 8px;
 
   .loading-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    margin: 10px 0;
+    height: $minContentHeight;
+
+    // border: 1px solid white;
+
+    mat-spinner {
+      background-color: #009688;
+    }
   }
 
   .card:hover {
@@ -105,7 +116,7 @@
 
 mat-drawer-container {
   background: inherit;
-  min-height: 614px;
+  min-height: $minContentHeight;
 }
 
 // Card Animations
