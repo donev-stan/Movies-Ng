@@ -1,12 +1,19 @@
-<mat-card *ngIf="singleData">
+<mat-card *ngIf="singleData" [class.animate-card]="animate">
   <img
+    *ngIf="singleData.backdrop_path"
     class="background-img"
+    [class.animate-background]="animate"
     [src]="'https://image.tmdb.org/t/p/original' + singleData.backdrop_path"
+    loading="lazy"
   />
 
   <div class="content">
     <div class="poster-box">
-      <mat-card class="img-box" [class.mat-elevation-z22]="true">
+      <mat-card
+        class="img-box"
+        [class.mat-elevation-z22]="true"
+        [class.animate-card]="animate"
+      >
         <img
           [src]="'https://image.tmdb.org/t/p/w300' + singleData.poster_path"
           alt=""
@@ -89,7 +96,7 @@
       </div>
 
       <div class="info">
-        <div class="overview">
+        <div class="overview" *ngIf="singleData.overview.length">
           <h2 class="unselectable">Overview</h2>
           <p class="overview-text">{{ singleData.overview }}</p>
         </div>

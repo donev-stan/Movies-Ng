@@ -10,6 +10,8 @@ import { MovieDBService } from 'src/app/shared/movie-db.service';
 export class PreviewComponent implements OnInit {
   singleData: any;
 
+  animate: boolean = false;
+
   constructor(private db: MovieDBService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -17,11 +19,22 @@ export class PreviewComponent implements OnInit {
       const id = params['id'];
       const media_type = params['type'];
 
-      console.log(params);
+      this.animate = false;
 
       this.db.getSingle(media_type, id).subscribe({
-        next: (data) => (this.singleData = data),
+        next: (data) => {
+          this.singleData = data;
+          this.animate = true;
+        },
       });
+
+      if (window.scrollY) {
+        window.scroll({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }
     });
   }
 
