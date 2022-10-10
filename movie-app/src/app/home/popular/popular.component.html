@@ -1,21 +1,27 @@
-<app-section-panel title="Popular" description="Get a list of the current popular movies, shows or people on TMDB. "
-    [items]="popularItems" (fetchNewPage)="fetchTopRated($event)" [resetPage]="resetPage">
-    <ng-container ngProjectAs="filters">
-        <mat-form-field appearance="outline">
-            <mat-label>Media Type</mat-label>
-            <mat-select [(ngModel)]="selectedMedia">
-                <mat-option value="movie">Movie</mat-option>
-                <mat-option value="tv">Shows</mat-option>
-                <mat-option value="person">People</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </ng-container>
+<app-section-panel
+  title="Popular"
+  description="Get a list of the current popular movies, shows or people on TMDB. "
+  [items]="popularItems"
+  (fetchNewPage)="fetchTopRated($event)"
+  [resetPage]="resetPage"
+  [media_type]="selectedMedia"
+>
+  <ng-container ngProjectAs="filters">
+    <mat-form-field appearance="outline">
+      <mat-label>Media Type</mat-label>
+      <mat-select [(ngModel)]="selectedMedia">
+        <mat-option value="movie">Movie</mat-option>
+        <mat-option value="tv">Shows</mat-option>
+        <mat-option value="person">People</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
 
-    <ng-container ngProjectAs="filter-chips">
-        <mat-chip-list>
-            <mat-chip [selected]="selectedMedia == 'movie'">Movies</mat-chip>
-            <mat-chip [selected]="selectedMedia == 'tv'">Shows</mat-chip>
-            <mat-chip [selected]="selectedMedia == 'person'">People</mat-chip>
-        </mat-chip-list>
-    </ng-container>
+  <ng-container ngProjectAs="filter-chips">
+    <mat-chip-list>
+      <mat-chip [selected]="selectedMedia == 'movie'">Movies</mat-chip>
+      <mat-chip [selected]="selectedMedia == 'tv'">Shows</mat-chip>
+      <mat-chip [selected]="selectedMedia == 'person'">People</mat-chip>
+    </mat-chip-list>
+  </ng-container>
 </app-section-panel>

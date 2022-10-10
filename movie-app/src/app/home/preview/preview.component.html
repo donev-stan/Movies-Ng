@@ -1,3 +1,110 @@
-<mat-card>
+<mat-card *ngIf="singleData">
+  <img
+    class="background-img"
+    [src]="'https://image.tmdb.org/t/p/original' + singleData.backdrop_path"
+  />
 
+  <div class="content">
+    <div class="poster-box">
+      <mat-card class="img-box" [class.mat-elevation-z22]="true">
+        <img
+          [src]="'https://image.tmdb.org/t/p/w300' + singleData.poster_path"
+          alt=""
+        />
+      </mat-card>
+    </div>
+    <div class="info-box">
+      <div class="header">
+        <div class="title">
+          {{ singleData.name || singleData.title }}
+        </div>
+
+        <div class="subtitle unselectable">
+          <div class="date" *ngIf="singleData.release_date">
+            {{ singleData.release_date | date }}
+          </div>
+          <div class="genres">
+            <span *ngFor="let genre of singleData.genres">
+              {{ genre.name }}</span
+            >
+          </div>
+          <div class="length" *ngIf="singleData.runtime">
+            {{ singleData.runtime }} min
+          </div>
+        </div>
+      </div>
+
+      <div class="actions unselectable">
+        <div class="score">
+          <div class="score-spinner">
+            <mat-progress-spinner
+              class="background-spinner"
+              color="primary"
+              mode="determinate"
+              [value]="100"
+              [diameter]="58"
+            >
+            </mat-progress-spinner>
+            <mat-progress-spinner
+              class="primary-spinner"
+              color="primary"
+              mode="determinate"
+              [value]="getPersentage(singleData.vote_average)"
+              [diameter]="58"
+            >
+            </mat-progress-spinner>
+
+            <div class="percentage">
+              {{ getPersentage(singleData.vote_average) }}%
+            </div>
+          </div>
+
+          <span
+            >User <br />
+            Score</span
+          >
+        </div>
+
+        <div class="action-btns">
+          <button mat-mini-fab color="primary">
+            <mat-icon>list</mat-icon>
+          </button>
+
+          <button mat-mini-fab color="primary">
+            <mat-icon>favorite</mat-icon>
+          </button>
+
+          <button mat-mini-fab color="primary">
+            <mat-icon>bookmark</mat-icon>
+          </button>
+
+          <button mat-mini-fab color="primary">
+            <mat-icon>star</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="tagline" *ngIf="singleData.tagline">
+        {{ singleData.tagline }}
+      </div>
+
+      <div class="info">
+        <div class="overview">
+          <h2 class="unselectable">Overview</h2>
+          <p class="overview-text">{{ singleData.overview }}</p>
+        </div>
+      </div>
+
+      <div class="view-more-btn-box">
+        <button mat-stroked-button>View More</button>
+      </div>
+    </div>
+  </div>
 </mat-card>
+
+<!-- [ngStyle]="{
+    background:
+      'url(https://image.tmdb.org/t/p/original' +
+      singleData.backdrop_path +
+      ')'
+  }" -->

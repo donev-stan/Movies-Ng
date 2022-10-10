@@ -1,24 +1,25 @@
-<div class="container unselectable">
-    <mat-tab-group mat-align-tabs="center" [selectedIndex]="0">
-        <mat-tab class="tab" label="Trending">
-            <div class="container">
-                <app-trending></app-trending>
-            </div>
-        </mat-tab>
-        <mat-tab label="Top Rated">
-            <div class="container">
-                <app-top-rated></app-top-rated>
-            </div>
-        </mat-tab>
-        <mat-tab label="Popular">
-            <div class="container">
-                <app-popular></app-popular>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
+<div class="container">
+  <router-outlet></router-outlet>
 
-    <div class="container">
-        <app-preview></app-preview>
-        <!-- <app-categories></app-categories> -->
-    </div>
+  <mat-tab-group
+    mat-align-tabs="center"
+    [selectedIndex]="0"
+    class="unselectable"
+  >
+    <mat-tab class="tab" label="Trending">
+      <div class="container">
+        <app-trending></app-trending>
+      </div>
+    </mat-tab>
+    <mat-tab label="Top Rated">
+      <div class="container">
+        <app-top-rated></app-top-rated>
+      </div>
+    </mat-tab>
+    <mat-tab label="Popular">
+      <div class="container">
+        <app-popular></app-popular>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

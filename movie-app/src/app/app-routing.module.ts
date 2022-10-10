@@ -4,11 +4,18 @@ import { BrowseComponent } from './browse/browse.component';
 import { DetailsComponent } from './details/details.component';
 
 import { HomeComponent } from './home/home.component';
+import { PreviewComponent } from './home/preview/preview.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    children: [
+      {
+        path: ':id/:type',
+        component: PreviewComponent,
+      },
+    ],
   },
   {
     path: 'browse',

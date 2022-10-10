@@ -33,20 +33,11 @@ export class MovieDBService {
     );
   }
 
-  getTopRated(media_type: string = 'movie', page: number = 1): Observable<any> {
+  getTopRated(
+    media_type: string = 'movie',
+    page: number = 1
+  ): Observable<any[]> {
     const url = this.api_url.concat(`/${media_type}/top_rated`);
-    const params = this.params.append('page', page);
-
-    return this.http.get(url, { params }).pipe(
-      // tap((response) => console.log(response)),
-      map((response: any) => response.results),
-      map((response: any) => response.slice(0, this.arrayLength))
-      // tap((response) => console.log(response))
-    );
-  }
-
-  getPopular(media_type: string = 'movie', page: number = 1): Observable<any> {
-    const url = this.api_url.concat(`/${media_type}/popular`);
     const params = this.params.append('page', page);
 
     return this.http.get(url, { params }).pipe(
@@ -54,6 +45,21 @@ export class MovieDBService {
       map((response: any) => response.results),
       map((response: any) => response.slice(0, this.arrayLength)),
       tap((response) => console.log(response))
+    );
+  }
+
+  getPopular(
+    media_type: string = 'movie',
+    page: number = 1
+  ): Observable<any[]> {
+    const url = this.api_url.concat(`/${media_type}/popular`);
+    const params = this.params.append('page', page);
+
+    return this.http.get(url, { params }).pipe(
+      // tap((response) => console.log(response)),
+      map((response: any) => response.results),
+      map((response: any) => response.slice(0, this.arrayLength))
+      // tap((response) => console.log(response))
     );
   }
 
@@ -71,7 +77,7 @@ export class MovieDBService {
     const params = this.params
       .append('query', query)
       .append('page', page)
-      .append('include_adul', true);
+      .append('include_adult', true);
 
     return this.http.get(url, { params }).pipe(
       // tap((response) => console.log(response)),
@@ -85,5 +91,14 @@ export class MovieDBService {
     return this.http
       .get(url, { params: this.params })
       .pipe(map((response: any) => response.genres));
+  }
+
+  getSingle(media_type: string, id: string): Observable<any> {
+    const url = this.api_url.concat(`/${media_type}/${id}`);
+    // const params = this.params.append('append_to_response', 'videos,images');
+
+    return this.http
+      .get(url, { params: this.params })
+      .pipe(tap((response) => console.log(response)));
   }
 }

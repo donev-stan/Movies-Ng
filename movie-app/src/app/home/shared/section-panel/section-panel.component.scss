@@ -25,9 +25,16 @@
     margin: 10px 0;
   }
 
+  .card:hover {
+    opacity: 1 !important;
+  }
+
   .card {
     animation: cardEnterFade 1s ease 0s 1 normal forwards;
     animation: cardEnterScale 0.4s ease 0s 1 normal forwards;
+
+    opacity: 0.8;
+    transition: all 0.3s;
 
     padding: 0;
     cursor: pointer;

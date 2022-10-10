@@ -15,6 +15,7 @@ export class SectionPanelComponent implements OnInit {
   @Output() fetchNewPage: Subject<number> = new Subject();
   @ViewChild('paginator') paginator: any;
   @Input() resetPage: Subject<boolean> = new Subject();
+  @Input() media_type: string = '';
 
   constructor() {}
   ngOnInit(): void {
