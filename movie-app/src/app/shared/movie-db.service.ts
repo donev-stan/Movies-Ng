@@ -23,7 +23,7 @@ export class MovieDBService {
     return this.session_id !== '';
   }
 
-  login(loginData: any) {
+  login(loginData: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.createRequestToken().subscribe({
         next: (response: any) => {
@@ -48,7 +48,7 @@ export class MovieDBService {
     });
   }
 
-  logout() {
+  logout(): void {
     const url = this.api_url.concat('/authentication/session');
     const body = {
       session_id: this.session_id,
@@ -56,6 +56,7 @@ export class MovieDBService {
 
     this.http.delete(url, { params: this.params, body: body }).subscribe({
       next: (response: any) => {
+        this.session_id = '';
         this.loggedIn.next(false);
       },
     });
