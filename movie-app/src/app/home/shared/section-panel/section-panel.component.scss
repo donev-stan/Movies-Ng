@@ -1,5 +1,10 @@
 $minContentHeight: 614px;
 
+mat-drawer-container {
+  background: inherit;
+  min-height: $minContentHeight;
+}
+
 .section-filters {
   display: flex;
   flex-direction: column;
@@ -21,7 +26,7 @@ $minContentHeight: 614px;
   // justify-content: center;
   justify-content: space-around;
   align-items: center !important;
-  padding: 20px 8px;
+  padding: 10px 8px 5px;
   height: $minContentHeight;
 
   .loading-box {
@@ -29,9 +34,6 @@ $minContentHeight: 614px;
     justify-content: center;
     align-items: center;
     width: 100%;
-    // height: $minContentHeight;
-
-    // border: 1px solid white;
 
     mat-spinner {
       background-color: #009688;
@@ -42,53 +44,23 @@ $minContentHeight: 614px;
     opacity: 1 !important;
   }
 
-  .display {
-    display: flex !important;
-  }
-
-  // @keyframes enterCard {
-  //   0% {
-  //     opacity: 0.3;
-  //     transform: rotate(-540deg) scale(0);
-  //   }
-
-  //   100% {
-  //     opacity: 0.8;
-  //     transform: rotate(0) scale(1);
-  //   }
-  // }
-
-  @keyframes enterCard {
-    0% {
-      opacity: 0;
-      // transform: rotateX(-100deg);
-      // transform-origin: top;
-    }
-
-    100% {
-      opacity: 0.8;
-      // transform: rotateX(0deg);
-      // transform-origin: top;
-    }
-  }
-
   .card {
-    // animation: enterCard 0.9s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s 1 normal
-    //   none;
-
     animation: enterCard 1s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s 1 normal none;
 
-    opacity: 0.8;
     transition: all 0.3s;
+
+    opacity: 0.8;
 
     padding: 0;
     cursor: pointer;
     min-height: 277px;
     widows: 185px;
     display: flex;
-    align-items: center;
+    align-items: space-between;
 
-    img {
+    .poster-img {
+      height: 277px;
+      width: 185px;
       border-radius: 6px;
     }
 
@@ -163,18 +135,18 @@ $minContentHeight: 614px;
   }
 }
 
-mat-drawer-container {
-  background: inherit;
-  min-height: $minContentHeight;
-}
-
-@keyframes cardEnterFade {
+// Keyframes
+@keyframes enterCard {
   0% {
     opacity: 0;
+    // transform: rotateX(-100deg);
+    // transform-origin: top;
   }
 
   100% {
-    opacity: 1;
+    opacity: 0.8;
+    // transform: rotateX(0deg);
+    // transform-origin: top;
   }
 }
 
@@ -233,9 +205,4 @@ mat-drawer-container {
       display: none;
     }
   }
-}
-
-.poster-img {
-  height: 277px;
-  width: 185px;
 }

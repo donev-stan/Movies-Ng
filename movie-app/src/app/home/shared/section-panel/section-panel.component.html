@@ -40,13 +40,6 @@
           [title]="item.title || item.name"
           [class.mat-elevation-z8]="true"
         >
-          <!--  style="display: none"
-          [style]="
-            'animation: cardEnterScale 0.7s ease ' +
-            (i < 10 ? '0.' + i : '1.' + (i % 10)) +
-            's 1 normal forwards;'
-          "
-          [class.display]="true" -->
           <div
             class="avg-vote-box"
             *ngIf="item.vote_average"
