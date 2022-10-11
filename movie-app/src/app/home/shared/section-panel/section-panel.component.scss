@@ -143,16 +143,23 @@ $minContentHeight: 614px;
 .footer {
   display: flex;
   align-items: center;
-  // gap: 10px;
-  justify-content: space-evenly;
   margin-bottom: -10px;
   margin-top: 10px;
   flex-wrap: wrap;
 
+  .filters-btn-box {
+    flex: 1;
+  }
+
   .filters-chips-box {
+    flex: 3;
     display: flex;
     gap: 30px;
     text-align: center;
+  }
+
+  .pagination-box {
+    flex: 2;
   }
 }
 
@@ -190,13 +197,17 @@ mat-drawer-container {
   }
 }
 
-@media (max-width: 1155px) {
+@media (max-width: 1200px) {
   ::ng-deep .mat-paginator-range-label {
     display: none !important;
   }
+
+  .pagination-box {
+    flex: 1;
+  }
 }
 
-@media (max-width: 890px) {
+@media (max-width: 950px) {
   .footer {
     .filters-btn-box {
       display: none;
@@ -204,8 +215,16 @@ mat-drawer-container {
   }
 }
 
+@media (max-width: 815px) {
+  .footer {
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 490px) {
   .footer {
+    flex-direction: row;
+
     .filters-btn-box {
       display: flex;
     }
