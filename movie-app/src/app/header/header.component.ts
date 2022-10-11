@@ -21,7 +21,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.loggedIn = this.db.isLoggedIn();
     this.db.loggedIn.subscribe({
-      next: () => (this.loggedIn = true),
+      next: (loggedIn) => {
+        this.loggedIn = loggedIn;
+      },
     });
   }
 
@@ -31,5 +33,9 @@ export class HeaderComponent implements OnInit {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
+  }
+
+  onLogout(): void {
+    this.db.logout();
   }
 }

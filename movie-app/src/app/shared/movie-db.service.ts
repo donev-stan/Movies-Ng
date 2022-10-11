@@ -17,10 +17,7 @@ export class MovieDBService {
   arrayLength: number = 12;
   loggedIn: Subject<boolean> = new Subject();
 
-  constructor(private http: HttpClient) {
-    const found = localStorage.getItem('session_id');
-    if (found) this.session_id = found;
-  }
+  constructor(private http: HttpClient) {}
 
   isLoggedIn(): boolean {
     return this.session_id !== '';
@@ -36,7 +33,6 @@ export class MovieDBService {
                 next: (response: any) => {
                   if (response.success) {
                     this.session_id = response.session_id;
-                    localStorage.setItem('session_id', response.session_id);
                     this.loggedIn.next(true);
                     resolve(true);
                   }
@@ -52,12 +48,23 @@ export class MovieDBService {
     });
   }
 
+  logout() {
+    const url = this.api_url.concat('/authentication/session');
+    const body = {
+      session_id: this.session_id,
+    };
+
+    this.http.delete(url, { params: this.params, body: body }).subscribe({
+      next: (response: any) => {
+        this.loggedIn.next(false);
+      },
+    });
+  }
+
   private createRequestToken() {
     const url = this.api_url.concat('/authentication/token/new');
 
-    return this.http
-      .get(url, { params: this.params })
-      .pipe(tap((response) => console.log(response)));
+    return this.http.get(url, { params: this.params });
   }
 
   private validateWithLogin(token: string, loginData: any) {

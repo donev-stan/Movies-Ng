@@ -14,6 +14,8 @@
       Login
     </button>
 
+    <button mat-button (click)="onLogout()" *ngIf="loggedIn">Logout</button>
+
     <button mat-icon-button [routerLink]="['/browse']">
       <mat-icon>search</mat-icon>
     </button>
