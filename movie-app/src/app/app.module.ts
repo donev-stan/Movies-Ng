@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import { SectionPanelComponent } from './home/shared/section-panel/section-panel
 import { TopRatedComponent } from './home/top-rated/top-rated.component';
 import { PopularComponent } from './home/popular/popular.component';
 import { PreviewComponent } from './home/preview/preview.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { PreviewComponent } from './home/preview/preview.component';
     TopRatedComponent,
     PopularComponent,
     PreviewComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +41,7 @@ import { PreviewComponent } from './home/preview/preview.component';
     HttpClientModule,
     MaterialModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -8,6 +8,7 @@ import { map, Observable, tap } from 'rxjs';
 export class MovieDBService {
   private api_url = 'https://api.themoviedb.org/3';
   private api_key = '93e30ea468c15181b1cf21a3ae6255c1';
+  private session_id = '';
 
   private params = new HttpParams()
     .set('api_key', this.api_key)
@@ -16,6 +17,61 @@ export class MovieDBService {
   arrayLength: number = 12;
 
   constructor(private http: HttpClient) {}
+
+  login(loginData: any) {
+    this.createRequestToken().subscribe({
+      next: (response: any) => {
+        console.log('Success Token');
+        console.log(response);
+
+        this.validateWithLogin(loginData).subscribe({
+          next: (response: any) => {
+            console.log('Success Login');
+            console.log(response);
+
+            this.createSession(response.request_token).subscribe({
+              next: (response: any) => {
+                console.log('Success Session!');
+                console.log(response);
+                // Set session ID
+              },
+            });
+          },
+        });
+      },
+    });
+  }
+
+  private createRequestToken() {
+    const url = this.api_url.concat('/authentication/token/new');
+
+    return this.http
+      .get(url, { params: this.params })
+      .pipe(tap((response) => console.log(response)));
+  }
+
+  private validateWithLogin(token: string) {
+    const url = this.api_url.concat(
+      '/authentication/token/validate_with_login'
+    );
+
+    const body = {
+      username: 'donev-stan',
+      password: '6cbT6YW9mp.GpqF',
+      request_token: token,
+    };
+
+    return this.http.post(url, body, { params: this.params });
+  }
+
+  private createSession(token: string) {
+    const url = this.api_url.concat('/authentication/session/new');
+    const body = {
+      request_token: token,
+    };
+
+    return this.http.post(url, body, { params: this.params });
+  }
 
   getTrendingItems(
     media_type: string = 'all',

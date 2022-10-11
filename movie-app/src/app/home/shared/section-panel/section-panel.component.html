@@ -23,7 +23,6 @@
             style="border-radius: 100%"
             [class.mat-elevation-z8]="true"
           ></mat-spinner>
-          <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
         </div>
 
         <mat-card
@@ -37,10 +36,17 @@
                 ]
               : []
           "
-          *ngFor="let item of items"
+          *ngFor="let item of items; let i = index"
           [title]="item.title || item.name"
           [class.mat-elevation-z8]="true"
         >
+          <!--  style="display: none"
+          [style]="
+            'animation: cardEnterScale 0.7s ease ' +
+            (i < 10 ? '0.' + i : '1.' + (i % 10)) +
+            's 1 normal forwards;'
+          "
+          [class.display]="true" -->
           <div
             class="avg-vote-box"
             *ngIf="item.vote_average"
@@ -89,18 +95,24 @@
   </mat-drawer-container>
 
   <div class="footer">
-    <button mat-flat-button color="accent" (click)="drawer.toggle()">
-      Toggle Filters
-    </button>
+    <div class="filters-btn-box">
+      <button mat-flat-button color="accent" (click)="drawer.toggle()">
+        Toggle Filters
+      </button>
+    </div>
 
-    <ng-content select="filter-chips"></ng-content>
+    <div class="filters-chips-box">
+      <ng-content select="filter-chips"></ng-content>
+    </div>
 
-    <mat-paginator
-      [length]="items.length * 10"
-      [pageSize]="items.length"
-      (page)="fetchNewPageData($event)"
-      #paginator
-    >
-    </mat-paginator>
+    <div class="pagination-box">
+      <mat-paginator
+        [length]="items.length * 10"
+        [pageSize]="items.length"
+        (page)="fetchNewPageData($event)"
+        #paginator
+      >
+      </mat-paginator>
+    </div>
   </div>
 </mat-expansion-panel>

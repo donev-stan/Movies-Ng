@@ -20,14 +20,16 @@ $minContentHeight: 614px;
   flex-wrap: wrap;
   // justify-content: center;
   justify-content: space-around;
+  align-items: center !important;
   padding: 20px 8px;
+  height: $minContentHeight;
 
   .loading-box {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: $minContentHeight;
+    // height: $minContentHeight;
 
     // border: 1px solid white;
 
@@ -40,9 +42,41 @@ $minContentHeight: 614px;
     opacity: 1 !important;
   }
 
+  .display {
+    display: flex !important;
+  }
+
+  // @keyframes enterCard {
+  //   0% {
+  //     opacity: 0.3;
+  //     transform: rotate(-540deg) scale(0);
+  //   }
+
+  //   100% {
+  //     opacity: 0.8;
+  //     transform: rotate(0) scale(1);
+  //   }
+  // }
+
+  @keyframes enterCard {
+    0% {
+      opacity: 0;
+      // transform: rotateX(-100deg);
+      // transform-origin: top;
+    }
+
+    100% {
+      opacity: 0.8;
+      // transform: rotateX(0deg);
+      // transform-origin: top;
+    }
+  }
+
   .card {
-    animation: cardEnterFade 1s ease 0s 1 normal forwards;
-    animation: cardEnterScale 0.4s ease 0s 1 normal forwards;
+    // animation: enterCard 0.9s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s 1 normal
+    //   none;
+
+    animation: enterCard 1s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s 1 normal none;
 
     opacity: 0.8;
     transition: all 0.3s;
@@ -109,25 +143,22 @@ $minContentHeight: 614px;
 .footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  // gap: 10px;
+  justify-content: space-evenly;
   margin-bottom: -10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+
+  .filters-chips-box {
+    display: flex;
+    gap: 30px;
+    text-align: center;
+  }
 }
 
 mat-drawer-container {
   background: inherit;
   min-height: $minContentHeight;
-}
-
-// Card Animations
-@keyframes cardEnterScale {
-  0% {
-    transform: scale(0);
-  }
-
-  100% {
-    transform: scale(1);
-  }
 }
 
 @keyframes cardEnterFade {
@@ -157,23 +188,30 @@ mat-drawer-container {
   ::ng-deep .mat-paginator-range-label {
     display: none !important;
   }
+}
 
-  .footer {
-    flex-direction: column;
+@media (max-width: 1155px) {
+  ::ng-deep .mat-paginator-range-label {
+    display: none !important;
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 890px) {
   .footer {
-    button {
+    .filters-btn-box {
       display: none;
     }
   }
 }
 
-@media (max-width: 880px) {
+@media (max-width: 490px) {
   .footer {
-    flex-wrap: wrap;
-    justify-content: center;
+    .filters-btn-box {
+      display: flex;
+    }
+
+    .filters-chips-box {
+      display: none;
+    }
   }
 }

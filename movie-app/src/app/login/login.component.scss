@@ -1,0 +1,60 @@
+.container {
+  height: 80%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  .error-card {
+    animation: enterError 0.4s ease 0s 1 normal forwards;
+
+    .text {
+      font-size: 1.2rem;
+      color: #ff5722;
+    }
+  }
+
+  .login-card {
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .register-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    .text {
+      font-size: 1rem;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      height: 30px;
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    }
+  }
+}
+
+@keyframes enterError {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
