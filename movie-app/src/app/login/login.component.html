@@ -1,6 +1,6 @@
 <div class="container">
   <mat-card class="error-card" *ngIf="invalidData">
-    <span class="text">Ivalid username or password!</span>
+    <span class="text">{{ errorMessage }}</span>
   </mat-card>
 
   <mat-card class="login-card">

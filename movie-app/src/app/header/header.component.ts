@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MovieDBService } from '../shared/movie-db.service';
 
 @Component({
   selector: 'app-header',
@@ -8,11 +9,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  loggedIn: boolean = false;
   copyLink: string = 'https://tmdb-stan.web.app';
 
-  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(
+    private db: MovieDBService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loggedIn = this.db.isLoggedIn();
+    this.db.loggedIn.subscribe({
+      next: () => (this.loggedIn = true),
+    });
+  }
 
   confirmCopy(): void {
     this.snackBar.open('Copied to clipboard!', '', {

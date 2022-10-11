@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MovieDBService } from '../shared/movie-db.service';
 
 @Component({
@@ -11,8 +12,9 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hidePass: boolean = true;
   invalidData: boolean = false;
+  errorMessage: string = '';
 
-  constructor(private db: MovieDBService) {
+  constructor(private db: MovieDBService, private router: Router) {
     this.loginForm = new FormGroup({
       username: new FormControl(null, [
         Validators.required,
@@ -37,12 +39,21 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.invalidData = true;
     this.trimData();
-    if (!this.loginForm.valid) {
-      return;
-    }
-    console.log(this.loginForm);
+
+    if (!this.loginForm.valid) return;
+
+    this.db.login(this.loginForm.value).then(
+      (success) => {
+        this.router.navigate(['/home']);
+      },
+      (error) => {
+        console.log(error);
+        this.errorMessage = error.error.status_message;
+        this.invalidData = true;
+        this.loginForm.reset();
+      }
+    );
   }
 
   trimData(): void {

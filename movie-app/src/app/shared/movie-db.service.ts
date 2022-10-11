@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,30 +15,40 @@ export class MovieDBService {
     .set('language', 'en-US');
 
   arrayLength: number = 12;
+  loggedIn: Subject<boolean> = new Subject();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const found = localStorage.getItem('session_id');
+    if (found) this.session_id = found;
+  }
+
+  isLoggedIn(): boolean {
+    return this.session_id !== '';
+  }
 
   login(loginData: any) {
-    this.createRequestToken().subscribe({
-      next: (response: any) => {
-        console.log('Success Token');
-        console.log(response);
-
-        this.validateWithLogin(loginData).subscribe({
-          next: (response: any) => {
-            console.log('Success Login');
-            console.log(response);
-
-            this.createSession(response.request_token).subscribe({
-              next: (response: any) => {
-                console.log('Success Session!');
-                console.log(response);
-                // Set session ID
-              },
-            });
-          },
-        });
-      },
+    return new Promise((resolve, reject) => {
+      this.createRequestToken().subscribe({
+        next: (response: any) => {
+          this.validateWithLogin(response.request_token, loginData).subscribe({
+            next: (response: any) => {
+              this.createSession(response.request_token).subscribe({
+                next: (response: any) => {
+                  if (response.success) {
+                    this.session_id = response.session_id;
+                    localStorage.setItem('session_id', response.session_id);
+                    this.loggedIn.next(true);
+                    resolve(true);
+                  }
+                },
+                error: (error: any) => reject(error),
+              });
+            },
+            error: (error: any) => reject(error),
+          });
+        },
+        error: (error: any) => reject(error),
+      });
     });
   }
 
@@ -50,14 +60,15 @@ export class MovieDBService {
       .pipe(tap((response) => console.log(response)));
   }
 
-  private validateWithLogin(token: string) {
+  private validateWithLogin(token: string, loginData: any) {
     const url = this.api_url.concat(
       '/authentication/token/validate_with_login'
     );
 
     const body = {
-      username: 'donev-stan',
-      password: '6cbT6YW9mp.GpqF',
+      // username: 'donev-stan',
+      // password: '6cbT6YW9mp.GpqF',
+      ...loginData,
       request_token: token,
     };
 
