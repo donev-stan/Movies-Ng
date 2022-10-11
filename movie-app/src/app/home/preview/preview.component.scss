@@ -5,6 +5,19 @@ mat-card:focus {
   }
 }
 
+.loading-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  // background-color: #ff4081;
+
+  mat-spinner {
+    background-color: #009688;
+  }
+}
+
 mat-card {
   padding: 0;
   overflow: hidden;
@@ -167,17 +180,17 @@ mat-card {
   }
 }
 
-.animate-card {
-  animation: fadeInCard 0.3s ease 0s 1 normal forwards;
+.animate-poster {
+  animation: fadeInPoster 0.7s ease 0s 1 normal forwards;
 }
 
 .animate-background {
-  animation: fadeInBackground 1s ease 0s 1 normal forwards;
+  animation: fadeInBackground 0.7s ease 0s 1 normal forwards;
 }
 
-@keyframes fadeInCard {
+@keyframes fadeInPoster {
   0% {
-    opacity: 0.7;
+    opacity: 0;
   }
 
   100% {

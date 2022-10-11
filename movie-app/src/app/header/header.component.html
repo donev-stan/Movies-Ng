@@ -1,20 +1,24 @@
 <mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <button mat-icon-button [routerLink]="['/home']">
-            <mat-icon>movie</mat-icon>
-        </button>
+  <mat-toolbar-row>
+    <button mat-icon-button [routerLink]="['/home']">
+      <mat-icon>movie</mat-icon>
+    </button>
 
-        <button mat-button style="font-size: 1.2rem;" [routerLink]="['/home']">
-            <span>Movie Database</span>
-        </button>
+    <button mat-button style="font-size: 1.2rem" [routerLink]="['/home']">
+      <span>Movie Database</span>
+    </button>
 
-        <span class="spacer"></span>
+    <span class="spacer"></span>
 
-        <button mat-icon-button [routerLink]="['/browse']">
-            <mat-icon>search</mat-icon>
-        </button>
-        <button mat-icon-button cdkCopyToClipboard="https://tmdb-stan.web.app">
-            <mat-icon>share</mat-icon>
-        </button>
-    </mat-toolbar-row>
+    <button mat-icon-button [routerLink]="['/browse']">
+      <mat-icon>search</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      [cdkCopyToClipboard]="copyLink"
+      (click)="confirmCopy()"
+    >
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar-row>
 </mat-toolbar>

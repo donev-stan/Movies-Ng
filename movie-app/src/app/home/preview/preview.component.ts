@@ -9,13 +9,15 @@ import { MovieDBService } from 'src/app/shared/movie-db.service';
 })
 export class PreviewComponent implements OnInit {
   singleData: any;
-
   animate: boolean = false;
+
+  isDataReady: boolean = false;
 
   constructor(private db: MovieDBService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
+      this.isDataReady = false;
       this.animate = false;
       this.singleData = {};
 
@@ -26,14 +28,22 @@ export class PreviewComponent implements OnInit {
         this.db.getSingle(media_type, id).subscribe({
           next: (data) => {
             this.singleData = data;
-            this.animate = true;
+
+            setTimeout(() => {
+              this.isDataReady = true;
+              this.animate = true;
+            }, 300);
           },
         });
       } else {
         this.db.getTopRated().subscribe({
           next: (data) => {
             this.singleData = data[0];
-            this.animate = true;
+
+            setTimeout(() => {
+              this.isDataReady = true;
+              this.animate = true;
+            }, 300);
           },
         });
       }

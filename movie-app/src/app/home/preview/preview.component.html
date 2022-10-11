@@ -1,18 +1,31 @@
-<mat-card *ngIf="singleData" [class.animate-card]="animate">
+<mat-card
+  class="loading-card"
+  *ngIf="!isDataReady"
+  [class.animate-card]="animate"
+>
+  <mat-spinner
+    [strokeWidth]="150"
+    [diameter]="150"
+    style="border-radius: 100%"
+    [class.mat-elevation-z8]="true"
+  ></mat-spinner>
+</mat-card>
+
+<mat-card *ngIf="isDataReady">
   <img
     *ngIf="singleData.backdrop_path"
     class="background-img"
+    [class.animate-background]="animate"
     [src]="'https://image.tmdb.org/t/p/original' + singleData.backdrop_path"
     loading="lazy"
   />
-  <!-- [class.animate-background]="animate" -->
 
   <div class="content">
     <div class="poster-box">
       <mat-card
         class="img-box"
         [class.mat-elevation-z22]="true"
-        [class.animate-card]="animate"
+        [class.animate-poster]="animate"
       >
         <img
           [src]="'https://image.tmdb.org/t/p/w300' + singleData.poster_path"
