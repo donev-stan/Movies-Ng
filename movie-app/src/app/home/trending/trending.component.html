@@ -27,18 +27,48 @@
   </ng-container>
 
   <ng-container ngProjectAs="filter-chips">
-    <mat-chip-list disabled="true">
-      <mat-chip [selected]="selectedMedia == 'all'">All</mat-chip>
-      <mat-chip [selected]="selectedMedia == 'movie'"> Movies</mat-chip>
-      <mat-chip [selected]="selectedMedia == 'tv'">Shows</mat-chip>
-      <mat-chip [selected]="selectedMedia == 'person'">People</mat-chip>
+    <mat-chip-list [disabled]="false" [multiple]="false">
+      <mat-chip
+        (click)="selectedMedia !== 'all' ? (selectedMedia = 'all') : null"
+        [selected]="selectedMedia == 'all'"
+      >
+        All
+      </mat-chip>
+      <mat-chip
+        (click)="selectedMedia !== 'movie' ? (selectedMedia = 'movie') : null"
+        [selected]="selectedMedia == 'movie'"
+      >
+        Movies
+      </mat-chip>
+      <mat-chip
+        (click)="selectedMedia !== 'tv' ? (selectedMedia = 'tv') : null"
+        [selected]="selectedMedia == 'tv'"
+      >
+        Shows
+      </mat-chip>
+      <mat-chip
+        (click)="selectedMedia !== 'person' ? (selectedMedia = 'person') : null"
+        [selected]="selectedMedia == 'person'"
+      >
+        People
+      </mat-chip>
     </mat-chip-list>
 
-    <mat-chip-list disabled="true">
-      <mat-chip color="accent" [selected]="selectedTimeWindow == 'day'"
+    <mat-chip-list [disabled]="false" [multiple]="false">
+      <mat-chip
+        color="accent"
+        (click)="
+          selectedTimeWindow !== 'day' ? (selectedTimeWindow = 'day') : null
+        "
+        [selected]="selectedTimeWindow == 'day'"
         >Day</mat-chip
       >
-      <mat-chip color="accent" [selected]="selectedTimeWindow == 'week'"
+      <mat-chip
+        color="accent"
+        (click)="
+          selectedTimeWindow !== 'week' ? (selectedTimeWindow = 'week') : null
+        "
+        [selected]="selectedTimeWindow == 'week'"
         >Week</mat-chip
       >
     </mat-chip-list>
