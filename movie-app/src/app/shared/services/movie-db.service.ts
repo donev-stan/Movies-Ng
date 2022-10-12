@@ -146,8 +146,14 @@ export class MovieDBService {
       .pipe(tap((response) => console.log(response)));
   }
 
-  multiSearch(query: string, page: number = 1): Observable<any> {
-    const url = this.api_url.concat(`/search/multi`);
+  discover(searchFilters: any, page: number = 1) {}
+
+  multiSearch(
+    query: string,
+    media_type: string,
+    page: number = 1
+  ): Observable<any> {
+    const url = this.api_url.concat(`/search/${media_type}`);
     const params = this.params
       .append('query', query)
       .append('page', page)

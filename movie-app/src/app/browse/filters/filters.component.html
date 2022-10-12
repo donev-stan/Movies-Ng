@@ -1,0 +1,96 @@
+<div class="filters-box" [formGroup]="filtersForm">
+  <!-- QUERY SEARCH -->
+  <mat-form-field appearance="fill">
+    <mat-label>Query</mat-label>
+    <input matInput autocomplete="off" formControlName="query" />
+    <button
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="
+        filtersForm.patchValue({
+          query: ''
+        })
+      "
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <!-- SORT -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Sort </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="panel-cotent">
+      <mat-form-field appearance="outline">
+        <mat-label>Sort Result By</mat-label>
+        <mat-select formControlName="selectedSort">
+          <mat-option value="popularity.asc"> Popularity Ascending </mat-option>
+          <mat-option value="popularity.desc">
+            Popularity Descending
+          </mat-option>
+
+          <mat-option value="vote_average.asc"> Rating Ascending </mat-option>
+          <mat-option value="vote_average.desc"> Rating Descending </mat-option>
+
+          <mat-option value="release_date.asc">
+            Release Date Ascending
+          </mat-option>
+          <mat-option value="release_date.desc">
+            Release Date Descending
+          </mat-option>
+
+          <!-- <mat-option value="revenue.asc"> Revenue Ascending </mat-option>
+            <mat-option value="revenue.desc"> Revenue Descending </mat-option> -->
+
+          <mat-option value="original_title.asc"> Title (A-Z) </mat-option>
+          <mat-option value="original_title.desc"> Title (Z-A) </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-expansion-panel>
+
+  <!-- Filters -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Filters </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="panel-content">
+      <mat-form-field appearance="outline">
+        <mat-label>Media Type</mat-label>
+        <mat-select formControlName="selectedMedia">
+          <mat-option value="movie">Movie</mat-option>
+          <mat-option value="tv">Shows</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Genres -->
+      <mat-expansion-panel class="panel-genres">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Genres </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="panel-content">
+          <mat-selection-list #genresList>
+            <mat-list-option *ngFor="let genre of genres" [value]="genre.id">
+              {{ genre.name }}
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Where to watch </mat-panel-title>
+    </mat-expansion-panel-header>
+    CONTENT PANEL
+  </mat-expansion-panel>
+
+  <button mat-raised-button color="primary" (click)="onSearch()">
+    <mat-icon>search</mat-icon> Search
+  </button>
+</div>

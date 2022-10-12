@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [],
@@ -44,6 +45,7 @@ import { MatDividerModule } from '@angular/material/divider';
     ClipboardModule,
     MatSnackBarModule,
     MatDividerModule,
+    MatListModule,
   ],
 })
 export class MaterialModule {}

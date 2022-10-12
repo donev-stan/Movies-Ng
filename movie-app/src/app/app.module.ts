@@ -19,6 +19,7 @@ import { PopularComponent } from './home/popular/popular.component';
 import { PreviewComponent } from './home/preview/preview.component';
 import { LoginComponent } from './login/login.component';
 import { CardComponent } from './browse/card/card.component';
+import { FiltersComponent } from './browse/filters/filters.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { CardComponent } from './browse/card/card.component';
     PreviewComponent,
     LoginComponent,
     CardComponent,
+    FiltersComponent,
   ],
   imports: [
     BrowserModule,

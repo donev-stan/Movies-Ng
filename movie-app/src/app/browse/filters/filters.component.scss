@@ -1,0 +1,36 @@
+.filters-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  mat-form-field {
+    margin-bottom: -18px;
+    width: 100%;
+
+    mat-label,
+    input {
+      padding: 0 12px;
+      font-size: 0.9rem;
+      color: #e7e7e7;
+    }
+
+    mat-icon {
+      color: #e7e7e7;
+    }
+  }
+
+  .panel-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.panel-genres {
+  border: 1px solid white;
+
+  .panel-content {
+    margin: 0 -15px !important;
+  }
+}

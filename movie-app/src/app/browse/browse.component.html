@@ -1,49 +1,5 @@
 <div class="container">
-  <div class="filters-box">
-    <mat-form-field appearance="fill">
-      <mat-label>Query</mat-label>
-      <input matInput autocomplete="off" [(ngModel)]="query" />
-      <button
-        *ngIf="query"
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        (click)="query = ''"
-      >
-        <mat-icon>clear</mat-icon>
-      </button>
-    </mat-form-field>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Sort </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="container-sort">
-        <span>Media Type</span>
-
-        <mat-divider></mat-divider>
-        CONTENT PANEL
-      </div>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Filters </mat-panel-title>
-      </mat-expansion-panel-header>
-      CONTENT PANEL
-    </mat-expansion-panel>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Where to watch </mat-panel-title>
-      </mat-expansion-panel-header>
-      CONTENT PANEL
-    </mat-expansion-panel>
-
-    <button mat-raised-button color="primary" (click)="onSearch()">
-      <mat-icon>search</mat-icon> Search
-    </button>
-  </div>
+  <app-filters (search)="searchRequest($event)"></app-filters>
 
   <div class="results-box">
     <div class="results">

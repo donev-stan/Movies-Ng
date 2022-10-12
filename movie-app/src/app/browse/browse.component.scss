@@ -5,33 +5,6 @@
   gap: 20px;
 }
 
-.filters-box {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  mat-form-field {
-    margin-bottom: -18px;
-
-    mat-label,
-    input {
-      padding: 0 12px;
-      font-size: 0.9rem;
-      color: #e7e7e7;
-    }
-
-    mat-icon {
-      color: #e7e7e7;
-    }
-  }
-
-  .container-sort {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
 .results-box {
   flex: 4;
   display: flex;
