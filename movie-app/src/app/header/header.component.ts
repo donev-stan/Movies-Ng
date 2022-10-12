@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MovieDBService } from '../shared/movie-db.service';
+import { MovieDBService } from '../shared/services/movie-db.service';
 
 @Component({
   selector: 'app-header',

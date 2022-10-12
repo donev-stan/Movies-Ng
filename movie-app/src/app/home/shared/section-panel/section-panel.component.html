@@ -16,6 +16,9 @@
     </mat-drawer>
     <mat-drawer-content>
       <div class="section-content">
+        <!-- ANOTHER COMPONENT -- START -->
+
+        <!-- <app-card [items]="items"></app-card> -->
         <div class="loading-box" *ngIf="!items.length">
           <mat-spinner
             [strokeWidth]="150"
@@ -36,7 +39,7 @@
                 ]
               : []
           "
-          *ngFor="let item of items; let i = index"
+          *ngFor="let item of items"
           [title]="item.title || item.name"
           [class.mat-elevation-z8]="true"
         >
@@ -84,6 +87,7 @@
 
           <p *ngIf="item.gender" class="item-name">{{ item.name }}</p>
         </mat-card>
+        <!-- ANOTHER COMPONENT -- END -->
       </div>
     </mat-drawer-content>
   </mat-drawer-container>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { MovieDBService } from 'src/app/shared/movie-db.service';
+import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 
 @Component({
   selector: 'app-preview',

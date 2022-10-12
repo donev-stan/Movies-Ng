@@ -45,5 +45,22 @@
     </button>
   </div>
 
-  <div class="results-box"></div>
+  <div class="results-box">
+    <div class="results">
+      <app-card [items]="searchResults"></app-card>
+    </div>
+
+    <div
+      class="pagination-box"
+      [style]="searchResults.length === 0 ? 'opacity: 0;' : null"
+    >
+      <mat-paginator
+        [length]="totalResults"
+        [pageSize]="searchResults.length"
+        (page)="fetchNewPageData($event)"
+        #paginator
+      >
+      </mat-paginator>
+    </div>
+  </div>
 </div>

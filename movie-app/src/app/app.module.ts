@@ -18,6 +18,7 @@ import { TopRatedComponent } from './home/top-rated/top-rated.component';
 import { PopularComponent } from './home/popular/popular.component';
 import { PreviewComponent } from './home/preview/preview.component';
 import { LoginComponent } from './login/login.component';
+import { CardComponent } from './browse/card/card.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { LoginComponent } from './login/login.component';
     PopularComponent,
     PreviewComponent,
     LoginComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,

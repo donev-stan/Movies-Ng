@@ -7,7 +7,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { filter, Observable } from 'rxjs';
-import { MovieDBService } from './movie-db.service';
+import { MovieDBService } from '../services/movie-db.service';
 
 @Injectable({
   providedIn: 'root',

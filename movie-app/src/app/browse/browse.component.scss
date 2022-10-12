@@ -35,10 +35,18 @@
 .results-box {
   flex: 4;
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  border: 1px solid white;
+  .results {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .pagination-box {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {

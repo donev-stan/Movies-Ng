@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MovieDBService } from 'src/app/shared/movie-db.service';
+import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 
 @Component({
   selector: 'app-trending',

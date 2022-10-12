@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { MovieDBService } from '../shared/movie-db.service';
+import { MovieDBService } from '../shared/services/movie-db.service';
 
 @Component({
   selector: 'app-home',

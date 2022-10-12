@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="loading-box" *ngIf="!items.length">
+    <mat-spinner
+      [strokeWidth]="150"
+      [diameter]="150"
+      style="border-radius: 100%"
+      [class.mat-elevation-z8]="true"
+    ></mat-spinner>
+  </div>
+
+  <mat-card
+    class="card"
+    [routerLink]="
+      media_type !== 'person'
+        ? [
+            '/home',
+            item.id,
+            media_type !== 'all' ? media_type : item.media_type
+          ]
+        : []
+    "
+    *ngFor="let item of items"
+    [title]="item.title || item.name"
+    [class.mat-elevation-z8]="true"
+  >
+    <div
+      class="avg-vote-box"
+      *ngIf="item.vote_average"
+      [title]="'Vote: ' + item.vote_average"
+    >
+      <img src="/assets/images/avg_vote.png" class="avg-vote-img" alt="" />
+      <p class="avg-vote-text">
+        {{ item.vote_average | number: ".0-1" }}
+      </p>
+    </div>
+
+    <div
+      *ngIf="
+        item.poster_path || item.profile_path;
+        then normalImg;
+        else errorImg
+      "
+    ></div>
+
+    <ng-template #normalImg>
+      <img
+        class="poster-img"
+        [src]="
+          'https://image.tmdb.org/t/p/w185' +
+          (item.profile_path || item.poster_path)
+        "
+        loading="lazy"
+        alt=""
+      />
+    </ng-template>
+
+    <ng-template #errorImg>
+      <div
+        *ngIf="!item.poster_path && !item.profile_path"
+        class="img-404"
+      ></div>
+    </ng-template>
+
+    <p *ngIf="item.gender" class="item-name">{{ item.name }}</p>
+  </mat-card>
+</div>
