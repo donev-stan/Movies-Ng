@@ -19,7 +19,13 @@ export class BrowseComponent implements OnInit {
 
   constructor(private db: MovieDBService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.db.getTopRated().subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+    });
+  }
 
   searchRequest(event: any): void {
     this.searchFilters = event;
@@ -32,7 +38,13 @@ export class BrowseComponent implements OnInit {
     this.searchResults = [];
     const page = event ? event.pageIndex + 1 : 1;
 
-    this.db.discover(this.searchFilters, page);
+    this.db.discover(this.searchFilters, page).subscribe({
+      next: (response: any) => {
+        this.searchResults = response.results;
+        this.totalPages = response.total_pages;
+        this.totalResults = response.total_results;
+      },
+    });
 
     // this.db.multiSearch(this.query, this.selectedMedia, page).subscribe({
     //   next: (response) => {

@@ -61,13 +61,13 @@
       <mat-form-field appearance="outline">
         <mat-label>Media Type</mat-label>
         <mat-select formControlName="selectedMedia">
-          <mat-option value="movie">Movie</mat-option>
+          <mat-option value="movie">Movies</mat-option>
           <mat-option value="tv">Shows</mat-option>
         </mat-select>
       </mat-form-field>
 
       <!-- Genres -->
-      <mat-expansion-panel class="panel-genres">
+      <mat-expansion-panel class="panel-genres" [class.mat-elevation-z0]="true">
         <mat-expansion-panel-header>
           <mat-panel-title> Genres </mat-panel-title>
         </mat-expansion-panel-header>
@@ -87,10 +87,15 @@
     <mat-expansion-panel-header>
       <mat-panel-title> Where to watch </mat-panel-title>
     </mat-expansion-panel-header>
-    CONTENT PANEL
+    <div class="panel-content">Coming Soon...</div>
   </mat-expansion-panel>
 
-  <button mat-raised-button color="primary" (click)="onSearch()">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSearch()"
+    [disabled]="!filtersForm.get('query')?.value.trim().length"
+  >
     <mat-icon>search</mat-icon> Search
   </button>
 </div>

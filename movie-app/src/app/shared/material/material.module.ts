@@ -21,6 +21,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -46,6 +47,7 @@ import { MatListModule } from '@angular/material/list';
     MatSnackBarModule,
     MatDividerModule,
     MatListModule,
+    MatMenuModule,
   ],
 })
 export class MaterialModule {}

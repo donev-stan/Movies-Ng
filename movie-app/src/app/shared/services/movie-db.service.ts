@@ -146,7 +146,18 @@ export class MovieDBService {
       .pipe(tap((response) => console.log(response)));
   }
 
-  discover(searchFilters: any, page: number = 1) {}
+  discover(searchFilters: any, page: number = 1) {
+    const url = this.api_url.concat(`/search/${searchFilters.selectedMedia}`);
+    const params = this.params
+      .append('query', searchFilters.query)
+      .append('page', page)
+      .append('sort_by', searchFilters.selectedSort)
+      .append('with_genres', searchFilters.selectedGenres);
+
+    return this.http
+      .get(url, { params })
+      .pipe(tap((data) => console.log(data)));
+  }
 
   multiSearch(
     query: string,

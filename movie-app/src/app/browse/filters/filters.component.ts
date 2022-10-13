@@ -18,7 +18,7 @@ export class FiltersComponent implements OnInit {
     this.filtersForm = new FormGroup({
       query: new FormControl(''),
       selectedSort: new FormControl('popularity.desc'),
-      selectedMedia: new FormControl('movies'),
+      selectedMedia: new FormControl('movie'),
       selectedGenres: new FormControl([]),
     });
   }

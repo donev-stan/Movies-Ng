@@ -17,8 +17,14 @@
     <button mat-button (click)="onLogout()" *ngIf="loggedIn">Logout</button>
 
     <button mat-icon-button [routerLink]="['/browse']">
+      <!-- [matMenuTriggerFor]="searchMenu" -->
       <mat-icon>search</mat-icon>
     </button>
+    <!-- <mat-menu #searchMenu="matMenu" xPosition="before">
+      <button mat-menu-item>Movies</button>
+      <button mat-menu-item>Shows</button>
+    </mat-menu> -->
+
     <button
       mat-icon-button
       [cdkCopyToClipboard]="copyLink"
