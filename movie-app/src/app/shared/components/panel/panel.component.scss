@@ -1,6 +1,7 @@
 mat-drawer-container {
   background: inherit;
-  height: 625px;
+  // height: 625px;
+  min-height: initial-height;
 }
 
 .section-filters {
@@ -23,9 +24,9 @@ mat-drawer-container {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  padding: 10px 8px 10px;
+  padding: 20px 8px 20px;
 
-  height: 600px;
+  // height: 600px;
 }
 
 .footer {

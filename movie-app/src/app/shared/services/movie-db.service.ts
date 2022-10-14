@@ -17,17 +17,22 @@ export class MovieDBService {
     .set('language', 'en-US');
 
   arrayLength: number = 12;
-  loggedIn: Subject<boolean> = new Subject();
+  loggedIn: Subject<string | boolean> = new Subject();
 
   constructor(private http: HttpClient) {
-    const found = localStorage.getItem('session_id');
+    const found = JSON.parse(localStorage.getItem('login_data')!);
+
+    console.log(found);
 
     if (found) {
-      this.session_id = found;
-      this.loggedIn.next(true);
+      this.session_id = found.session_id;
+      this.account.id = found.account_id;
+      this.account.username = found.account_username;
+      this.loggedIn.next(this.account.account_username);
     }
   }
 
+  // Favorites
   getFavorites(
     media_type: string = 'movies',
     page: number = 1
@@ -54,6 +59,7 @@ export class MovieDBService {
     return this.http.post(url, body, { params });
   }
 
+  // Watchlist
   getWatchlist(
     media_type: string = 'movies',
     page: number = 1
@@ -64,8 +70,6 @@ export class MovieDBService {
     const params = this.params
       .append('session_id', this.session_id)
       .append('page', page);
-
-    console.log(url, params);
 
     return this.http.get(url, { params });
   }
@@ -79,18 +83,7 @@ export class MovieDBService {
       watchlist,
     };
 
-    console.log(media_type);
-
     return this.http.post(url, body, { params });
-  }
-
-  getAccountInfo(): Observable<any> {
-    const url = this.api_url.concat(`/account`);
-    const params = this.params.append('session_id', this.session_id);
-
-    return this.http
-      .get(url, { params })
-      .pipe(tap((response) => console.log(response)));
   }
 
   // Authentication
@@ -113,8 +106,16 @@ export class MovieDBService {
                         this.account.id = account.id;
                         this.account.username = account.username;
 
-                        this.loggedIn.next(true);
-                        localStorage.setItem('session_id', this.session_id);
+                        this.loggedIn.next(this.account.username);
+
+                        localStorage.setItem(
+                          'login_data',
+                          JSON.stringify({
+                            session_id: this.session_id,
+                            account_id: this.account.id, // ???
+                            account_username: this.account.username,
+                          })
+                        );
                         resolve(true);
                       },
                       error: (error: any) => reject(error),
@@ -143,7 +144,7 @@ export class MovieDBService {
         next: (response: any) => {
           this.session_id = '';
           this.loggedIn.next(false);
-          localStorage.removeItem('session_id');
+          localStorage.removeItem('login_data');
           resolve(true);
         },
         error: (err: any) => {
@@ -181,6 +182,15 @@ export class MovieDBService {
     };
 
     return this.http.post(url, body, { params: this.params });
+  }
+
+  private getAccountInfo(): Observable<any> {
+    const url = this.api_url.concat(`/account`);
+    const params = this.params.append('session_id', this.session_id);
+
+    return this.http
+      .get(url, { params })
+      .pipe(tap((response) => console.log(response)));
   }
   // --- END: Authentication ---
 

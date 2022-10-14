@@ -9,6 +9,7 @@ import { MovieDBService } from '../shared/services/movie-db.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  account_name: string = '';
   loggedIn: boolean = false;
   copyLink: string = 'https://tmdb-stan.web.app';
 
@@ -21,8 +22,13 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.loggedIn = this.db.isLoggedIn();
     this.db.loggedIn.subscribe({
-      next: (loggedIn) => {
-        this.loggedIn = loggedIn;
+      next: (username) => {
+        if (username) {
+          this.loggedIn = true;
+          this.account_name = username as string;
+        } else {
+          this.loggedIn = false;
+        }
       },
     });
   }

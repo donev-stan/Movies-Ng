@@ -35,8 +35,6 @@ export class WatchlistComponent implements OnInit {
   fetchWatchlist(page?: number): void {
     this.db.getWatchlist(this._selectedMedia, page).subscribe({
       next: (data) => {
-        console.log(data);
-
         this.items = data.results;
         this.total_pages = data.total_pages;
         this.total_results = data.total_results;

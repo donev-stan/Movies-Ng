@@ -14,8 +14,8 @@
       Login
     </button>
 
-    <button mat-icon-button *ngIf="loggedIn" [matMenuTriggerFor]="profileMenu">
-      <mat-icon>portrait</mat-icon>
+    <button mat-button *ngIf="loggedIn" [matMenuTriggerFor]="profileMenu">
+      {{ account_name }}
     </button>
     <mat-menu #profileMenu="matMenu" xPosition="before">
       <button mat-menu-item [routerLink]="['/profile']">
@@ -35,11 +35,7 @@
       <button mat-menu-item>Shows</button>
     </mat-menu> -->
 
-    <button
-      mat-icon-button
-      [cdkCopyToClipboard]="copyLink"
-      (click)="confirmCopy()"
-    >
+    <button mat-icon-button [cdkCopyToClipboard]="copyLink" (click)="confirmCopy()">
       <mat-icon>share</mat-icon>
     </button>
   </mat-toolbar-row>
