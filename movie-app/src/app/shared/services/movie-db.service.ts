@@ -42,6 +42,44 @@ export class MovieDBService {
     return this.http.get(url, { params });
   }
 
+  postFavorite(media_type: string, media_id: number, favorite: boolean) {
+    const url = this.api_url.concat(`/account/${this.account.id}/favorite`);
+    const params = this.params.append('session_id', this.session_id);
+    const body = {
+      media_type,
+      media_id,
+      favorite,
+    };
+
+    return this.http.post(url, body, { params });
+  }
+
+  getWatchlist(
+    media_type: string = 'movies',
+    page: number = 1
+  ): Observable<any> {
+    const url = this.api_url.concat(
+      `/account/${this.account.id}/watchlist/${media_type}`
+    );
+    const params = this.params
+      .append('session_id', this.session_id)
+      .append('page', page);
+
+    return this.http.get(url, { params });
+  }
+
+  postWatchlist(media_type: string, media_id: number, watchlist: boolean) {
+    const url = this.api_url.concat(`/account/${this.account.id}/watchlist`);
+    const params = this.params.append('session_id', this.session_id);
+    const body = {
+      media_type,
+      media_id,
+      watchlist,
+    };
+
+    return this.http.post(url, body, { params });
+  }
+
   getAccountInfo(): Observable<any> {
     const url = this.api_url.concat(`/account`);
     const params = this.params.append('session_id', this.session_id);

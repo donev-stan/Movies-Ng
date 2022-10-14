@@ -1,84 +1,122 @@
-<mat-card class="loading-card" *ngIf="!isDataReady" [class.animate-card]="animate">
-  <mat-spinner [strokeWidth]="150" [diameter]="150" style="border-radius: 100%" [class.mat-elevation-z8]="true">
+<mat-card
+  class="loading-card"
+  *ngIf="!isDataReady"
+  [class.animate-card]="animate"
+>
+  <mat-spinner
+    [strokeWidth]="150"
+    [diameter]="150"
+    style="border-radius: 100%"
+    [class.mat-elevation-z8]="true"
+  >
   </mat-spinner>
 </mat-card>
 
 <mat-card *ngIf="isDataReady">
-  <img *ngIf="singleData.backdrop_path" class="background-img" [class.animate-background]="animate"
-    [src]="'https://image.tmdb.org/t/p/original' + singleData.backdrop_path" loading="lazy" />
+  <img
+    *ngIf="item.backdrop_path"
+    class="background-img"
+    [class.animate-background]="animate"
+    [src]="'https://image.tmdb.org/t/p/original' + item.backdrop_path"
+    loading="lazy"
+  />
 
   <div class="content">
     <div class="poster-box">
-      <mat-card class="img-box" [class.mat-elevation-z22]="true" [class.animate-poster]="animate">
-        <img [src]="'https://image.tmdb.org/t/p/w300' + singleData.poster_path" alt="" />
+      <mat-card
+        class="img-box"
+        [class.mat-elevation-z22]="true"
+        [class.animate-poster]="animate"
+      >
+        <img
+          [src]="'https://image.tmdb.org/t/p/w300' + item.poster_path"
+          alt=""
+        />
       </mat-card>
     </div>
     <div class="info-box">
       <div class="header">
         <div class="title">
-          {{ singleData.name || singleData.title }}
+          {{ item.name || item.title }}
         </div>
 
         <div class="subtitle unselectable">
-          <div class="date" *ngIf="singleData.release_date">
-            {{ singleData.release_date | date }}
+          <div class="date" *ngIf="item.release_date">
+            {{ item.release_date | date }}
           </div>
           <div class="genres">
-            <span *ngFor="let genre of singleData.genres">
-              {{ genre.name }}</span>
+            <span *ngFor="let genre of item.genres"> {{ genre.name }}</span>
           </div>
-          <div class="length" *ngIf="singleData.runtime">
-            {{ singleData.runtime }} min
-          </div>
+          <div class="length" *ngIf="item.runtime">{{ item.runtime }} min</div>
         </div>
       </div>
 
       <div class="actions unselectable">
         <div class="score">
           <div class="score-spinner">
-            <mat-progress-spinner class="background-spinner" color="primary" mode="determinate" [value]="100"
-              [diameter]="58">
+            <mat-progress-spinner
+              class="background-spinner"
+              color="primary"
+              mode="determinate"
+              [value]="100"
+              [diameter]="58"
+            >
             </mat-progress-spinner>
-            <mat-progress-spinner class="primary-spinner" color="primary" mode="determinate"
-              [value]="getPersentage(singleData.vote_average)" [diameter]="58">
+            <mat-progress-spinner
+              class="primary-spinner"
+              color="primary"
+              mode="determinate"
+              [value]="getPersentage(item.vote_average)"
+              [diameter]="58"
+            >
             </mat-progress-spinner>
 
             <div class="percentage">
-              {{ getPersentage(singleData.vote_average) }}%
+              {{ getPersentage(item.vote_average) }}%
             </div>
           </div>
 
-          <span>User <br />
-            Score</span>
+          <span
+            >User <br />
+            Score</span
+          >
         </div>
 
         <div class="action-btns">
-          <button mat-mini-fab color="primary">
-            <mat-icon style="margin: -1px -3px 0 0;">playlist_add</mat-icon>
+          <button mat-mini-fab color="primary" title="Add to list">
+            <mat-icon style="margin: -1px -3px 0 0">playlist_add</mat-icon>
+            <!-- <mat-icon>playlist_add_check</mat-icon> -->
           </button>
 
-          <button mat-mini-fab color="primary">
-            <mat-icon>favorite</mat-icon>
+          <button
+            mat-mini-fab
+            color="primary"
+            title="Mark as favourite"
+            (click)="markFavorite()"
+          >
+            <mat-icon>{{ favorite ? "favorite" : "favorite_border" }}</mat-icon>
           </button>
 
-          <button mat-mini-fab color="primary">
-            <mat-icon>bookmark</mat-icon>
+          <button mat-mini-fab color="primary" title="Add to your watchlist">
+            <mat-icon>{{
+              bookmarked ? "bookmark" : "bookmark_border"
+            }}</mat-icon>
           </button>
 
-          <button mat-mini-fab color="primary">
-            <mat-icon>star</mat-icon>
+          <button mat-mini-fab color="primary" title="Rate it!">
+            <mat-icon>{{ rated ? "star" : "star_border" }}</mat-icon>
           </button>
         </div>
       </div>
 
-      <div class="tagline" *ngIf="singleData.tagline">
-        {{ singleData.tagline }}
+      <div class="tagline" *ngIf="item.tagline">
+        {{ item.tagline }}
       </div>
 
       <div class="info">
-        <div class="overview" *ngIf="singleData.overview?.length">
+        <div class="overview" *ngIf="item.overview?.length">
           <h2 class="unselectable">Overview</h2>
-          <p class="overview-text">{{ singleData.overview }}</p>
+          <p class="overview-text">{{ item.overview }}</p>
         </div>
       </div>
 
@@ -92,6 +130,6 @@
 <!-- [ngStyle]="{
     background:
       'url(https://image.tmdb.org/t/p/original' +
-      singleData.backdrop_path +
+      item.backdrop_path +
       ')'
   }" -->

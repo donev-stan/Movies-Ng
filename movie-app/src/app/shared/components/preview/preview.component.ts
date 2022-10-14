@@ -9,10 +9,15 @@ import { MovieDBService } from 'src/app/shared/services/movie-db.service';
   styleUrls: ['./preview.component.scss'],
 })
 export class PreviewComponent implements OnInit {
-  singleData: any;
+  item: any;
   animate: boolean = false;
-
   isDataReady: boolean = false;
+
+  favorite: boolean = false;
+  bookmarked: boolean = false;
+  rated: boolean = false;
+
+  media_type: string = 'movie';
 
   constructor(private db: MovieDBService, private route: ActivatedRoute) {}
 
@@ -20,15 +25,17 @@ export class PreviewComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.isDataReady = false;
       this.animate = false;
-      this.singleData = {};
+      this.item = {};
 
       if (Object.keys(params).length) {
         const id = params['id'];
         const media_type = params['type'];
+        this.media_type = media_type;
 
         this.db.getSingle(media_type, id).subscribe({
           next: (data) => {
-            this.singleData = data;
+            this.item = data;
+            this.checkFavorite();
 
             setTimeout(() => {
               this.isDataReady = true;
@@ -39,7 +46,8 @@ export class PreviewComponent implements OnInit {
       } else {
         this.db.getTopRated().subscribe({
           next: (data: any) => {
-            this.singleData = data.results[0];
+            this.item = data.results[0];
+            this.checkFavorite();
 
             setTimeout(() => {
               this.isDataReady = true;
@@ -61,5 +69,30 @@ export class PreviewComponent implements OnInit {
 
   getPersentage(vote: number): number {
     return Math.round((vote / 10) * 100);
+  }
+
+  checkFavorite() {
+    this.db.getFavorites().subscribe({
+      next: (data) => {
+        const notUndefined = data.results.find(
+          (favoriteItem: any) => favoriteItem.id === this.item.id
+        );
+
+        if (notUndefined) this.favorite = true;
+        else this.favorite = false;
+      },
+    });
+  }
+
+  markFavorite() {
+    this.favorite = !this.favorite;
+
+    this.db
+      .postFavorite(this.media_type, this.item.id, this.favorite)
+      .subscribe({
+        next: (response: any) => {
+          if (!response.success) this.favorite = !this.favorite;
+        },
+      });
   }
 }
