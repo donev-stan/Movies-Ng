@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { MovieDBService } from '../shared/services/movie-db.service';
 
 @Component({
@@ -16,12 +17,10 @@ export class HeaderComponent implements OnInit {
   constructor(
     private db: MovieDBService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
-  ) {}
-
-  ngOnInit(): void {
-    this.loggedIn = this.db.isLoggedIn();
-    this.db.loggedIn.subscribe({
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {
+    db.loggedIn.subscribe({
       next: (username) => {
         if (username) {
           this.loggedIn = true;
@@ -33,6 +32,10 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  ngOnInit(): void {
+    this.db.checkLoggedIn();
+  }
+
   confirmCopy(): void {
     this.snackBar.open('Copied to clipboard!', '', {
       duration: 1000,
@@ -42,6 +45,8 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout(): void {
-    this.db.logout();
+    this.db.logout().then((success) => {
+      this.router.navigate(['/login']);
+    });
   }
 }

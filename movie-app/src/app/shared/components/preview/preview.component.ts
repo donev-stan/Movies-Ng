@@ -22,6 +22,8 @@ export class PreviewComponent implements OnInit {
   constructor(private db: MovieDBService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    const loggedIn = this.db.checkLoggedIn();
+
     this.route.params.subscribe((params: Params) => {
       this.isDataReady = false;
       this.animate = false;
@@ -35,8 +37,11 @@ export class PreviewComponent implements OnInit {
         this.db.getSingle(media_type, id).subscribe({
           next: (data) => {
             this.item = data;
-            this.checkFavorite();
-            this.checkWatchlist();
+
+            if (loggedIn) {
+              this.checkFavorite();
+              this.checkWatchlist();
+            }
 
             setTimeout(() => {
               this.isDataReady = true;
@@ -48,8 +53,11 @@ export class PreviewComponent implements OnInit {
         this.db.getTopRated().subscribe({
           next: (data: any) => {
             this.item = data.results[0];
-            this.checkFavorite();
-            this.checkWatchlist();
+
+            if (loggedIn) {
+              this.checkFavorite();
+              this.checkWatchlist();
+            }
 
             setTimeout(() => {
               this.isDataReady = true;

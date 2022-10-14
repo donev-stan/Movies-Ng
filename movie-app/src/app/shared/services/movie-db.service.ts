@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject, tap } from 'rxjs';
+import { AccountData } from '../models/account-data';
 import { ResponseData } from '../models/response-data';
 
 @Injectable({
@@ -9,8 +10,11 @@ import { ResponseData } from '../models/response-data';
 export class MovieDBService {
   private api_url: string = 'https://api.themoviedb.org/3';
   private api_key: string = '93e30ea468c15181b1cf21a3ae6255c1';
-  private session_id: string = '';
-  private account: any = {};
+  private account: AccountData = {
+    session_id: '404',
+    account_id: 404,
+    account_username: '404',
+  };
 
   private params = new HttpParams()
     .set('api_key', this.api_key)
@@ -20,16 +24,21 @@ export class MovieDBService {
   loggedIn: Subject<string | boolean> = new Subject();
 
   constructor(private http: HttpClient) {
+    this.checkLoggedIn();
+  }
+
+  checkLoggedIn(): boolean {
     const found = JSON.parse(localStorage.getItem('login_data')!);
 
-    console.log(found);
-
     if (found) {
-      this.session_id = found.session_id;
-      this.account.id = found.account_id;
-      this.account.username = found.account_username;
+      this.account.session_id = found.session_id;
+      this.account.account_id = found.account_id;
+      this.account.account_username = found.account_username;
       this.loggedIn.next(this.account.account_username);
+      return true;
     }
+
+    return false;
   }
 
   // Favorites
@@ -38,18 +47,20 @@ export class MovieDBService {
     page: number = 1
   ): Observable<any> {
     const url = this.api_url.concat(
-      `/account/${this.account.id}/favorite/${media_type}`
+      `/account/${this.account.account_id}/favorite/${media_type}`
     );
     const params = this.params
-      .append('session_id', this.session_id)
+      .append('session_id', this.account.session_id)
       .append('page', page);
 
     return this.http.get(url, { params });
   }
 
   postFavorite(media_type: string, media_id: number, favorite: boolean) {
-    const url = this.api_url.concat(`/account/${this.account.id}/favorite`);
-    const params = this.params.append('session_id', this.session_id);
+    const url = this.api_url.concat(
+      `/account/${this.account.account_id}/favorite`
+    );
+    const params = this.params.append('session_id', this.account.session_id);
     const body = {
       media_type,
       media_id,
@@ -65,18 +76,20 @@ export class MovieDBService {
     page: number = 1
   ): Observable<any> {
     const url = this.api_url.concat(
-      `/account/${this.account.id}/watchlist/${media_type}`
+      `/account/${this.account.account_id}/watchlist/${media_type}`
     );
     const params = this.params
-      .append('session_id', this.session_id)
+      .append('session_id', this.account.session_id)
       .append('page', page);
 
     return this.http.get(url, { params });
   }
 
   postWatchlist(media_type: string, media_id: number, watchlist: boolean) {
-    const url = this.api_url.concat(`/account/${this.account.id}/watchlist`);
-    const params = this.params.append('session_id', this.session_id);
+    const url = this.api_url.concat(
+      `/account/${this.account.account_id}/watchlist`
+    );
+    const params = this.params.append('session_id', this.account.session_id);
     const body = {
       media_type,
       media_id,
@@ -88,7 +101,7 @@ export class MovieDBService {
 
   // Authentication
   isLoggedIn(): boolean {
-    return this.session_id !== '';
+    return this.account.session_id !== '';
   }
 
   login(loginData: any): Promise<any> {
@@ -100,20 +113,24 @@ export class MovieDBService {
               this.createSession(response.request_token).subscribe({
                 next: (response: any) => {
                   if (response.success) {
-                    this.session_id = response.session_id;
-                    this.getAccountInfo().subscribe({
-                      next: (account: any) => {
-                        this.account.id = account.id;
-                        this.account.username = account.username;
+                    // this.session_id = response.session_id;
 
-                        this.loggedIn.next(this.account.username);
+                    this.getAccountInfo(response.session_id).subscribe({
+                      next: (account: any) => {
+                        this.account.session_id = response.session_id;
+                        this.account.account_id = account.id;
+                        this.account.account_username = account.username;
+
+                        console.log(this.account);
+
+                        this.loggedIn.next(this.account.account_username);
 
                         localStorage.setItem(
                           'login_data',
                           JSON.stringify({
-                            session_id: this.session_id,
-                            account_id: this.account.id, // ???
-                            account_username: this.account.username,
+                            session_id: this.account.session_id,
+                            account_id: this.account.account_id, // ???
+                            account_username: this.account.account_username,
                           })
                         );
                         resolve(true);
@@ -136,13 +153,13 @@ export class MovieDBService {
   logout(): Promise<boolean> {
     const url = this.api_url.concat('/authentication/session');
     const body = {
-      session_id: this.session_id,
+      session_id: this.account.session_id,
     };
 
     return new Promise((resolve, reject) => {
       this.http.delete(url, { params: this.params, body: body }).subscribe({
         next: (response: any) => {
-          this.session_id = '';
+          // this.account =;
           this.loggedIn.next(false);
           localStorage.removeItem('login_data');
           resolve(true);
@@ -184,9 +201,9 @@ export class MovieDBService {
     return this.http.post(url, body, { params: this.params });
   }
 
-  private getAccountInfo(): Observable<any> {
+  private getAccountInfo(session_id: string): Observable<any> {
     const url = this.api_url.concat(`/account`);
-    const params = this.params.append('session_id', this.session_id);
+    const params = this.params.append('session_id', session_id);
 
     return this.http
       .get(url, { params })

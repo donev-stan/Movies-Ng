@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   constructor(private db: MovieDBService) {}
 
   ngOnInit(): void {
-    console.log(`Window Width: ${window.innerWidth}`);
+    // console.log(`Window Width: ${window.innerWidth}`);
     this.calculateCardsCount(window.innerWidth);
   }
 

@@ -13,24 +13,15 @@ import { MovieDBService } from '../services/movie-db.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  private previousUrl = '/home';
-
-  constructor(private db: MovieDBService, private router: Router) {
-    router.events
-      .pipe(filter((event: any) => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        console.log('prev:', event.url);
-        this.previousUrl = event.url;
-      });
-  }
+  constructor(private db: MovieDBService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.db.isLoggedIn()) return true;
+    if (!this.db.checkLoggedIn()) return true;
 
-    this.router.navigate([this.previousUrl]);
+    this.router.navigate(['/home']);
     return false;
   }
 }
