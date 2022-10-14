@@ -9,6 +9,7 @@ import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 })
 export class TrendingComponent implements OnInit {
   trendingItems: any[] = [];
+  totalResults: number = 0;
 
   @Output() resetPage: Subject<boolean> = new Subject();
 
@@ -45,8 +46,9 @@ export class TrendingComponent implements OnInit {
     this.db
       .getTrendingItems(this.selectedMedia, this.selectedTimeWindow, page)
       .subscribe({
-        next: (items: any) => {
-          this.trendingItems = items;
+        next: (response: any) => {
+          this.trendingItems = response.results;
+          this.totalResults = response.total_results;
         },
       });
   }

@@ -1,10 +1,11 @@
-<app-section-panel
+<app-panel
   title="Trending"
   description="Get the daily or weekly trending movies, shows or people."
   [items]="trendingItems"
   (fetchNewPage)="fetchTrendingItems($event)"
   [resetPage]="resetPage"
   [media_type]="selectedMedia"
+  [total_results]="totalResults"
 >
   <ng-container ngProjectAs="filters">
     <mat-form-field appearance="fill">
@@ -73,4 +74,4 @@
       >
     </mat-chip-list>
   </ng-container>
-</app-section-panel>
+</app-panel>

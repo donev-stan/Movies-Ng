@@ -10,7 +10,5 @@ export class CardComponent implements OnInit {
   @Input() media_type: string = '';
 
   constructor() {}
-  ngOnInit(): void {
-    console.log(this.item);
-  }
+  ngOnInit(): void {}
 }

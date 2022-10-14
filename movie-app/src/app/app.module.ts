@@ -28,6 +28,7 @@ import { MyListComponent } from './profile/my-list/my-list.component';
 import { ProfilePanelComponent } from './profile/shared/profile-panel/profile-panel.component';
 import { CardComponent } from './shared/components/card/card.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
+import { PanelComponent } from './shared/components/panel/panel.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
     ProfilePanelComponent,
     CardComponent,
     LoadingSpinnerComponent,
+    PanelComponent,
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,7 @@ export class MovieDBService {
 
   constructor(private http: HttpClient) {}
 
+  // Authentication
   isLoggedIn(): boolean {
     return this.session_id !== '';
   }
@@ -91,6 +92,7 @@ export class MovieDBService {
 
     return this.http.post(url, body, { params: this.params });
   }
+  // --- END: Authentication ---
 
   getTrendingItems(
     media_type: string = 'all',
@@ -101,10 +103,12 @@ export class MovieDBService {
     const params = this.params.append('page', page);
 
     return this.http.get(url, { params }).pipe(
-      // tap((response) => console.log(response)),
-      map((response: any) => response.results),
-      map((response: any) => response.slice(0, this.arrayLength))
-      // tap((response) => console.log(response))
+      tap((response) => console.log(response)),
+      map((response: any) => ({
+        ...response,
+        results: response.results.slice(0, this.arrayLength),
+      })),
+      tap((response) => console.log(response))
     );
   }
 

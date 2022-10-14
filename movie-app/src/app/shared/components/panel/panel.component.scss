@@ -1,0 +1,107 @@
+mat-drawer-container {
+  background: inherit;
+  height: 614px;
+}
+
+.section-filters {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 30px 0 10px;
+  height: 100%;
+}
+
+.section-heading {
+  margin: 0 10px !important;
+  font-size: 1.5rem;
+}
+
+.section-content {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 10px 8px 5px;
+  //   height: $minContentHeight;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  margin-bottom: -10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+
+  .filters-btn-box {
+    flex: 1;
+  }
+
+  .filters-chips-box {
+    flex: 3;
+    display: flex;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .pagination-box {
+    flex: 2;
+  }
+}
+
+// Media Queries
+@media (max-width: 600px) {
+  .section-heading {
+    font-size: 1.3rem;
+  }
+
+  mat-panel-description {
+    display: none;
+  }
+
+  ::ng-deep .mat-paginator-page-size {
+    display: none !important;
+  }
+
+  ::ng-deep .mat-paginator-range-label {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  ::ng-deep .mat-paginator-range-label {
+    display: none !important;
+  }
+
+  .pagination-box {
+    flex: 1;
+  }
+}
+
+@media (max-width: 950px) {
+  .footer {
+    .filters-btn-box {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 815px) {
+  .footer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 490px) {
+  .footer {
+    flex-direction: row;
+
+    .filters-btn-box {
+      display: flex;
+    }
+
+    .filters-chips-box {
+      display: none;
+    }
+  }
+}
