@@ -1,10 +1,12 @@
-<app-section-panel
+<app-panel
   title="Top Rated"
   description="Get a list of the top rated movies or TV shows on TMDB."
   [items]="topRated"
   (fetchNewPage)="fetchTopRated($event)"
   [resetPage]="resetPage"
   [media_type]="selectedMedia"
+  [media_type]="selectedMedia"
+  [total_results]="totalResults"
 >
   <ng-container ngProjectAs="filters">
     <mat-form-field appearance="outline">
@@ -30,4 +32,4 @@
       >
     </mat-chip-list>
   </ng-container>
-</app-section-panel>
+</app-panel>

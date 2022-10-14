@@ -1,10 +1,11 @@
-<app-section-panel
+<app-panel
   title="Popular"
   description="Get a list of the current popular movies, shows or people on TMDB. "
   [items]="popularItems"
   (fetchNewPage)="fetchTopRated($event)"
   [resetPage]="resetPage"
   [media_type]="selectedMedia"
+  [total_results]="totalResults"
 >
   <ng-container ngProjectAs="filters">
     <mat-form-field appearance="outline">
@@ -36,4 +37,4 @@
       >
     </mat-chip-list>
   </ng-container>
-</app-section-panel>
+</app-panel>

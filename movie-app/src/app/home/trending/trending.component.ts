@@ -1,5 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
+import { ResponseData } from 'src/app/shared/models/response-data';
 import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 
 @Component({
@@ -44,11 +45,11 @@ export class TrendingComponent implements OnInit {
 
   fetchTrendingItems(page?: number): void {
     this.db
-      .getTrendingItems(this.selectedMedia, this.selectedTimeWindow, page)
+      .getTrending(this.selectedMedia, this.selectedTimeWindow, page)
       .subscribe({
-        next: (response: any) => {
-          this.trendingItems = response.results;
-          this.totalResults = response.total_results;
+        next: (data: ResponseData) => {
+          this.trendingItems = data.results;
+          // this.totalResults = data.total_results;
         },
       });
   }

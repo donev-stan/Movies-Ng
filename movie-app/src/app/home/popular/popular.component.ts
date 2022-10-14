@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
+import { ResponseData } from 'src/app/shared/models/response-data';
 import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 
 @Component({
@@ -8,7 +9,9 @@ import { MovieDBService } from 'src/app/shared/services/movie-db.service';
   styleUrls: ['./popular.component.scss'],
 })
 export class PopularComponent implements OnInit {
-  @Input() popularItems: any[] = [];
+  popularItems: any[] = [];
+  totalResults: number = 0;
+
   @Output() resetPage: Subject<boolean> = new Subject();
 
   private _selectedMedia: string = 'movie';
@@ -31,7 +34,10 @@ export class PopularComponent implements OnInit {
 
   fetchTopRated(page?: number): void {
     this.db.getPopular(this._selectedMedia, page).subscribe({
-      next: (items) => (this.popularItems = items),
+      next: (data: ResponseData) => {
+        this.popularItems = data.results;
+        // this.totalResults = data.total_results;
+      },
     });
   }
 }

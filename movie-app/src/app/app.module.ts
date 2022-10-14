@@ -11,14 +11,11 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { BrowseComponent } from './browse/browse.component';
 import { DetailsComponent } from './details/details.component';
-import { CategoriesComponent } from './home/categories/categories.component';
 import { TrendingComponent } from './home/trending/trending.component';
-import { SectionPanelComponent } from './home/shared/section-panel/section-panel.component';
 import { TopRatedComponent } from './home/top-rated/top-rated.component';
 import { PopularComponent } from './home/popular/popular.component';
 import { PreviewComponent } from './home/preview/preview.component';
 import { LoginComponent } from './login/login.component';
-// import { CardComponent } from './browse/card/card.component';
 import { FiltersComponent } from './browse/filters/filters.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FavoriteComponent } from './profile/favorite/favorite.component';
@@ -37,9 +34,7 @@ import { PanelComponent } from './shared/components/panel/panel.component';
     HomeComponent,
     BrowseComponent,
     DetailsComponent,
-    CategoriesComponent,
     TrendingComponent,
-    SectionPanelComponent,
     TopRatedComponent,
     PopularComponent,
     PreviewComponent,

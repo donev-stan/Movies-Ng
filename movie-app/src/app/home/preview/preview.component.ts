@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { ResponseData } from 'src/app/shared/models/response-data';
 import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 
 @Component({
@@ -37,8 +38,8 @@ export class PreviewComponent implements OnInit {
         });
       } else {
         this.db.getTopRated().subscribe({
-          next: (data) => {
-            this.singleData = data[0];
+          next: (data: any) => {
+            this.singleData = data.results[0];
 
             setTimeout(() => {
               this.isDataReady = true;

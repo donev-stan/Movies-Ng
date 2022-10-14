@@ -14,7 +14,6 @@ export class PanelComponent implements OnInit {
   // @Input() total_pages: number = 1;
   @Input() total_results: number = 0;
 
-  // Change that to just a function
   @Input() resetPage: Subject<boolean> = new Subject();
   @Input() media_type: string = '';
 
@@ -23,7 +22,11 @@ export class PanelComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.resetPage.subscribe({
+      next: () => (this.paginator.pageIndex = 0),
+    });
+  }
 
   fetchNewPageData(event: PageEvent): void {
     this.items = [];

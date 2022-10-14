@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject, tap } from 'rxjs';
+import { ResponseData } from '../models/response-data';
 
 @Injectable({
   providedIn: 'root',
@@ -94,11 +95,11 @@ export class MovieDBService {
   }
   // --- END: Authentication ---
 
-  getTrendingItems(
+  getTrending(
     media_type: string = 'all',
     time_window: string = 'day',
     page: number = 1
-  ): Observable<any> {
+  ): Observable<ResponseData> {
     const url = this.api_url.concat(`/trending/${media_type}/${time_window}`);
     const params = this.params.append('page', page);
 
@@ -115,30 +116,30 @@ export class MovieDBService {
   getTopRated(
     media_type: string = 'movie',
     page: number = 1
-  ): Observable<any[]> {
+  ): Observable<ResponseData> {
     const url = this.api_url.concat(`/${media_type}/top_rated`);
     const params = this.params.append('page', page);
 
     return this.http.get(url, { params }).pipe(
-      // tap((response) => console.log(response)),
-      map((response: any) => response.results),
-      map((response: any) => response.slice(0, this.arrayLength))
-      // tap((response) => console.log(response))
+      map((response: any) => ({
+        ...response,
+        results: response.results.slice(0, this.arrayLength),
+      }))
     );
   }
 
   getPopular(
     media_type: string = 'movie',
     page: number = 1
-  ): Observable<any[]> {
+  ): Observable<ResponseData> {
     const url = this.api_url.concat(`/${media_type}/popular`);
     const params = this.params.append('page', page);
 
     return this.http.get(url, { params }).pipe(
-      // tap((response) => console.log(response)),
-      map((response: any) => response.results),
-      map((response: any) => response.slice(0, this.arrayLength))
-      // tap((response) => console.log(response))
+      map((response: any) => ({
+        ...response,
+        results: response.results.slice(0, this.arrayLength),
+      }))
     );
   }
 

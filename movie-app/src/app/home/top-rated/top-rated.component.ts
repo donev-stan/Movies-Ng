@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Subject } from 'rxjs';
+import { ResponseData } from 'src/app/shared/models/response-data';
 import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 })
 export class TopRatedComponent implements OnInit {
   topRated: any[] = [];
+  totalResults: number = 0;
 
   @Output() resetPage: Subject<boolean> = new Subject();
 
@@ -33,8 +35,9 @@ export class TopRatedComponent implements OnInit {
 
   fetchTopRated(page?: number): void {
     this.db.getTopRated(this._selectedMedia, page).subscribe({
-      next: (items) => {
-        this.topRated = items;
+      next: (data: ResponseData) => {
+        this.topRated = data.results;
+        // this.totalResults = data.total_results;
       },
     });
   }

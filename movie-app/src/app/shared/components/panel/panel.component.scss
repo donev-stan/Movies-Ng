@@ -1,6 +1,6 @@
 mat-drawer-container {
   background: inherit;
-  height: 614px;
+  height: 625px;
 }
 
 .section-filters {
@@ -14,7 +14,7 @@ mat-drawer-container {
 
 .section-heading {
   margin: 0 10px !important;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 .section-content {
@@ -22,15 +22,17 @@ mat-drawer-container {
   gap: 20px;
   flex-wrap: wrap;
   justify-content: space-around;
-  padding: 10px 8px 5px;
-  //   height: $minContentHeight;
+  align-items: center;
+  padding: 10px 8px 10px;
+
+  height: 600px;
 }
 
 .footer {
   display: flex;
   align-items: center;
   margin-bottom: -10px;
-  margin-top: 10px;
+  margin-top: 5px;
   flex-wrap: wrap;
 
   .filters-btn-box {
