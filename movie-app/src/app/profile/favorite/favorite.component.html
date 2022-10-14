@@ -1,1 +1,36 @@
-<app-panel> </app-panel>
+<app-panel
+  title="Favorites"
+  description="List of your favorite movies and shows."
+  [items]="items"
+  [total_results]="total_results"
+  (fetchNewPage)="fetchFavorites($event)"
+  [resetPage]="resetPage"
+  [media_type]="selectedMedia"
+>
+  <ng-container ngProjectAs="filters">
+    <mat-form-field appearance="fill">
+      <mat-label>Media Type</mat-label>
+      <mat-select [(ngModel)]="selectedMedia">
+        <mat-option value="movies">Movie</mat-option>
+        <mat-option value="tv">Shows</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+
+  <ng-container ngProjectAs="filter-chips">
+    <mat-chip-list [disabled]="false" [multiple]="false">
+      <mat-chip
+        (click)="selectedMedia !== 'movies' ? (selectedMedia = 'movies') : null"
+        [selected]="selectedMedia == 'movies'"
+      >
+        Movies
+      </mat-chip>
+      <mat-chip
+        (click)="selectedMedia !== 'tv' ? (selectedMedia = 'tv') : null"
+        [selected]="selectedMedia == 'tv'"
+      >
+        Shows
+      </mat-chip>
+    </mat-chip-list>
+  </ng-container>
+</app-panel>

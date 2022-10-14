@@ -28,8 +28,18 @@ export class MovieDBService {
     }
   }
 
-  getFavorites(media_type: string = 'movies') {
-    const url = this.api_url.concat(`/account/{this.}/favorite/movies`);
+  getFavorites(
+    media_type: string = 'movies',
+    page: number = 1
+  ): Observable<any> {
+    const url = this.api_url.concat(
+      `/account/${this.account.id}/favorite/${media_type}`
+    );
+    const params = this.params
+      .append('session_id', this.session_id)
+      .append('page', page);
+
+    return this.http.get(url, { params });
   }
 
   getAccountInfo(): Observable<any> {
