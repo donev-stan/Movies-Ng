@@ -4,7 +4,7 @@ import { BrowseComponent } from './browse/browse.component';
 import { DetailsComponent } from './details/details.component';
 
 import { HomeComponent } from './home/home.component';
-import { PreviewComponent } from './home/preview/preview.component';
+import { PreviewComponent } from './shared/components/preview/preview.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
