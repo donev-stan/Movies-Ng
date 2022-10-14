@@ -27,88 +27,6 @@ mat-drawer-container {
   align-items: center !important;
   padding: 10px 8px 5px;
   height: $minContentHeight;
-
-  .loading-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-
-    mat-spinner {
-      background-color: #009688;
-    }
-  }
-
-  .card:hover {
-    opacity: 1 !important;
-  }
-
-  .card {
-    animation: enterCard 1s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s 1 normal none;
-
-    transition: all 0.3s;
-
-    opacity: 0.8;
-
-    padding: 0;
-    cursor: pointer;
-    min-height: 277px;
-    widows: 185px;
-    display: flex;
-    align-items: space-between;
-
-    .poster-img {
-      height: 277px;
-      width: 185px;
-      border-radius: 6px;
-    }
-
-    .avg-vote-box {
-      position: absolute;
-      border-radius: 100%;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      top: -12px;
-      right: -12px;
-
-      .avg-vote-img {
-        width: 50px;
-      }
-
-      .avg-vote-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: black;
-        font-weight: bold;
-      }
-    }
-
-    .img-404 {
-      width: 185px;
-      height: 277px;
-      background: url("/assets/images/picture4044.png") center center;
-      background-repeat: no-repeat;
-    }
-
-    .item-name {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-
-      transform: translateX(-50%);
-
-      text-align: center;
-      font-size: 1rem;
-
-      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-        1px 1px 0 #000;
-    }
-  }
 }
 
 .footer {
@@ -131,21 +49,6 @@ mat-drawer-container {
 
   .pagination-box {
     flex: 2;
-  }
-}
-
-// Keyframes
-@keyframes enterCard {
-  0% {
-    opacity: 0;
-    // transform: rotateX(-100deg);
-    // transform-origin: top;
-  }
-
-  100% {
-    opacity: 0.8;
-    // transform: rotateX(0deg);
-    // transform-origin: top;
   }
 }
 

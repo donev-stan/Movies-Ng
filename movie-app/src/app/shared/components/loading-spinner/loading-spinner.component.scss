@@ -1,0 +1,10 @@
+.loading-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  mat-spinner {
+    background-color: #009688;
+  }
+}

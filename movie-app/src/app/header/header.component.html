@@ -14,7 +14,9 @@
       Login
     </button>
 
-    <button mat-button (click)="onLogout()" *ngIf="loggedIn">Logout</button>
+    <button mat-icon-button [routerLink]="['/profile']" *ngIf="loggedIn">
+      <mat-icon>portrait</mat-icon>
+    </button>
 
     <button mat-icon-button [routerLink]="['/browse']">
       <!-- [matMenuTriggerFor]="searchMenu" -->

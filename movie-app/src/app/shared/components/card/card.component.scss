@@ -1,25 +1,5 @@
-.loading-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-
-  mat-spinner {
-    background-color: #009688;
-  }
-}
-
 .card:hover {
   opacity: 1 !important;
-}
-
-.container {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center !important;
-  padding: 10px 8px 5px;
 }
 
 .card {
@@ -35,7 +15,6 @@
   widows: 185px;
   display: flex;
   align-items: space-between;
-  margin-bottom: 20px;
 
   .poster-img {
     height: 277px;
@@ -87,5 +66,20 @@
 
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
       1px 1px 0 #000;
+  }
+}
+
+// Keyframes
+@keyframes enterCard {
+  0% {
+    opacity: 0;
+    // transform: rotateX(-100deg);
+    // transform-origin: top;
+  }
+
+  100% {
+    opacity: 0.8;
+    // transform: rotateX(0deg);
+    // transform-origin: top;
   }
 }

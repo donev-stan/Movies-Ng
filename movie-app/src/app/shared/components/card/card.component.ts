@@ -6,11 +6,11 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  @Input() items: any[] = [];
-
+  @Input() item: any = {};
   @Input() media_type: string = '';
 
   constructor() {}
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.item);
+  }
 }

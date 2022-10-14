@@ -1,4 +1,4 @@
-<mat-expansion-panel [expanded]="isExpanded" title="">
+<mat-expansion-panel title="">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <h2 class="section-heading">{{ title }}</h2>
@@ -16,29 +16,25 @@
     </mat-drawer>
     <mat-drawer-content>
       <div class="section-content">
-        <app-loading-spinner *ngIf="!items.length"></app-loading-spinner>
-
-        <app-card
-          *ngFor="let item of items"
-          [item]="item"
-          [media_type]="media_type"
-        ></app-card>
+        <!-- ANOTHER COMPONENT -- START -->
+        <app-card></app-card>
+        <!-- ANOTHER COMPONENT -- END -->
       </div>
     </mat-drawer-content>
   </mat-drawer-container>
 
   <div class="footer">
+    <div class="filters-chips-box">
+      <ng-content select="filter-chips"></ng-content>
+    </div>
+
     <div class="filters-btn-box">
       <button mat-flat-button color="accent" (click)="drawer.toggle()">
         Toggle Filters
       </button>
     </div>
 
-    <div class="filters-chips-box">
-      <ng-content select="filter-chips"></ng-content>
-    </div>
-
-    <div class="pagination-box">
+    <!-- <div class="pagination-box">
       <mat-paginator
         [length]="items.length * 10"
         [pageSize]="items.length"
@@ -46,6 +42,6 @@
         #paginator
       >
       </mat-paginator>
-    </div>
+    </div> -->
   </div>
 </mat-expansion-panel>

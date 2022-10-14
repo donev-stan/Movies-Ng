@@ -6,6 +6,7 @@ import { DetailsComponent } from './details/details.component';
 import { HomeComponent } from './home/home.component';
 import { PreviewComponent } from './home/preview/preview.component';
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
@@ -15,7 +16,7 @@ const routes: Routes = [
     children: [
       { path: '', component: PreviewComponent },
       {
-        path: ':id/:type',
+        path: ':type/:id',
         component: PreviewComponent,
       },
     ],
@@ -32,6 +33,16 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    children: [
+      {
+        path: ':type/:id',
+        component: PreviewComponent,
+      },
+    ],
   },
   {
     path: '**',

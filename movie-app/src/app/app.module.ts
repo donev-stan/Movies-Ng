@@ -18,8 +18,16 @@ import { TopRatedComponent } from './home/top-rated/top-rated.component';
 import { PopularComponent } from './home/popular/popular.component';
 import { PreviewComponent } from './home/preview/preview.component';
 import { LoginComponent } from './login/login.component';
-import { CardComponent } from './browse/card/card.component';
+// import { CardComponent } from './browse/card/card.component';
 import { FiltersComponent } from './browse/filters/filters.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FavoriteComponent } from './profile/favorite/favorite.component';
+import { RatedComponent } from './profile/rated/rated.component';
+import { WatchlistComponent } from './profile/watchlist/watchlist.component';
+import { MyListComponent } from './profile/my-list/my-list.component';
+import { ProfilePanelComponent } from './profile/shared/profile-panel/profile-panel.component';
+import { CardComponent } from './shared/components/card/card.component';
+import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +43,15 @@ import { FiltersComponent } from './browse/filters/filters.component';
     PopularComponent,
     PreviewComponent,
     LoginComponent,
-    CardComponent,
     FiltersComponent,
+    ProfileComponent,
+    FavoriteComponent,
+    RatedComponent,
+    WatchlistComponent,
+    MyListComponent,
+    ProfilePanelComponent,
+    CardComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
