@@ -33,7 +33,7 @@ export class WatchlistComponent implements OnInit {
   }
 
   fetchWatchlist(page?: number): void {
-    this.db.getWatchlist().subscribe({
+    this.db.getWatchlist(this._selectedMedia, page).subscribe({
       next: (data) => {
         console.log(data);
 

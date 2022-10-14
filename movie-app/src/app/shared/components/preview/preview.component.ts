@@ -36,6 +36,7 @@ export class PreviewComponent implements OnInit {
           next: (data) => {
             this.item = data;
             this.checkFavorite();
+            this.checkWatchlist();
 
             setTimeout(() => {
               this.isDataReady = true;
@@ -48,6 +49,7 @@ export class PreviewComponent implements OnInit {
           next: (data: any) => {
             this.item = data.results[0];
             this.checkFavorite();
+            this.checkWatchlist();
 
             setTimeout(() => {
               this.isDataReady = true;
@@ -71,7 +73,7 @@ export class PreviewComponent implements OnInit {
     return Math.round((vote / 10) * 100);
   }
 
-  checkFavorite() {
+  checkFavorite(): void {
     this.db.getFavorites().subscribe({
       next: (data) => {
         const notUndefined = data.results.find(
@@ -84,7 +86,7 @@ export class PreviewComponent implements OnInit {
     });
   }
 
-  markFavorite() {
+  markFavorite(): void {
     this.favorite = !this.favorite;
 
     this.db
@@ -92,6 +94,33 @@ export class PreviewComponent implements OnInit {
       .subscribe({
         next: (response: any) => {
           if (!response.success) this.favorite = !this.favorite;
+        },
+      });
+  }
+
+  checkWatchlist(): void {
+    this.db.getWatchlist().subscribe({
+      next: (data) => {
+        const notUndefined = data.results.find(
+          (favoriteItem: any) => favoriteItem.id === this.item.id
+        );
+
+        if (notUndefined) this.bookmarked = true;
+        else this.bookmarked = false;
+      },
+    });
+  }
+
+  markWatchlist(): void {
+    this.bookmarked = !this.bookmarked;
+
+    this.db
+      .postWatchlist(this.media_type, this.item.id, this.bookmarked)
+      .subscribe({
+        next: (response: any) => {
+          console.log(response);
+
+          if (!response.success) this.bookmarked = !this.bookmarked;
         },
       });
   }

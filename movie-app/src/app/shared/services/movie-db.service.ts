@@ -65,6 +65,8 @@ export class MovieDBService {
       .append('session_id', this.session_id)
       .append('page', page);
 
+    console.log(url, params);
+
     return this.http.get(url, { params });
   }
 
@@ -76,6 +78,8 @@ export class MovieDBService {
       media_id,
       watchlist,
     };
+
+    console.log(media_type);
 
     return this.http.post(url, body, { params });
   }

@@ -97,7 +97,12 @@
             <mat-icon>{{ favorite ? "favorite" : "favorite_border" }}</mat-icon>
           </button>
 
-          <button mat-mini-fab color="primary" title="Add to your watchlist">
+          <button
+            mat-mini-fab
+            color="primary"
+            title="Add to your watchlist"
+            (click)="markWatchlist()"
+          >
             <mat-icon>{{
               bookmarked ? "bookmark" : "bookmark_border"
             }}</mat-icon>
