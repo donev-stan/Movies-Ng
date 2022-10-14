@@ -27,20 +27,6 @@ export class MovieDBService {
     this.checkLoggedIn();
   }
 
-  checkLoggedIn(): boolean {
-    const found = JSON.parse(localStorage.getItem('login_data')!);
-
-    if (found) {
-      this.account.session_id = found.session_id;
-      this.account.account_id = found.account_id;
-      this.account.account_username = found.account_username;
-      this.loggedIn.next(this.account.account_username);
-      return true;
-    }
-
-    return false;
-  }
-
   // Favorites
   getFavorites(
     media_type: string = 'movies',
@@ -100,8 +86,19 @@ export class MovieDBService {
   }
 
   // Authentication
-  isLoggedIn(): boolean {
-    return this.account.session_id !== '';
+
+  checkLoggedIn(): boolean {
+    const found = JSON.parse(localStorage.getItem('login_data')!);
+
+    if (found) {
+      this.account.session_id = found.session_id;
+      this.account.account_id = found.account_id;
+      this.account.account_username = found.account_username;
+      this.loggedIn.next(this.account.account_username);
+      return true;
+    }
+
+    return false;
   }
 
   login(loginData: any): Promise<any> {
@@ -112,32 +109,26 @@ export class MovieDBService {
             next: (response: any) => {
               this.createSession(response.request_token).subscribe({
                 next: (response: any) => {
-                  if (response.success) {
-                    // this.session_id = response.session_id;
+                  this.getAccountInfo(response.session_id).subscribe({
+                    next: (account: any) => {
+                      this.account.session_id = response.session_id;
+                      this.account.account_id = account.id;
+                      this.account.account_username = account.username;
 
-                    this.getAccountInfo(response.session_id).subscribe({
-                      next: (account: any) => {
-                        this.account.session_id = response.session_id;
-                        this.account.account_id = account.id;
-                        this.account.account_username = account.username;
+                      this.loggedIn.next(this.account.account_username);
 
-                        console.log(this.account);
-
-                        this.loggedIn.next(this.account.account_username);
-
-                        localStorage.setItem(
-                          'login_data',
-                          JSON.stringify({
-                            session_id: this.account.session_id,
-                            account_id: this.account.account_id, // ???
-                            account_username: this.account.account_username,
-                          })
-                        );
-                        resolve(true);
-                      },
-                      error: (error: any) => reject(error),
-                    });
-                  }
+                      localStorage.setItem(
+                        'login_data',
+                        JSON.stringify({
+                          session_id: this.account.session_id,
+                          account_id: this.account.account_id,
+                          account_username: this.account.account_username,
+                        })
+                      );
+                      resolve(true);
+                    },
+                    error: (error: any) => reject(error),
+                  });
                 },
                 error: (error: any) => reject(error),
               });
@@ -159,7 +150,6 @@ export class MovieDBService {
     return new Promise((resolve, reject) => {
       this.http.delete(url, { params: this.params, body: body }).subscribe({
         next: (response: any) => {
-          // this.account =;
           this.loggedIn.next(false);
           localStorage.removeItem('login_data');
           resolve(true);

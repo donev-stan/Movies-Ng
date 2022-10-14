@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { ResponseData } from 'src/app/shared/models/response-data';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 
 @Component({
@@ -19,10 +18,16 @@ export class PreviewComponent implements OnInit {
 
   media_type: string = 'movie';
 
-  constructor(private db: MovieDBService, private route: ActivatedRoute) {}
+  loggedIn: boolean = false;
+
+  constructor(
+    private db: MovieDBService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    const loggedIn = this.db.checkLoggedIn();
+    this.loggedIn = this.db.checkLoggedIn();
 
     this.route.params.subscribe((params: Params) => {
       this.isDataReady = false;
@@ -38,7 +43,7 @@ export class PreviewComponent implements OnInit {
           next: (data) => {
             this.item = data;
 
-            if (loggedIn) {
+            if (this.loggedIn) {
               this.checkFavorite();
               this.checkWatchlist();
             }
@@ -54,7 +59,7 @@ export class PreviewComponent implements OnInit {
           next: (data: any) => {
             this.item = data.results[0];
 
-            if (loggedIn) {
+            if (this.loggedIn) {
               this.checkFavorite();
               this.checkWatchlist();
             }
@@ -95,6 +100,11 @@ export class PreviewComponent implements OnInit {
   }
 
   markFavorite(): void {
+    if (!this.loggedIn) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     this.favorite = !this.favorite;
 
     this.db
@@ -120,6 +130,11 @@ export class PreviewComponent implements OnInit {
   }
 
   markWatchlist(): void {
+    if (!this.loggedIn) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     this.bookmarked = !this.bookmarked;
 
     this.db
