@@ -22,7 +22,6 @@ import { FavoriteComponent } from './profile/favorite/favorite.component';
 import { RatedComponent } from './profile/rated/rated.component';
 import { WatchlistComponent } from './profile/watchlist/watchlist.component';
 import { MyListComponent } from './profile/my-list/my-list.component';
-import { ProfilePanelComponent } from './profile/shared/profile-panel/profile-panel.component';
 import { CardComponent } from './shared/components/card/card.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { PanelComponent } from './shared/components/panel/panel.component';
@@ -45,7 +44,6 @@ import { PanelComponent } from './shared/components/panel/panel.component';
     RatedComponent,
     WatchlistComponent,
     MyListComponent,
-    ProfilePanelComponent,
     CardComponent,
     LoadingSpinnerComponent,
     PanelComponent,

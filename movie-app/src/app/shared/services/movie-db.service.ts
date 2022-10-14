@@ -7,9 +7,10 @@ import { ResponseData } from '../models/response-data';
   providedIn: 'root',
 })
 export class MovieDBService {
-  private api_url = 'https://api.themoviedb.org/3';
-  private api_key = '93e30ea468c15181b1cf21a3ae6255c1';
-  private session_id = '';
+  private api_url: string = 'https://api.themoviedb.org/3';
+  private api_key: string = '93e30ea468c15181b1cf21a3ae6255c1';
+  private session_id: string = '';
+  private account: any = {};
 
   private params = new HttpParams()
     .set('api_key', this.api_key)
@@ -27,6 +28,19 @@ export class MovieDBService {
     }
   }
 
+  getFavorites(media_type: string = 'movies') {
+    const url = this.api_url.concat(`/account/{this.}/favorite/movies`);
+  }
+
+  getAccountInfo(): Observable<any> {
+    const url = this.api_url.concat(`/account`);
+    const params = this.params.append('session_id', this.session_id);
+
+    return this.http
+      .get(url, { params })
+      .pipe(tap((response) => console.log(response)));
+  }
+
   // Authentication
   isLoggedIn(): boolean {
     return this.session_id !== '';
@@ -42,9 +56,17 @@ export class MovieDBService {
                 next: (response: any) => {
                   if (response.success) {
                     this.session_id = response.session_id;
-                    this.loggedIn.next(true);
-                    localStorage.setItem('session_id', this.session_id);
-                    resolve(true);
+                    this.getAccountInfo().subscribe({
+                      next: (account: any) => {
+                        this.account.id = account.id;
+                        this.account.username = account.username;
+
+                        this.loggedIn.next(true);
+                        localStorage.setItem('session_id', this.session_id);
+                        resolve(true);
+                      },
+                      error: (error: any) => reject(error),
+                    });
                   }
                 },
                 error: (error: any) => reject(error),
@@ -69,6 +91,7 @@ export class MovieDBService {
         next: (response: any) => {
           this.session_id = '';
           this.loggedIn.next(false);
+          localStorage.removeItem('session_id');
           resolve(true);
         },
         error: (err: any) => {
