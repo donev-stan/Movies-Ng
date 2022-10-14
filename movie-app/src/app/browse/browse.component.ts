@@ -20,11 +20,11 @@ export class BrowseComponent implements OnInit {
   constructor(private db: MovieDBService) {}
 
   ngOnInit(): void {
-    this.db.getTopRated().subscribe({
-      next: (response) => {
-        console.log(response);
-      },
-    });
+    // this.db.getTopRated().subscribe({
+    //   next: (response) => {
+    //     console.log(response);
+    //   },
+    // });
   }
 
   searchRequest(event: any): void {

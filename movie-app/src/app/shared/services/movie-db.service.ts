@@ -18,7 +18,14 @@ export class MovieDBService {
   arrayLength: number = 12;
   loggedIn: Subject<boolean> = new Subject();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const found = localStorage.getItem('session_id');
+
+    if (found) {
+      this.session_id = found;
+      this.loggedIn.next(true);
+    }
+  }
 
   // Authentication
   isLoggedIn(): boolean {
@@ -36,6 +43,7 @@ export class MovieDBService {
                   if (response.success) {
                     this.session_id = response.session_id;
                     this.loggedIn.next(true);
+                    localStorage.setItem('session_id', this.session_id);
                     resolve(true);
                   }
                 },
@@ -50,17 +58,23 @@ export class MovieDBService {
     });
   }
 
-  logout(): void {
+  logout(): Promise<boolean> {
     const url = this.api_url.concat('/authentication/session');
     const body = {
       session_id: this.session_id,
     };
 
-    this.http.delete(url, { params: this.params, body: body }).subscribe({
-      next: (response: any) => {
-        this.session_id = '';
-        this.loggedIn.next(false);
-      },
+    return new Promise((resolve, reject) => {
+      this.http.delete(url, { params: this.params, body: body }).subscribe({
+        next: (response: any) => {
+          this.session_id = '';
+          this.loggedIn.next(false);
+          resolve(true);
+        },
+        error: (err: any) => {
+          reject(false);
+        },
+      });
     });
   }
 
@@ -104,12 +118,10 @@ export class MovieDBService {
     const params = this.params.append('page', page);
 
     return this.http.get(url, { params }).pipe(
-      tap((response) => console.log(response)),
       map((response: any) => ({
         ...response,
         results: response.results.slice(0, this.arrayLength),
-      })),
-      tap((response) => console.log(response))
+      }))
     );
   }
 
@@ -143,15 +155,7 @@ export class MovieDBService {
     );
   }
 
-  getLatest(media_type: string = 'movie'): Observable<any> {
-    const url = this.api_url.concat(`/${media_type}/popular`);
-
-    return this.http
-      .get(url, { params: this.params })
-      .pipe(tap((response) => console.log(response)));
-  }
-
-  discover(searchFilters: any, page: number = 1) {
+  discover(searchFilters: any, page: number = 1): Observable<any> {
     const url = this.api_url.concat(`/search/${searchFilters.selectedMedia}`);
     const params = this.params
       .append('query', searchFilters.query)
@@ -164,23 +168,9 @@ export class MovieDBService {
       .pipe(tap((data) => console.log(data)));
   }
 
-  multiSearch(
-    query: string,
-    media_type: string,
-    page: number = 1
-  ): Observable<any> {
-    const url = this.api_url.concat(`/search/${media_type}`);
-    const params = this.params
-      .append('query', query)
-      .append('page', page)
-      .append('include_adult', true);
-
-    return this.http
-      .get(url, { params })
-      .pipe(tap((response) => console.log(response)));
-  }
-
-  getGenres(media_type: string = 'movie'): Observable<any[]> {
+  getGenres(
+    media_type: string = 'movie'
+  ): Observable<{ id: number; name: string }[]> {
     const url = this.api_url.concat(`/genre/${media_type}/list`);
 
     return this.http
@@ -196,10 +186,20 @@ export class MovieDBService {
     // .pipe(tap((response) => console.log(response)));
   }
 
-  getLatestMovie(): Observable<any> {
-    const url = this.api_url.concat(`/movie/latest`);
+  // Not in use
+  multiSearch(
+    query: string,
+    media_type: string,
+    page: number = 1
+  ): Observable<any> {
+    const url = this.api_url.concat(`/search/${media_type}`);
+    const params = this.params
+      .append('query', query)
+      .append('page', page)
+      .append('include_adult', true);
 
-    return this.http.get(url, { params: this.params });
-    // .pipe(tap((response) => console.log(response)));
+    return this.http
+      .get(url, { params })
+      .pipe(tap((response) => console.log(response)));
   }
 }
