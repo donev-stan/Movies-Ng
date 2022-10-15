@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { RateItemDialogComponent } from 'src/app/rate-item-dialog/rate-item-dialog.component';
 import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 
 @Component({
@@ -20,10 +23,14 @@ export class PreviewComponent implements OnInit {
 
   loggedIn: boolean = false;
 
+  ratingValue: number = 0;
+
   constructor(
     private db: MovieDBService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +53,7 @@ export class PreviewComponent implements OnInit {
             if (this.loggedIn) {
               this.checkFavorite();
               this.checkWatchlist();
+              this.checkRating();
             }
 
             setTimeout(() => {
@@ -62,6 +70,7 @@ export class PreviewComponent implements OnInit {
             if (this.loggedIn) {
               this.checkFavorite();
               this.checkWatchlist();
+              this.checkRating();
             }
 
             setTimeout(() => {
@@ -86,17 +95,20 @@ export class PreviewComponent implements OnInit {
     return Math.round((vote / 10) * 100);
   }
 
+  // Favorite
   checkFavorite(): void {
-    this.db.getFavorites().subscribe({
-      next: (data) => {
-        const notUndefined = data.results.find(
-          (favoriteItem: any) => favoriteItem.id === this.item.id
-        );
+    this.db
+      .getFavorites(this.media_type === 'movie' ? 'movies' : 'tv')
+      .subscribe({
+        next: (data) => {
+          const notUndefined = data.results.find(
+            (favoriteItem: any) => favoriteItem.id === this.item.id
+          );
 
-        if (notUndefined) this.favorite = true;
-        else this.favorite = false;
-      },
-    });
+          if (notUndefined) this.favorite = true;
+          else this.favorite = false;
+        },
+      });
   }
 
   markFavorite(): void {
@@ -116,17 +128,20 @@ export class PreviewComponent implements OnInit {
       });
   }
 
+  // Watchlist
   checkWatchlist(): void {
-    this.db.getWatchlist().subscribe({
-      next: (data) => {
-        const notUndefined = data.results.find(
-          (favoriteItem: any) => favoriteItem.id === this.item.id
-        );
+    this.db
+      .getWatchlist(this.media_type === 'movie' ? 'movies' : 'tv')
+      .subscribe({
+        next: (data) => {
+          const notUndefined = data.results.find(
+            (favoriteItem: any) => favoriteItem.id === this.item.id
+          );
 
-        if (notUndefined) this.bookmarked = true;
-        else this.bookmarked = false;
-      },
-    });
+          if (notUndefined) this.bookmarked = true;
+          else this.bookmarked = false;
+        },
+      });
   }
 
   markWatchlist(): void {
@@ -146,5 +161,68 @@ export class PreviewComponent implements OnInit {
           if (!response.success) this.bookmarked = !this.bookmarked;
         },
       });
+  }
+
+  // Rating
+  checkRating(): void {
+    this.db.getRated(this.media_type === 'movie' ? 'movies' : 'tv').subscribe({
+      next: (data: any) => {
+        const notUndefined = data.results.find(
+          (ratedItem: any) => ratedItem.id === this.item.id
+        );
+
+        if (notUndefined) {
+          this.rated = true;
+          this.ratingValue = notUndefined.rating;
+        } else {
+          this.rated = false;
+        }
+      },
+    });
+  }
+
+  rateItem(): void {
+    if (!this.loggedIn) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const dialogRef = this.dialog.open(RateItemDialogComponent, {
+      width: '300px',
+      data: {
+        title: this.item.title || this.item.name,
+        ratingValue: this.ratingValue || 0,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((dialogResponse: any) => {
+      if (typeof dialogResponse === 'number') {
+        this.db
+          .postRating(this.media_type, this.item.id, dialogResponse)
+          .subscribe({
+            next: (response: any) => {
+              if (response.success) {
+                this.rated = true;
+                this.ratingValue = dialogResponse;
+                this.snackBar.open('Successfully updated rating!', '', {
+                  duration: 3000,
+                });
+              }
+            },
+          });
+      } else if (dialogResponse === 'remove') {
+        this.db.deleteRating(this.media_type, this.item.id).subscribe({
+          next: (response: any) => {
+            if (response.success) {
+              this.rated = false;
+              this.ratingValue = 0;
+              this.snackBar.open('Successfully removed rating!', '', {
+                duration: 3000,
+              });
+            }
+          },
+        });
+      }
+    });
   }
 }

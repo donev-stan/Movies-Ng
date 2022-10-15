@@ -85,8 +85,36 @@ export class MovieDBService {
     return this.http.post(url, body, { params });
   }
 
-  // Authentication
+  // Ratings
+  getRated(media_type: string = 'movies', page: number = 1) {
+    const url = this.api_url.concat(
+      `/account/${this.account.account_id}/rated/${media_type}`
+    );
+    const params = this.params
+      .append('session_id', this.account.session_id)
+      .append('page', page);
 
+    return this.http.get(url, { params });
+  }
+
+  postRating(media_type: string, media_id: number, rating: number) {
+    const url = this.api_url.concat(`/${media_type}/${media_id}/rating`);
+    const params = this.params.append('session_id', this.account.session_id);
+    const body = {
+      value: rating,
+    };
+
+    return this.http.post(url, body, { params });
+  }
+
+  deleteRating(media_type: string, media_id: number) {
+    const url = this.api_url.concat(`/${media_type}/${media_id}/rating`);
+    const params = this.params.append('session_id', this.account.session_id);
+
+    return this.http.delete(url, { params });
+  }
+
+  // Authentication
   checkLoggedIn(): boolean {
     const found = JSON.parse(localStorage.getItem('login_data')!);
 

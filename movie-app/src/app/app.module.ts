@@ -25,6 +25,7 @@ import { MyListComponent } from './profile/my-list/my-list.component';
 import { CardComponent } from './shared/components/card/card.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { PanelComponent } from './shared/components/panel/panel.component';
+import { RateItemDialogComponent } from './rate-item-dialog/rate-item-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { PanelComponent } from './shared/components/panel/panel.component';
     CardComponent,
     LoadingSpinnerComponent,
     PanelComponent,
+    RateItemDialogComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+
+<mat-dialog-content>
+    <mat-slider [min]="0" [max]="10" [step]="0.5" [thumbLabel]="true" [(ngModel)]="rating" color="primary">
+    </mat-slider>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-flat-button color="warn" (click)="clearRating()">Clear</button>
+    <button mat-flat-button color="accent" (click)="cancelRating()">Cancel</button>
+    <button mat-flat-button color="primary" (click)="postRating()" [disabled]="!rating">Rate</button>
+</mat-dialog-actions>

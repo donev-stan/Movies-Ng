@@ -1,37 +1,16 @@
-<mat-card
-  class="loading-card"
-  *ngIf="!isDataReady"
-  [class.animate-card]="animate"
->
-  <mat-spinner
-    [strokeWidth]="150"
-    [diameter]="150"
-    style="border-radius: 100%"
-    [class.mat-elevation-z8]="true"
-  >
+<mat-card class="loading-card" *ngIf="!isDataReady" [class.animate-card]="animate">
+  <mat-spinner [strokeWidth]="150" [diameter]="150" style="border-radius: 100%" [class.mat-elevation-z8]="true">
   </mat-spinner>
 </mat-card>
 
 <mat-card *ngIf="isDataReady">
-  <img
-    *ngIf="item.backdrop_path"
-    class="background-img"
-    [class.animate-background]="animate"
-    [src]="'https://image.tmdb.org/t/p/original' + item.backdrop_path"
-    loading="lazy"
-  />
+  <img *ngIf="item.backdrop_path" class="background-img" [class.animate-background]="animate"
+    [src]="'https://image.tmdb.org/t/p/original' + item.backdrop_path" loading="lazy" />
 
   <div class="content">
     <div class="poster-box">
-      <mat-card
-        class="img-box"
-        [class.mat-elevation-z22]="true"
-        [class.animate-poster]="animate"
-      >
-        <img
-          [src]="'https://image.tmdb.org/t/p/w300' + item.poster_path"
-          alt=""
-        />
+      <mat-card class="img-box" [class.mat-elevation-z22]="true" [class.animate-poster]="animate">
+        <img [src]="'https://image.tmdb.org/t/p/w300' + item.poster_path" alt="" />
       </mat-card>
     </div>
     <div class="info-box">
@@ -54,21 +33,11 @@
       <div class="actions unselectable">
         <div class="score">
           <div class="score-spinner">
-            <mat-progress-spinner
-              class="background-spinner"
-              color="primary"
-              mode="determinate"
-              [value]="100"
-              [diameter]="58"
-            >
+            <mat-progress-spinner class="background-spinner" color="primary" mode="determinate" [value]="100"
+              [diameter]="58">
             </mat-progress-spinner>
-            <mat-progress-spinner
-              class="primary-spinner"
-              color="primary"
-              mode="determinate"
-              [value]="getPersentage(item.vote_average)"
-              [diameter]="58"
-            >
+            <mat-progress-spinner class="primary-spinner" color="primary" mode="determinate"
+              [value]="getPersentage(item.vote_average)" [diameter]="58">
             </mat-progress-spinner>
 
             <div class="percentage">
@@ -76,10 +45,8 @@
             </div>
           </div>
 
-          <span
-            >User <br />
-            Score</span
-          >
+          <span>User <br />
+            Score</span>
         </div>
 
         <div class="action-btns">
@@ -88,27 +55,17 @@
             <!-- <mat-icon>playlist_add_check</mat-icon> -->
           </button>
 
-          <button
-            mat-mini-fab
-            color="primary"
-            title="Mark as favourite"
-            (click)="markFavorite()"
-          >
+          <button mat-mini-fab color="primary" title="Mark as favourite" (click)="markFavorite()">
             <mat-icon>{{ favorite ? "favorite" : "favorite_border" }}</mat-icon>
           </button>
 
-          <button
-            mat-mini-fab
-            color="primary"
-            title="Add to your watchlist"
-            (click)="markWatchlist()"
-          >
+          <button mat-mini-fab color="primary" title="Add to your watchlist" (click)="markWatchlist()">
             <mat-icon>{{
               bookmarked ? "bookmark" : "bookmark_border"
-            }}</mat-icon>
+              }}</mat-icon>
           </button>
 
-          <button mat-mini-fab color="primary" title="Rate it!">
+          <button mat-mini-fab color="primary" title="Rate it!" (click)="rateItem()">
             <mat-icon>{{ rated ? "star" : "star_border" }}</mat-icon>
           </button>
         </div>
@@ -131,10 +88,3 @@
     </div>
   </div>
 </mat-card>
-
-<!-- [ngStyle]="{
-    background:
-      'url(https://image.tmdb.org/t/p/original' +
-      item.backdrop_path +
-      ')'
-  }" -->
