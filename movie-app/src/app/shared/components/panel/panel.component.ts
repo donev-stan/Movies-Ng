@@ -27,7 +27,6 @@ export class PanelComponent implements OnInit {
     this.resetPage.subscribe({
       next: () => (this.paginator.pageIndex = 0),
     });
-    console.log(this.route);
   }
 
   fetchNewPageData(event: PageEvent): void {
