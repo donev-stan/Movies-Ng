@@ -28,10 +28,7 @@ export class MovieDBService {
   }
 
   // Favorites
-  getFavorites(
-    media_type: string = 'movies',
-    page: number = 1
-  ): Observable<any> {
+  getFavorites(media_type: string, page: number = 1): Observable<any> {
     const url = this.api_url.concat(
       `/account/${this.account.account_id}/favorite/${media_type}`
     );
@@ -42,7 +39,11 @@ export class MovieDBService {
     return this.http.get(url, { params });
   }
 
-  postFavorite(media_type: string, media_id: number, favorite: boolean) {
+  postFavorite(
+    media_type: string,
+    media_id: number,
+    favorite: boolean
+  ): Observable<any> {
     const url = this.api_url.concat(
       `/account/${this.account.account_id}/favorite`
     );
@@ -57,10 +58,7 @@ export class MovieDBService {
   }
 
   // Watchlist
-  getWatchlist(
-    media_type: string = 'movies',
-    page: number = 1
-  ): Observable<any> {
+  getWatchlist(media_type: string, page: number = 1): Observable<any> {
     const url = this.api_url.concat(
       `/account/${this.account.account_id}/watchlist/${media_type}`
     );
@@ -71,7 +69,11 @@ export class MovieDBService {
     return this.http.get(url, { params });
   }
 
-  postWatchlist(media_type: string, media_id: number, watchlist: boolean) {
+  postWatchlist(
+    media_type: string,
+    media_id: number,
+    watchlist: boolean
+  ): Observable<any> {
     const url = this.api_url.concat(
       `/account/${this.account.account_id}/watchlist`
     );
@@ -86,7 +88,7 @@ export class MovieDBService {
   }
 
   // Ratings
-  getRated(media_type: string = 'movies', page: number = 1) {
+  getRated(media_type: string, page: number = 1): Observable<any> {
     const url = this.api_url.concat(
       `/account/${this.account.account_id}/rated/${media_type}`
     );
@@ -97,7 +99,11 @@ export class MovieDBService {
     return this.http.get(url, { params });
   }
 
-  postRating(media_type: string, media_id: number, rating: number) {
+  postRating(
+    media_type: string,
+    media_id: number,
+    rating: number
+  ): Observable<any> {
     const url = this.api_url.concat(`/${media_type}/${media_id}/rating`);
     const params = this.params.append('session_id', this.account.session_id);
     const body = {
@@ -107,7 +113,7 @@ export class MovieDBService {
     return this.http.post(url, body, { params });
   }
 
-  deleteRating(media_type: string, media_id: number) {
+  deleteRating(media_type: string, media_id: number): Observable<any> {
     const url = this.api_url.concat(`/${media_type}/${media_id}/rating`);
     const params = this.params.append('session_id', this.account.session_id);
 
