@@ -10,15 +10,16 @@ import { ResponseData } from '../models/response-data';
 export class MovieDBService {
   private api_url: string = 'https://api.themoviedb.org/3';
   private api_key: string = '93e30ea468c15181b1cf21a3ae6255c1';
+
+  private params = new HttpParams()
+    .set('api_key', this.api_key)
+    .set('language', 'en-US');
+
   private account: AccountData = {
     session_id: '404',
     account_id: 404,
     account_username: '404',
   };
-
-  private params = new HttpParams()
-    .set('api_key', this.api_key)
-    .set('language', 'en-US');
 
   arrayLength: number = 12;
   loggedIn: Subject<string | boolean> = new Subject();
