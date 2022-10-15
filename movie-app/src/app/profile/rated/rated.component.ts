@@ -13,6 +13,7 @@ export class RatedComponent implements OnInit {
   total_results: number = 0;
 
   private _selectedMedia: string = 'movies';
+  private _selectedSort: string = 'created_at.desc';
 
   @Output() resetPage: Subject<boolean> = new Subject();
 
@@ -28,12 +29,22 @@ export class RatedComponent implements OnInit {
     this.fetchRated();
   }
 
+  get selectedSort(): string {
+    return this._selectedSort;
+  }
+
+  set selectedSort(sortType: string) {
+    this._selectedSort = sortType;
+    this.resetPage.next(true);
+    this.fetchRated();
+  }
+
   ngOnInit(): void {
     this.fetchRated();
   }
 
   fetchRated(page?: number): void {
-    this.db.getRated(this.selectedMedia, page).subscribe({
+    this.db.getRated(this.selectedMedia, this.selectedSort, page).subscribe({
       next: (data) => {
         console.log(data);
 

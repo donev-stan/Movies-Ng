@@ -13,6 +13,7 @@ export class FavoriteComponent implements OnInit {
   total_results: number = 0;
 
   private _selectedMedia: string = 'movies';
+  private _selectedSort: string = 'created_at.desc';
 
   @Output() resetPage: Subject<boolean> = new Subject();
 
@@ -28,17 +29,31 @@ export class FavoriteComponent implements OnInit {
     this.fetchFavorites();
   }
 
+  get selectedSort(): string {
+    return this._selectedSort;
+  }
+
+  set selectedSort(sortType: string) {
+    this._selectedSort = sortType;
+    this.resetPage.next(true);
+    this.fetchFavorites();
+  }
+
   ngOnInit(): void {
     this.fetchFavorites();
   }
 
   fetchFavorites(page?: number): void {
-    this.db.getFavorites(this.selectedMedia, page).subscribe({
-      next: (data) => {
-        this.items = data.results;
-        this.total_pages = data.total_pages;
-        this.total_results = data.total_results;
-      },
-    });
+    this.db
+      .getFavorites(this.selectedMedia, this.selectedSort, page)
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+
+          this.items = data.results;
+          this.total_pages = data.total_pages;
+          this.total_results = data.total_results;
+        },
+      });
   }
 }
