@@ -13,6 +13,7 @@ export class PanelComponent implements OnInit {
   @Input() items: any[] = [];
   // @Input() total_pages: number = 1;
   @Input() total_results: number = 0;
+  @Input() @Output() route: string = '';
 
   @Input() resetPage: Subject<boolean> = new Subject();
   @Input() media_type: string = '';
@@ -26,6 +27,7 @@ export class PanelComponent implements OnInit {
     this.resetPage.subscribe({
       next: () => (this.paginator.pageIndex = 0),
     });
+    console.log(this.route);
   }
 
   fetchNewPageData(event: PageEvent): void {

@@ -18,11 +18,7 @@
       <div class="section-content">
         <app-loading-spinner *ngIf="!items.length"></app-loading-spinner>
 
-        <app-card
-          *ngFor="let item of items"
-          [item]="item"
-          [media_type]="media_type"
-        ></app-card>
+        <app-card *ngFor="let item of items" [item]="item" [media_type]="media_type" [route]="route"></app-card>
       </div>
     </mat-drawer-content>
   </mat-drawer-container>
@@ -39,12 +35,8 @@
     </div>
 
     <div class="pagination-box">
-      <mat-paginator
-        [length]="total_results ? total_results : items.length * 10"
-        [pageSize]="items.length"
-        (page)="fetchNewPageData($event)"
-        #paginator
-      >
+      <mat-paginator [length]="total_results ? total_results : items.length * 10" [pageSize]="items.length"
+        (page)="fetchNewPageData($event)" #paginator>
       </mat-paginator>
     </div>
   </div>

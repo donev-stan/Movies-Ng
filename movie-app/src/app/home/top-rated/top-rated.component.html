@@ -1,13 +1,6 @@
-<app-panel
-  title="Top Rated"
-  description="Get a list of the top rated movies or TV shows on TMDB."
-  [items]="topRated"
-  (fetchNewPage)="fetchTopRated($event)"
-  [resetPage]="resetPage"
-  [media_type]="selectedMedia"
-  [media_type]="selectedMedia"
-  [total_results]="totalResults"
->
+<app-panel title="Top Rated" description="Get a list of the top rated movies or TV shows on TMDB." [items]="topRated"
+  (fetchNewPage)="fetchTopRated($event)" [resetPage]="resetPage" [media_type]="selectedMedia"
+  [media_type]="selectedMedia" [total_results]="totalResults" route="/home">
   <ng-container ngProjectAs="filters">
     <mat-form-field appearance="outline">
       <mat-label>Media Type</mat-label>
@@ -20,16 +13,10 @@
 
   <ng-container ngProjectAs="filter-chips">
     <mat-chip-list [disabled]="false" [multiple]="false">
-      <mat-chip
-        (click)="selectedMedia !== 'movie' ? (selectedMedia = 'movie') : null"
-        [selected]="selectedMedia == 'movie'"
-        >Movies</mat-chip
-      >
-      <mat-chip
-        (click)="selectedMedia !== 'tv' ? (selectedMedia = 'tv') : null"
-        [selected]="selectedMedia == 'tv'"
-        >Shows</mat-chip
-      >
+      <mat-chip (click)="selectedMedia !== 'movie' ? (selectedMedia = 'movie') : null"
+        [selected]="selectedMedia == 'movie'">Movies</mat-chip>
+      <mat-chip (click)="selectedMedia !== 'tv' ? (selectedMedia = 'tv') : null" [selected]="selectedMedia == 'tv'">
+        Shows</mat-chip>
     </mat-chip-list>
   </ng-container>
 </app-panel>

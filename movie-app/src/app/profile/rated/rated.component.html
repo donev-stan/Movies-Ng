@@ -1,6 +1,6 @@
 <app-panel title="Rated" description="List of all the movies and shows you have rated." [items]="items"
     [total_results]="total_results" (fetchNewPage)="fetchRated($event)" [resetPage]="resetPage"
-    [media_type]="selectedMedia">
+    [media_type]="selectedMedia === 'movies' ? 'movie' : selectedMedia" route="/profile">
     <ng-container ngProjectAs="filters">
         <mat-form-field appearance="fill">
             <mat-label>Media Type</mat-label>

@@ -1,12 +1,6 @@
-<app-panel
-  title="Popular"
-  description="Get a list of the current popular movies, shows or people on TMDB. "
-  [items]="popularItems"
-  (fetchNewPage)="fetchTopRated($event)"
-  [resetPage]="resetPage"
-  [media_type]="selectedMedia"
-  [total_results]="totalResults"
->
+<app-panel title="Popular" description="Get a list of the current popular movies, shows or people on TMDB. "
+  [items]="popularItems" (fetchNewPage)="fetchTopRated($event)" [resetPage]="resetPage" [media_type]="selectedMedia"
+  [total_results]="totalResults" route="/home">
   <ng-container ngProjectAs="filters">
     <mat-form-field appearance="outline">
       <mat-label>Media Type</mat-label>
@@ -20,21 +14,12 @@
 
   <ng-container ngProjectAs="filter-chips">
     <mat-chip-list [disabled]="false" [multiple]="false">
-      <mat-chip
-        (click)="selectedMedia !== 'movie' ? (selectedMedia = 'movie') : null"
-        [selected]="selectedMedia == 'movie'"
-        >Movies</mat-chip
-      >
-      <mat-chip
-        (click)="selectedMedia !== 'tv' ? (selectedMedia = 'tv') : null"
-        [selected]="selectedMedia == 'tv'"
-        >Shows</mat-chip
-      >
-      <mat-chip
-        (click)="selectedMedia !== 'person' ? (selectedMedia = 'person') : null"
-        [selected]="selectedMedia == 'person'"
-        >People</mat-chip
-      >
+      <mat-chip (click)="selectedMedia !== 'movie' ? (selectedMedia = 'movie') : null"
+        [selected]="selectedMedia == 'movie'">Movies</mat-chip>
+      <mat-chip (click)="selectedMedia !== 'tv' ? (selectedMedia = 'tv') : null" [selected]="selectedMedia == 'tv'">
+        Shows</mat-chip>
+      <mat-chip (click)="selectedMedia !== 'person' ? (selectedMedia = 'person') : null"
+        [selected]="selectedMedia == 'person'">People</mat-chip>
     </mat-chip-list>
   </ng-container>
 </app-panel>
