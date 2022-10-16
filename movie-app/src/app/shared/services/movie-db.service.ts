@@ -28,6 +28,18 @@ export class MovieDBService {
     this.checkLoggedIn();
   }
 
+  // Lists
+  postList(name: string, description: string) {
+    const url = this.api_url.concat('/list');
+    const params = this.params.append('session_id', this.account.session_id);
+    const body = {
+      name,
+      description,
+    };
+
+    return this.http.post(url, body, { params });
+  }
+
   // Favorites
   // --- media_type: (movies, tv)
   getFavorites(
@@ -141,6 +153,15 @@ export class MovieDBService {
     const params = this.params.append('session_id', this.account.session_id);
 
     return this.http.delete(url, { params });
+  }
+
+  getAccountStates(media_type: string, media_id: string): Observable<any> {
+    const url = this.api_url.concat(
+      `/${media_type}/${media_id}/account_states`
+    );
+    const params = this.params.append('session_id', this.account.session_id);
+
+    return this.http.get(url, { params });
   }
 
   // Authentication

@@ -26,7 +26,7 @@ const routes: Routes = [
     component: BrowseComponent,
   },
   {
-    path: 'details',
+    path: 'details/:type/:id',
     component: DetailsComponent,
   },
   {

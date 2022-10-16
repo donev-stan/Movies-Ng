@@ -51,9 +51,7 @@ export class PreviewComponent implements OnInit {
             this.item = data;
 
             if (this.loggedIn) {
-              this.checkFavorite();
-              this.checkWatchlist();
-              this.checkRating();
+              this.checkStates();
             }
 
             setTimeout(() => {
@@ -68,9 +66,7 @@ export class PreviewComponent implements OnInit {
             this.item = data.results[0];
 
             if (this.loggedIn) {
-              this.checkFavorite();
-              this.checkWatchlist();
-              this.checkRating();
+              this.checkStates();
             }
 
             setTimeout(() => {
@@ -95,20 +91,21 @@ export class PreviewComponent implements OnInit {
     return Math.round((vote / 10) * 100);
   }
 
-  // Favorite
-  checkFavorite(): void {
-    this.db
-      .getFavorites(this.media_type === 'movie' ? 'movies' : 'tv')
-      .subscribe({
-        next: (data) => {
-          const notUndefined = data.results.find(
-            (favoriteItem: any) => favoriteItem.id === this.item.id
-          );
-
-          if (notUndefined) this.favorite = true;
-          else this.favorite = false;
-        },
-      });
+  checkStates(): void {
+    this.db.getAccountStates(this.media_type, this.item.id).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.favorite = data.favorite;
+        this.bookmarked = data.watchlist;
+        if (data.rated) {
+          this.rated = true;
+          this.ratingValue = data.rated.value;
+        } else {
+          this.rated = false;
+          this.ratingValue = 0;
+        }
+      },
+    });
   }
 
   markFavorite(): void {
@@ -123,23 +120,22 @@ export class PreviewComponent implements OnInit {
       .postFavorite(this.media_type, this.item.id, this.favorite)
       .subscribe({
         next: (response: any) => {
-          if (!response.success) this.favorite = !this.favorite;
-        },
-      });
-  }
+          if (!response.success) {
+            this.favorite = !this.favorite;
+            this.snackBar.open('There was an error!', '', {
+              duration: 3000,
+            });
+          }
 
-  // Watchlist
-  checkWatchlist(): void {
-    this.db
-      .getWatchlist(this.media_type === 'movie' ? 'movies' : 'tv')
-      .subscribe({
-        next: (data) => {
-          const notUndefined = data.results.find(
-            (favoriteItem: any) => favoriteItem.id === this.item.id
+          this.snackBar.open(
+            `Successfully ${
+              this.favorite ? 'added to' : 'removed from'
+            } your favorites!`,
+            '',
+            {
+              duration: 3000,
+            }
           );
-
-          if (notUndefined) this.bookmarked = true;
-          else this.bookmarked = false;
         },
       });
   }
@@ -158,27 +154,24 @@ export class PreviewComponent implements OnInit {
         next: (response: any) => {
           console.log(response);
 
-          if (!response.success) this.bookmarked = !this.bookmarked;
+          if (!response.success) {
+            this.bookmarked = !this.bookmarked;
+            this.snackBar.open('There was an error!', '', {
+              duration: 3000,
+            });
+          }
+
+          this.snackBar.open(
+            `Successfully ${
+              this.bookmarked ? 'added to' : 'removed from'
+            } your watchlist!`,
+            '',
+            {
+              duration: 3000,
+            }
+          );
         },
       });
-  }
-
-  // Rating
-  checkRating(): void {
-    this.db.getRated(this.media_type === 'movie' ? 'movies' : 'tv').subscribe({
-      next: (data: any) => {
-        const notUndefined = data.results.find(
-          (ratedItem: any) => ratedItem.id === this.item.id
-        );
-
-        if (notUndefined) {
-          this.rated = true;
-          this.ratingValue = notUndefined.rating;
-        } else {
-          this.rated = false;
-        }
-      },
-    });
   }
 
   rateItem(): void {
