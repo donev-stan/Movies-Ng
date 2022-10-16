@@ -10,13 +10,20 @@ import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 })
 export class FiltersComponent implements OnInit {
   @Output() search: Subject<any> = new Subject();
-  @ViewChild('genresList') genresList: any;
+  searchFilters: FormGroup;
+  discoverFilters: FormGroup;
+  mode: 'discover' | 'search' = 'search';
   genres: any[] = [];
-  filtersForm: FormGroup;
+
+  @ViewChild('drawer') drawer: any;
 
   constructor(private db: MovieDBService) {
-    this.filtersForm = new FormGroup({
+    this.searchFilters = new FormGroup({
       query: new FormControl(''),
+      selectedMedia: new FormControl('multi'),
+    });
+
+    this.discoverFilters = new FormGroup({
       selectedSort: new FormControl('popularity.desc'),
       selectedMedia: new FormControl('movie'),
       selectedGenres: new FormControl([]),
@@ -31,20 +38,16 @@ export class FiltersComponent implements OnInit {
     });
   }
 
-  onSearch(): void {
-    // Extract Selected Genres
-    (<FormArray>this.filtersForm.controls['selectedGenres']).setValue(
-      this.genresList.selectedOptions.selected.map(
-        (option: any) => option.value
-      )
-    );
-
-    console.log(this.filtersForm.value);
-
-    this.search.next(this.filtersForm.value);
+  changeMode(mode: 'search' | 'discover'): void {
+    this.mode = mode;
+    this.drawer.toggle();
   }
 
-  updateSelectedGenres(event: any): void {
-    // console.log(event.options[0].selectionList['value']);
+  onSearch(): void {
+    if (this.mode === 'discover') {
+      this.search.next(this.discoverFilters.value);
+    } else if (this.mode === 'search') {
+      this.search.next({ ...this.searchFilters.value, mode: this.mode });
+    }
   }
 }

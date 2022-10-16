@@ -290,7 +290,7 @@ export class MovieDBService {
     return this.http.get(url, { params }).pipe(
       map((response: any) => ({
         ...response,
-        results: response.results.slice(0, this.arrayLength),
+        // results: response.results.slice(0, this.arrayLength),
       }))
     );
   }
@@ -305,7 +305,7 @@ export class MovieDBService {
     return this.http.get(url, { params }).pipe(
       map((response: any) => ({
         ...response,
-        results: response.results.slice(0, this.arrayLength),
+        // results: response.results.slice(0, this.arrayLength),
       }))
     );
   }
@@ -320,22 +320,9 @@ export class MovieDBService {
     return this.http.get(url, { params }).pipe(
       map((response: any) => ({
         ...response,
-        results: response.results.slice(0, this.arrayLength),
+        // results: response.results.slice(0, this.arrayLength),
       }))
     );
-  }
-
-  discover(searchFilters: any, page: number = 1): Observable<any> {
-    const url = this.api_url.concat(`/search/${searchFilters.selectedMedia}`);
-    const params = this.params
-      .append('query', searchFilters.query)
-      .append('page', page)
-      .append('sort_by', searchFilters.selectedSort)
-      .append('with_genres', searchFilters.selectedGenres);
-
-    return this.http
-      .get(url, { params })
-      .pipe(tap((data) => console.log(data)));
   }
 
   getGenres(
@@ -356,20 +343,26 @@ export class MovieDBService {
     // .pipe(tap((response) => console.log(response)));
   }
 
-  // Not in use
-  multiSearch(
-    query: string,
-    media_type: string,
-    page: number = 1
-  ): Observable<any> {
-    const url = this.api_url.concat(`/search/${media_type}`);
+  discover(searchFilters: any, page: number = 1): Observable<any> {
+    const url = this.api_url.concat(`/discover/${searchFilters.selectedMedia}`);
     const params = this.params
-      .append('query', query)
       .append('page', page)
-      .append('include_adult', true);
+      .append('sort_by', searchFilters.selectedSort)
+      .append('with_genres', searchFilters.selectedGenres.join(','));
 
     return this.http
       .get(url, { params })
-      .pipe(tap((response) => console.log(response)));
+      .pipe(tap((data) => console.log(data)));
+  }
+
+  search(
+    query: string,
+    media_type: string = 'multi',
+    page: number = 1
+  ): Observable<any> {
+    const url = this.api_url.concat(`/search/${media_type}`);
+    const params = this.params.append('query', query).append('page', page);
+
+    return this.http.get(url, { params });
   }
 }

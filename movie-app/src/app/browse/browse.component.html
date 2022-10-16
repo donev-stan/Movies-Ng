@@ -1,21 +1,37 @@
 <div class="container">
-  <app-filters (search)="searchRequest($event)"></app-filters>
+  <div class="filters-box">
+    <mat-form-field appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput autocomplete="off" [(ngModel)]="query" />
+      <button matSuffix mat-icon-button aria-label="Clear" *ngIf="query" (click)="query=''">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Media Type</mat-label>
+      <mat-select [(ngModel)]="selectedMedia">
+        <mat-option value="multi">All</mat-option>
+        <mat-option value="movie">Movies</mat-option>
+        <mat-option value="tv">Shows</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="fetchNewPageData()" [disabled]="!query">
+      <mat-icon>search</mat-icon> Search
+    </button>
+  </div>
 
   <div class="results-box">
     <div class="results">
-      <!-- <app-card [items]="searchResults"></app-card> -->
+      <app-card *ngFor="let item of searchResults" [item]="item" route="/details"
+        [media_type]="item.title ? 'movie' : 'tv'">
+      </app-card>
     </div>
 
-    <div
-      class="pagination-box"
-      [style]="searchResults.length === 0 ? 'opacity: 0;' : null"
-    >
-      <mat-paginator
-        [length]="totalResults"
-        [pageSize]="searchResults.length"
-        (page)="fetchNewPageData($event)"
-        #paginator
-      >
+    <div class=" pagination-box" [style]="searchResults.length === 0 ? 'opacity: 0;' : null">
+      <mat-paginator [length]="totalResults" [pageSize]="searchResults.length" (page)="fetchNewPageData($event)"
+        #paginator>
       </mat-paginator>
     </div>
   </div>

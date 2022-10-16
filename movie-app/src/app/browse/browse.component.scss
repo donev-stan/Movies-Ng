@@ -1,8 +1,30 @@
 .container {
   max-width: 1760px;
   margin: auto;
-
   gap: 20px;
+}
+
+.filters-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+
+  mat-form-field {
+    margin-bottom: -15px;
+    width: 100%;
+
+    mat-label,
+    input {
+      font-size: 0.9rem;
+      color: #e7e7e7;
+    }
+
+    mat-icon {
+      color: #e7e7e7;
+    }
+  }
 }
 
 .results-box {
@@ -15,6 +37,9 @@
   .results {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    padding-bottom: 20px;
   }
 
   .pagination-box {
@@ -25,5 +50,9 @@
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
+
+    .filters-box {
+      margin: 20px auto;
+    }
   }
 }

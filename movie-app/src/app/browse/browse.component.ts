@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Subject } from 'rxjs';
 import { MovieDBService } from '../shared/services/movie-db.service';
 
 @Component({
@@ -13,45 +12,34 @@ export class BrowseComponent implements OnInit {
   totalPages: number = 0;
   totalResults: number = 0;
 
-  searchFilters: any = {};
+  query: string = '';
+  selectedMedia: string = 'multi';
 
   @ViewChild('paginator') paginator: any;
 
   constructor(private db: MovieDBService) {}
 
   ngOnInit(): void {
-    // this.db.getTopRated().subscribe({
-    //   next: (response) => {
-    //     console.log(response);
-    //   },
-    // });
-  }
-
-  searchRequest(event: any): void {
-    this.searchFilters = event;
-    this.paginator.pageIndex = 0;
-
-    this.fetchNewPageData();
+    this.db.getPopular().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.searchResults = response.results;
+        // this.totalPages = response.total_pages;
+        // this.totalResults = response.total_results;
+      },
+    });
   }
 
   fetchNewPageData(event?: PageEvent): void {
     this.searchResults = [];
     const page = event ? event.pageIndex + 1 : 1;
 
-    this.db.discover(this.searchFilters, page).subscribe({
+    this.db.search(this.query, this.selectedMedia, page).subscribe({
       next: (response: any) => {
         this.searchResults = response.results;
         this.totalPages = response.total_pages;
         this.totalResults = response.total_results;
       },
     });
-
-    // this.db.multiSearch(this.query, this.selectedMedia, page).subscribe({
-    //   next: (response) => {
-    //     this.searchResults = response.results;
-    //     this.totalPages = response.total_pages;
-    //     this.totalResults = response.total_results;
-    //   },
-    // });
   }
 }

@@ -1,7 +1,6 @@
-<mat-card class="card" [routerLink]="" [title]="item.title || item.name" [class.mat-elevation-z8]="true" [routerLink]="
-    media_type !== 'person'
-      ? [route, media_type !== 'all' ? media_type : item.media_type, item.id]
-      : []
+<mat-card class="card" [title]="item.title || item.name" [class.mat-elevation-z8]="!item.nothing_found"
+  [class.mat-elevation-z0]="item.nothing_found" [routerLink]="
+  defineRoute()
   ">
   <div class="avg-vote-box" *ngIf="item.vote_average" [title]="'Vote: ' + item.vote_average">
     <img src="/assets/images/avg_vote.png" class="avg-vote-img" alt="" />
@@ -20,7 +19,9 @@
   </ng-template>
 
   <ng-template #errorImg>
-    <div *ngIf="!item.poster_path && !item.profile_path" class="img-404"></div>
+    <div *ngIf="!item.poster_path && !item.profile_path" class="img-404" [class.nothing-found]="item.nothing_found">
+      <span class="nothing_found_text" *ngIf="item.nothing_found">Nothing Found</span>
+    </div>
   </ng-template>
 
   <p *ngIf="item.gender" class="item-name">{{ item.name }}</p>
