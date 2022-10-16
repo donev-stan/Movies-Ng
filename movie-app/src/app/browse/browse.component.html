@@ -29,7 +29,7 @@
       </app-card>
     </div>
 
-    <div class=" pagination-box" [style]="searchResults.length === 0 ? 'opacity: 0;' : null">
+    <div class="pagination-box" [style]="searchResults.length === 0 ? 'opacity: 0;' : null">
       <mat-paginator [length]="totalResults" [pageSize]="searchResults.length" (page)="fetchNewPageData($event)"
         #paginator>
       </mat-paginator>
