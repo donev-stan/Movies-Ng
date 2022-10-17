@@ -1,0 +1,14 @@
+<mat-expansion-panel *ngFor="let list of lists">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <h2 class="section-heading">{{list.name}}</h2>
+        </mat-panel-title>
+        <mat-panel-description>
+            {{list.description}}
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="section-content">
+        <app-card *ngFor="let item of list.items"></app-card>
+    </div>
+</mat-expansion-panel>

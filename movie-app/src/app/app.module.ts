@@ -21,11 +21,12 @@ import { ProfileComponent } from './profile/profile.component';
 import { FavoriteComponent } from './profile/favorite/favorite.component';
 import { RatedComponent } from './profile/rated/rated.component';
 import { WatchlistComponent } from './profile/watchlist/watchlist.component';
-import { MyListComponent } from './profile/my-list/my-list.component';
 import { CardComponent } from './shared/components/card/card.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { PanelComponent } from './shared/components/panel/panel.component';
 import { RateItemDialogComponent } from './rate-item-dialog/rate-item-dialog.component';
+import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
+import { ListsComponent } from './profile/lists/lists.component';
 
 @NgModule({
   declarations: [
@@ -44,11 +45,12 @@ import { RateItemDialogComponent } from './rate-item-dialog/rate-item-dialog.com
     FavoriteComponent,
     RatedComponent,
     WatchlistComponent,
-    MyListComponent,
     CardComponent,
     LoadingSpinnerComponent,
     PanelComponent,
     RateItemDialogComponent,
+    ProfileInfoComponent,
+    ListsComponent,
   ],
   imports: [
     BrowserModule,

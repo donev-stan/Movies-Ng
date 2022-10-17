@@ -40,6 +40,21 @@ export class MovieDBService {
     return this.http.post(url, body, { params });
   }
 
+  getLists() {
+    const url = this.api_url.concat(
+      `/account/${this.account.account_id}/lists`
+    );
+    const params = this.params.append('session_id', this.account.session_id);
+
+    return this.http.get(url, { params });
+  }
+
+  getListDetails(listId: number) {
+    const url = this.api_url.concat(`/list/${listId}`);
+
+    return this.http.get(url, { params: this.params });
+  }
+
   // Favorites
   // --- media_type: (movies, tv)
   getFavorites(
