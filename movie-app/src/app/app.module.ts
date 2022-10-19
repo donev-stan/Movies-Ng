@@ -26,6 +26,7 @@ import { PanelComponent } from './shared/components/panel/panel.component';
 import { RateItemDialogComponent } from './rate-item-dialog/rate-item-dialog.component';
 import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
 import { ListsComponent } from './profile/lists/lists.component';
+import { DiscoverComponent } from './home/discover/discover.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ListsComponent } from './profile/lists/lists.component';
     RateItemDialogComponent,
     ProfileInfoComponent,
     ListsComponent,
+    DiscoverComponent,
   ],
   imports: [
     BrowserModule,

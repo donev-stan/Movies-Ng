@@ -94,7 +94,6 @@ export class PreviewComponent implements OnInit {
   checkStates(): void {
     this.db.getAccountStates(this.media_type, this.item.id).subscribe({
       next: (data) => {
-        console.log(data);
         this.favorite = data.favorite;
         this.bookmarked = data.watchlist;
         if (data.rated) {

@@ -345,6 +345,8 @@ export class MovieDBService {
   ): Observable<{ id: number; name: string }[]> {
     const url = this.api_url.concat(`/genre/${media_type}/list`);
 
+    console.log(url);
+
     return this.http
       .get(url, { params: this.params })
       .pipe(map((response: any) => response.genres));
@@ -365,9 +367,7 @@ export class MovieDBService {
       .append('sort_by', searchFilters.selectedSort)
       .append('with_genres', searchFilters.selectedGenres.join(','));
 
-    return this.http
-      .get(url, { params })
-      .pipe(tap((data) => console.log(data)));
+    return this.http.get(url, { params });
   }
 
   search(
