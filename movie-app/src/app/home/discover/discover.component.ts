@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 import { MovieDBService } from 'src/app/shared/services/movie-db.service';
 
 @Component({
@@ -11,8 +12,8 @@ export class DiscoverComponent implements OnInit {
   genres: any[] = [];
   filtersForm: FormGroup;
   items: any[] = [];
-  totalPages: number = 0;
   totalResults: number = 0;
+  @Output() resetPage: Subject<boolean> = new Subject();
 
   constructor(private db: MovieDBService) {
     this.filtersForm = new FormGroup({
@@ -22,8 +23,8 @@ export class DiscoverComponent implements OnInit {
     });
 
     this.filtersForm.valueChanges.subscribe((filterValues: any) => {
-      console.log(filterValues);
-      this.fetchResults(filterValues);
+      this.resetPage.next(true);
+      this.fetchResults();
     });
 
     this.filtersForm
@@ -34,16 +35,14 @@ export class DiscoverComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchResults(this.filtersForm.value);
-    this.fetchGenres('');
+    this.fetchResults();
+    this.fetchGenres('movie');
   }
 
-  fetchResults(filterValues: FormGroup): void {
-    this.db.discover(filterValues).subscribe({
+  fetchResults(page?: number): void {
+    this.db.discover(this.filtersForm.value, page).subscribe({
       next: (response) => {
-        console.log(response);
         this.items = response.results;
-        this.totalPages = response.total_pages;
         this.totalResults = response.total_results;
       },
     });
@@ -52,8 +51,6 @@ export class DiscoverComponent implements OnInit {
   fetchGenres(media: string): void {
     this.db.getGenres(media).subscribe({
       next: (genres) => {
-        console.log(genres);
-
         this.genres = genres;
       },
     });

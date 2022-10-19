@@ -1,4 +1,6 @@
-<app-panel title="Discover" description="Discover movies and shows by search criteria." route="/home" [items]="items">
+<app-panel title="Discover" description="Discover movies and shows by search criteria." route="/home" [items]="items"
+    [media_type]="filtersForm.value.selectedMedia" [total_results]="totalResults" (fetchNewPage)="fetchResults($event)"
+    [resetPage]="resetPage">
     <ng-container ngProjectAs="filters" [formGroup]="filtersForm">
 
         <!-- Media Type -->
@@ -65,7 +67,11 @@
 
     </ng-container>
 
-    <ng-container ngProjectAs="filter-chips">
-
-    </ng-container>
+    <!-- <ng-container ngProjectAs="filter-chips">
+        <mat-chip-list [disabled]="true" [multiple]="true">
+            <mat-chip>{{filtersForm.get('selectedMedia')?.value}}</mat-chip>
+            <mat-chip>{{filtersForm.get('selectedSort')?.value}}</mat-chip>
+            <mat-chip>{{filtersForm.get('selectedGenres')?.value}}</mat-chip>
+        </mat-chip-list>
+    </ng-container> -->
 </app-panel>

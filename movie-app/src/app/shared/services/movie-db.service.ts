@@ -361,6 +361,9 @@ export class MovieDBService {
   }
 
   discover(searchFilters: any, page: number = 1): Observable<any> {
+    console.log(searchFilters);
+    console.log(searchFilters.selectedMedia);
+
     const url = this.api_url.concat(`/discover/${searchFilters.selectedMedia}`);
     const params = this.params
       .append('page', page)
