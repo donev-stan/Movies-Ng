@@ -11,6 +11,8 @@
   gap: 10px;
   width: 300px;
 
+  animation: FiltersEnter 0.8s ease 0s 1 normal forwards;
+
   mat-form-field {
     margin-bottom: -15px;
     width: 100%;
@@ -54,5 +56,17 @@
     .filters-box {
       margin: 20px auto;
     }
+  }
+}
+
+@keyframes FiltersEnter {
+  0% {
+    opacity: 0;
+    transform: translateX(-250px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

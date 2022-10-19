@@ -16,7 +16,6 @@ import { TopRatedComponent } from './home/top-rated/top-rated.component';
 import { PopularComponent } from './home/popular/popular.component';
 import { PreviewComponent } from './shared/components/preview/preview.component';
 import { LoginComponent } from './login/login.component';
-import { FiltersComponent } from './browse/filters/filters.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FavoriteComponent } from './profile/favorite/favorite.component';
 import { RatedComponent } from './profile/rated/rated.component';
@@ -40,7 +39,6 @@ import { ListsComponent } from './profile/lists/lists.component';
     PopularComponent,
     PreviewComponent,
     LoginComponent,
-    FiltersComponent,
     ProfileComponent,
     FavoriteComponent,
     RatedComponent,
