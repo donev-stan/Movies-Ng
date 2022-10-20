@@ -15,8 +15,6 @@ export class RateItemDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data.ratingValue);
-
     this.rating = this.data.ratingValue;
   }
 

@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+
+<mat-dialog-content>
+    {{data.message}}
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-flat-button color="accent" (click)="onResponse(false)">{{data.actions.secondary.text}}</button>
+    <button mat-flat-button color="primary" (click)="onResponse(true)">{{data.actions.main.text}}</button>
+</mat-dialog-actions>

@@ -5,8 +5,8 @@
     </mat-slider>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-    <button mat-flat-button color="warn" (click)="clearRating()">Clear</button>
+<mat-dialog-actions>
+    <button mat-flat-button color="warn" (click)="clearRating()" *ngIf="rating !== 0">Clear</button>
     <button mat-flat-button color="accent" (click)="cancelRating()">Cancel</button>
     <button mat-flat-button color="primary" (click)="postRating()" [disabled]="!rating">Rate</button>
 </mat-dialog-actions>

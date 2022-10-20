@@ -13,8 +13,6 @@ export class DetailsComponent implements OnInit {
       const media_type = params['type'];
       const media_id = params['id'];
 
-      console.log(media_type, media_id);
-
       db.getSingle(media_type, media_id).subscribe({
         next: (data) => {
           console.log(data);

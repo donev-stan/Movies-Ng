@@ -27,6 +27,7 @@ import { RateItemDialogComponent } from './rate-item-dialog/rate-item-dialog.com
 import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
 import { ListsComponent } from './profile/lists/lists.component';
 import { DiscoverComponent } from './home/discover/discover.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { DiscoverComponent } from './home/discover/discover.component';
     ProfileInfoComponent,
     ListsComponent,
     DiscoverComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,

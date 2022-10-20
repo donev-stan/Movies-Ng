@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { MovieDBService } from '../shared/services/movie-db.service';
 
 @Component({
@@ -45,8 +46,27 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout(): void {
-    this.db.logout().then((success) => {
-      this.router.navigate(['/login']);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Logout',
+        message: 'Are you sure you want to log out?',
+        actions: {
+          main: {
+            text: 'Logout',
+          },
+          secondary: {
+            text: 'Cancel',
+          },
+        },
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmation) => {
+      if (confirmation) {
+        this.db.logout().then((success) => {
+          this.router.navigate(['/login']);
+        });
+      }
     });
   }
 }
