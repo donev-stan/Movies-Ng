@@ -358,6 +358,36 @@ export class MovieDBService {
     // .pipe(tap((response) => console.log(response)));
   }
 
+  getKeywords(media_type: string, media_id: string): Observable<any> {
+    const url = this.api_url.concat(`/${media_type}/${media_id}/keywords`);
+
+    return this.http.get(url, { params: this.params });
+  }
+
+  getRecommendations(
+    media_type: string,
+    media_id: string,
+    page: number = 1
+  ): Observable<any> {
+    const url = this.api_url.concat(
+      `/${media_type}/${media_id}/recommendations`
+    );
+
+    return this.http.get(url, { params: this.params });
+  }
+
+  getImages(media_type: string, media_id: string): Observable<any> {
+    const url = this.api_url.concat(`/${media_type}/${media_id}/images`);
+
+    return this.http.get(url, { params: this.params });
+  }
+
+  getReviews(media_type: string, media_id: string): Observable<any> {
+    const url = this.api_url.concat(`/${media_type}/${media_id}/reviews`);
+
+    return this.http.get(url, { params: this.params });
+  }
+
   discover(searchFilters: any, page: number = 1): Observable<any> {
     const url = this.api_url.concat(`/discover/${searchFilters.selectedMedia}`);
     const params = this.params

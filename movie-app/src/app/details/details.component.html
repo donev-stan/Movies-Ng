@@ -1,3 +1,71 @@
 <div class="container">
     <app-preview></app-preview>
+
+    <div class="content">
+        <div class="main" *ngIf="dataReady()">
+            <app-panel title="Recommendations" [total_results]="recommendations.total_results"
+                [items]="recommendations.results" route="/details" [media_type]="media_type" [hideFiltersBtn]="true"
+                (fetchNewPage)="fetchRecommendationsData($event)">
+            </app-panel>
+
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Review
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+
+                    <mat-card [class.mat-elevation-z20]="true">
+                        <mat-card-subtitle>Date</mat-card-subtitle>
+                        <mat-card-title>Author name</mat-card-title>
+                        <mat-card-content>Review</mat-card-content>
+                    </mat-card>
+
+                    <mat-card [class.mat-elevation-z20]="true">
+                        <mat-card-subtitle>Date</mat-card-subtitle>
+                        <mat-card-title>Author name</mat-card-title>
+                        <mat-card-content>Review</mat-card-content>
+                    </mat-card>
+
+                    <mat-card [class.mat-elevation-z20]="true">
+                        <mat-card-subtitle>Date</mat-card-subtitle>
+                        <mat-card-title>Author name</mat-card-title>
+                        <mat-card-content>Review</mat-card-content>
+                    </mat-card>
+
+                    <mat-card [class.mat-elevation-z20]="true">
+                        <mat-card-subtitle>Date</mat-card-subtitle>
+                        <mat-card-title>Author name</mat-card-title>
+                        <mat-card-content>Review</mat-card-content>
+                    </mat-card>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+        </div>
+        <div class="side">
+            <div class="facts">
+                <mat-card>
+                    <mat-card-content>
+                        <div><span>Status: </span> {{ item.status }}</div>
+                        <div><span>Original Language: </span>{{ item.original_language }}</div>
+                        <div><span>Budget: </span> {{ item.budget | currency }}</div>
+                        <div><span>Revenue: </span> {{ item.revenue | currency }}</div>
+                        <div><span>Vote Count: </span> {{ item.vote_count | number }}</div>
+                        <div *ngIf="item.homepage !== ''"><span>Homepage: </span> <a [href]="item.homepage"
+                                target="_blank">Website Link</a></div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+
+            <div class="keywords">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let keyword of keywords.keywords">{{keyword.name}}</mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+    </div>
+
+
 </div>

@@ -24,7 +24,7 @@
   </mat-drawer-container>
 
   <div class="footer">
-    <div class="filters-btn-box">
+    <div class="filters-btn-box" *ngIf="!hideFiltersBtn">
       <button mat-flat-button color="accent" (click)="drawer.toggle()">
         Toggle Filters
       </button>

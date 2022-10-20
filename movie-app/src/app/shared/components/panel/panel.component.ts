@@ -21,6 +21,8 @@ export class PanelComponent implements OnInit {
   @Output() fetchNewPage: Subject<number> = new Subject();
   @ViewChild('paginator') paginator: any;
 
+  @Input() hideFiltersBtn: boolean = false;
+
   constructor() {}
 
   ngOnInit(): void {
