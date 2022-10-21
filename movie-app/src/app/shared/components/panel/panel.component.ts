@@ -24,6 +24,8 @@ export class PanelComponent implements OnInit {
     pageSize: 0,
   };
 
+  @Input() height: string = 'auto';
+
   // To nbe removed
   @Input() items: any[] = [];
   @Input() media_type: string = '';

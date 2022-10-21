@@ -7,43 +7,58 @@
         <app-panel
           *ngIf="recommendations.results.length"
           title="Recommendations"
-          [total_results]="recommendations.total_results"
-          [items]="recommendations.results"
-          route="/details"
-          [media_type]="media_type"
           [hideFiltersBtn]="true"
           (fetchNewPage)="fetchRecommendationsData($event)"
+          [paginatorData]="{
+            length: recommendations.total_results,
+            pageSize: recommendations.results.length
+          }"
+          height="585px"
         >
+          <ng-container ngProjectAs="panel-content">
+            <app-loading-spinner
+              *ngIf="!recommendations.results.length"
+            ></app-loading-spinner>
+
+            <app-card
+              *ngFor="let item of recommendations.results"
+              [item]="item"
+              [media_type]="media_type"
+              route="/details"
+            ></app-card>
+          </ng-container>
         </app-panel>
       </div>
 
       <div class="reviews" *ngIf="dataReady(reviews)">
-        <mat-expansion-panel
-          *ngIf="reviews.results.length"
-          [expanded]="reviews.results.length"
+        <app-panel
+          [hideFiltersBtn]="true"
+          title="Reviews"
+          (fetchNewPage)="setReviewId($event)"
+          [paginatorData]="{
+            length: reviews.results.length,
+            pageSize: 1
+          }"
         >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h2 class="section-heading">Reviews</h2>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-
-          <div class="panel-content">
+          <ng-container ngProjectAs="panel-content">
             <mat-card
               [class.mat-elevation-z2]="true"
-              *ngFor="let review of reviews.results"
               style="background: #616161"
             >
               <mat-card-subtitle>{{
-                review.updated_at
-                  ? (review.updated_at | date)
-                  : (review.created_at | date)
+                reviews.results[reviewIndex - 1].updated_at
+                  ? (reviews.results[reviewIndex - 1].updated_at | date)
+                  : (reviews.results[reviewIndex - 1].created_at | date)
               }}</mat-card-subtitle>
-              <mat-card-title>{{ review.author }}</mat-card-title>
-              <mat-card-content>{{ review.content }}</mat-card-content>
+              <mat-card-title>{{
+                reviews.results[reviewIndex - 1].author
+              }}</mat-card-title>
+              <mat-card-content>{{
+                reviews.results[reviewIndex - 1].content
+              }}</mat-card-content>
             </mat-card>
-          </div>
-        </mat-expansion-panel>
+          </ng-container>
+        </app-panel>
       </div>
     </div>
     <div class="side">

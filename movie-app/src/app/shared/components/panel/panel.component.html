@@ -15,9 +15,9 @@
       </div>
     </mat-drawer>
     <mat-drawer-content>
-      <div class="section-content">
+      <div class="section-content" [style]="'height:' + height">
         <ng-content select="panel-content"></ng-content>
-
+        <!-- 
         <app-loading-spinner *ngIf="!items.length"></app-loading-spinner>
 
         <app-card
@@ -25,7 +25,7 @@
           [item]="item"
           [media_type]="media_type"
           [route]="route"
-        ></app-card>
+        ></app-card> -->
       </div>
     </mat-drawer-content>
   </mat-drawer-container>
@@ -43,7 +43,9 @@
 
     <div class="pagination-box">
       <mat-paginator
-        [class.removed-items-length]="!paginatorData.length"
+        [class.removed-items-length]="
+          !paginatorData.pageSize || paginatorData.pageSize === 1
+        "
         [length]="paginatorData.length"
         [pageSize]="paginatorData.pageSize"
         (page)="fetchNewPageData($event)"

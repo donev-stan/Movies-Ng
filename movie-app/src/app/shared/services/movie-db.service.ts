@@ -372,8 +372,9 @@ export class MovieDBService {
     const url = this.api_url.concat(
       `/${media_type}/${media_id}/recommendations`
     );
+    const params = this.params.append('page', page);
 
-    return this.http.get(url, { params: this.params });
+    return this.http.get(url, { params });
   }
 
   getImages(media_type: string, media_id: string): Observable<any> {

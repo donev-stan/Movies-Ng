@@ -15,6 +15,7 @@ export class DetailsComponent implements OnInit {
   keywords: any = {};
   recommendations: any = {};
   reviews: any = {};
+  reviewIndex: number = 1;
 
   constructor(private route: ActivatedRoute, private db: MovieDBService) {
     route.params.subscribe((params: Params) => {
@@ -39,9 +40,7 @@ export class DetailsComponent implements OnInit {
 
       this.db.getSimilar(this.media_type, this.media_id).subscribe({
         next: (response) => {
-          console.log('similar:');
-
-          console.log(response);
+          // console.log(response);
         },
       });
     });
@@ -52,7 +51,7 @@ export class DetailsComponent implements OnInit {
   fetchItemData(): void {
     this.db.getSingle(this.media_type, this.media_id).subscribe({
       next: (data) => {
-        console.log(data);
+        // console.log(data);
         this.item = data;
       },
     });
@@ -61,7 +60,7 @@ export class DetailsComponent implements OnInit {
   fetchKeywordsData(): void {
     this.db.getKeywords(this.media_type, this.media_id).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         this.keywords = response;
       },
     });
@@ -79,7 +78,7 @@ export class DetailsComponent implements OnInit {
   fetchReviews(): void {
     this.db.getReviews(this.media_type, this.media_id).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         this.reviews = response;
       },
     });
@@ -87,5 +86,10 @@ export class DetailsComponent implements OnInit {
 
   dataReady(data: any) {
     return Object.values(data).length;
+  }
+
+  setReviewId(index: number) {
+    console.log(index);
+    this.reviewIndex = index;
   }
 }
