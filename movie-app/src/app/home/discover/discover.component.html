@@ -95,10 +95,18 @@
     </mat-form-field>
 
     <!-- Adult Content -->
-    <mat-button-toggle>Adult Content</mat-button-toggle>
+    <mat-checkbox formControlName="adultContent"> Adult Content </mat-checkbox>
+
+    <!-- <mat-button-toggle formControlName="adultContent"
+      >Adult Content</mat-button-toggle
+    > -->
 
     <!-- Include Video -->
-    <mat-button-toggle>Including Video</mat-button-toggle>
+    <mat-checkbox formControlName="videoOnly"> Include Video </mat-checkbox>
+
+    <!-- <mat-button-toggle formControlName="videoOnly"
+      >Including Video</mat-button-toggle
+    > -->
   </ng-container>
 
   <ng-container ngProjectAs="panel-content">

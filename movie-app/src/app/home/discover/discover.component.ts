@@ -46,6 +46,8 @@ export class DiscoverComponent implements OnInit {
   }
 
   fetchResults(page?: number): void {
+    // console.log(this.filtersForm.value);
+
     this.db.discover(this.filtersForm.value, page).subscribe({
       next: (response) => {
         // console.log(response);
