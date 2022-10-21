@@ -14,6 +14,7 @@ export class DetailsComponent implements OnInit {
   item: any = {};
   keywords: any = {};
   recommendations: any = {};
+  reviews: any = {};
 
   constructor(private route: ActivatedRoute, private db: MovieDBService) {
     route.params.subscribe((params: Params) => {
@@ -38,6 +39,7 @@ export class DetailsComponent implements OnInit {
       db.getReviews(media_type, media_id).subscribe({
         next: (response) => {
           console.log(response);
+          this.reviews = response;
         },
       });
     });
@@ -72,7 +74,7 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  dataReady() {
-    return Object.values(this.recommendations).length;
+  dataReady(data: any) {
+    return Object.values(data).length;
   }
 }

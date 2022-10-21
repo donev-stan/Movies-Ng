@@ -13,6 +13,17 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+
+      .section-heading {
+        margin: 0 10px !important;
+        font-size: 1.4rem;
+      }
+
+      .panel-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
     }
 
     .side {
