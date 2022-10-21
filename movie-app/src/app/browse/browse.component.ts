@@ -42,4 +42,12 @@ export class BrowseComponent implements OnInit {
       },
     });
   }
+
+  configureMediaTypeRoute(item: any): string {
+    if (this.selectedMedia !== 'multi') return this.selectedMedia;
+    if (item.title !== undefined) return 'movie';
+    if (item.gender !== undefined) return 'person';
+    if (item.media_type === 'tv') return 'tv';
+    return '';
+  }
 }

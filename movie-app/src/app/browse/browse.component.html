@@ -3,13 +3,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Search</mat-label>
       <input matInput autocomplete="off" [(ngModel)]="query" />
-      <button
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        *ngIf="query"
-        (click)="query = ''"
-      >
+      <button matSuffix mat-icon-button aria-label="Clear" *ngIf="query" (click)="query = ''">
         <mat-icon>clear</mat-icon>
       </button>
     </mat-form-field>
@@ -24,38 +18,22 @@
       </mat-select>
     </mat-form-field>
 
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="fetchNewPageData()"
-      [disabled]="!query"
-    >
+    <button mat-raised-button color="primary" (click)="fetchNewPageData()" [disabled]="!query">
       <mat-icon>search</mat-icon> Search
     </button>
   </div>
 
   <div class="results-box">
     <div class="results">
-      <app-card
-        *ngFor="let item of searchResults"
-        [item]="item"
-        route="/details"
-        [media_type]="selectedMedia"
-      >
+      <app-card *ngFor="let item of searchResults" [item]="item" route="/details"
+        [media_type]="configureMediaTypeRoute(item)">
         <!-- FIX MEDIA ITEM -->
       </app-card>
     </div>
 
-    <div
-      class="pagination-box"
-      [style]="searchResults.length === 0 ? 'opacity: 0;' : null"
-    >
-      <mat-paginator
-        [length]="totalResults"
-        [pageSize]="searchResults.length"
-        (page)="fetchNewPageData($event)"
-        #paginator
-      >
+    <div class="pagination-box" [style]="searchResults.length === 0 ? 'opacity: 0;' : null">
+      <mat-paginator [length]="totalResults" [pageSize]="searchResults.length" (page)="fetchNewPageData($event)"
+        #paginator>
       </mat-paginator>
     </div>
   </div>
