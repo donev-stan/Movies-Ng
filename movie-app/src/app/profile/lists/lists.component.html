@@ -19,5 +19,14 @@
       >
       </app-card>
     </ng-container>
+
+    <ng-container ngProjectAs="filter-chips">
+      <button mat-button color="warn" (click)="onDeleteList(list.id)">
+        Delete List
+      </button>
+      <button mat-button color="accent" (click)="onClearList(list.id)">
+        Clear List
+      </button>
+    </ng-container>
   </app-panel>
 </div>

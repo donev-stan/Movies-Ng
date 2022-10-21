@@ -56,6 +56,22 @@ export class MovieDBService {
     return this.http.get(url, { params: this.params });
   }
 
+  deleteList(listId: number): Observable<any> {
+    const url = this.api_url.concat(`/list/${listId}`);
+    const params = this.params.append('session_id', this.account.session_id);
+
+    return this.http.delete(url, { params });
+  }
+
+  clearList(listId: number): Observable<any> {
+    const url = this.api_url.concat(`/list/${listId}/clear`);
+    const params = this.params
+      .append('session_id', this.account.session_id)
+      .append('confirm', true);
+
+    return this.http.post(url, { params });
+  }
+
   // Favorites
   // --- media_type: (movies, tv)
   getFavorites(
