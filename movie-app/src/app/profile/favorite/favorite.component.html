@@ -1,14 +1,12 @@
 <app-panel
   title="Favorites"
   description="List of your favorite movies and shows."
-  [items]="
-    items.length != 0 ? items : [{ name: 'Nothing Found', nothing_found: true }]
-  "
-  [total_results]="total_results"
   (fetchNewPage)="fetchFavorites($event)"
   [resetPage]="resetPage"
-  [media_type]="selectedMedia === 'movies' ? 'movie' : selectedMedia"
-  route="/details"
+  [paginatorData]="{
+    length: total_results,
+    pageSize: items.length
+  }"
 >
   <ng-container ngProjectAs="filters">
     <mat-form-field appearance="fill">
@@ -26,6 +24,17 @@
         <mat-option value="created_at.desc">Created Descending</mat-option>
       </mat-select>
     </mat-form-field>
+  </ng-container>
+
+  <ng-container ngProjectAs="panel-content">
+    <app-loading-spinner *ngIf="!items.length"></app-loading-spinner>
+
+    <app-card
+      *ngFor="let item of items"
+      [item]="item"
+      [media_type]="selectedMedia === 'movies' ? 'movie' : selectedMedia"
+      route="/details"
+    ></app-card>
   </ng-container>
 
   <ng-container ngProjectAs="filter-chips">

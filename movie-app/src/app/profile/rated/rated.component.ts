@@ -46,9 +46,15 @@ export class RatedComponent implements OnInit {
   fetchRated(page?: number): void {
     this.db.getRated(this.selectedMedia, this.selectedSort, page).subscribe({
       next: (data) => {
-        this.items = data.results;
-        this.total_pages = data.total_pages;
-        this.total_results = data.total_results;
+        if (data.results.length) {
+          this.items = data.results;
+          this.total_pages = data.total_pages;
+          this.total_results = data.total_results;
+        } else {
+          this.items = [{ name: 'Nothing Found', nothing_found: true }];
+          this.total_pages = 0;
+          this.total_results = 0;
+        }
       },
     });
   }

@@ -43,6 +43,7 @@
 
     <div class="pagination-box">
       <mat-paginator
+        [class.removed-items-length]="!paginatorData.length"
         [length]="paginatorData.length"
         [pageSize]="paginatorData.pageSize"
         (page)="fetchNewPageData($event)"

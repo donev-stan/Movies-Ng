@@ -54,6 +54,12 @@ mat-drawer-container {
   }
 }
 
+.removed-items-length {
+  ::ng-deep .mat-paginator-page-size {
+    display: none !important;
+  }
+}
+
 // Media Queries
 @media (max-width: 600px) {
   .section-heading {

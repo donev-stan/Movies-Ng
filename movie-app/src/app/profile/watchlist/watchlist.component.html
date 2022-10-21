@@ -1,7 +1,13 @@
-<app-panel title="Favorites" description="List of all the movies and shows you have added to your watchlist."
-  [items]="items.length != 0 ? items : [{name: 'Nothing Found', nothing_found: true}]" [total_results]="total_results"
-  (fetchNewPage)="fetchWatchlist($event)" [resetPage]="resetPage"
-  [media_type]="selectedMedia === 'movies' ? 'movie' : selectedMedia" route="/details">
+<app-panel
+  title="Favorites"
+  description="List of all the movies and shows you have added to your watchlist."
+  (fetchNewPage)="fetchWatchlist($event)"
+  [resetPage]="resetPage"
+  [paginatorData]="{
+    length: total_results,
+    pageSize: items.length
+  }"
+>
   <ng-container ngProjectAs="filters">
     <mat-form-field appearance="fill">
       <mat-label>Media Type</mat-label>
@@ -20,13 +26,29 @@
     </mat-form-field>
   </ng-container>
 
+  <ng-container ngProjectAs="panel-content">
+    <app-loading-spinner *ngIf="!items.length"></app-loading-spinner>
+
+    <app-card
+      *ngFor="let item of items"
+      [item]="item"
+      [media_type]="selectedMedia === 'movies' ? 'movie' : selectedMedia"
+      route="/details"
+    ></app-card>
+  </ng-container>
+
   <ng-container ngProjectAs="filter-chips">
     <mat-chip-list [disabled]="false" [multiple]="false">
-      <mat-chip (click)="selectedMedia !== 'movies' ? (selectedMedia = 'movies') : null"
-        [selected]="selectedMedia == 'movies'">
+      <mat-chip
+        (click)="selectedMedia !== 'movies' ? (selectedMedia = 'movies') : null"
+        [selected]="selectedMedia == 'movies'"
+      >
         Movies
       </mat-chip>
-      <mat-chip (click)="selectedMedia !== 'tv' ? (selectedMedia = 'tv') : null" [selected]="selectedMedia == 'tv'">
+      <mat-chip
+        (click)="selectedMedia !== 'tv' ? (selectedMedia = 'tv') : null"
+        [selected]="selectedMedia == 'tv'"
+      >
         Shows
       </mat-chip>
     </mat-chip-list>
