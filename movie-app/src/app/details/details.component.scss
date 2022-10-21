@@ -65,3 +65,50 @@
     }
   }
 }
+
+@media (max-width: 1400px) {
+  .content {
+    flex-direction: column;
+
+    .side {
+      flex-direction: row !important;
+      justify-content: space-around;
+      align-items: center;
+
+      .facts,
+      .keywords {
+        flex: 2;
+      }
+      .providers {
+        flex: 1;
+      }
+
+      .facts-card {
+        width: fit-content;
+        margin: auto;
+        min-width: 180px;
+      }
+
+      .keywords-chip-list {
+        width: fit-content;
+        min-width: 180px;
+      }
+
+      .providers {
+        img {
+          height: 45px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    .content {
+      .side {
+        flex-direction: column !important;
+      }
+    }
+  }
+}
