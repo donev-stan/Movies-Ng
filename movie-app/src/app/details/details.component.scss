@@ -33,7 +33,7 @@
       flex-direction: column;
       gap: 20px;
 
-      mat-card {
+      .facts-card {
         mat-card-content {
           display: flex;
           flex-direction: column;
@@ -55,6 +55,12 @@
             }
           }
         }
+      }
+
+      .keywords-chip-list,
+      .providers {
+        display: flex !important;
+        justify-content: center !important;
       }
     }
   }

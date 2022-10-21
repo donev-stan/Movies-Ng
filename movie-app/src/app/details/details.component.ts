@@ -21,6 +21,8 @@ export class DetailsComponent implements OnInit {
   videos: any = {};
   videoIndex: number = 1;
 
+  providers: any[] = [];
+
   constructor(private route: ActivatedRoute, private db: MovieDBService) {
     route.params.subscribe((params: Params) => {
       const media_type = params['type'];
@@ -32,11 +34,12 @@ export class DetailsComponent implements OnInit {
       // console.log(media_type, media_id);
 
       this.fetchItemData();
-      this.fetchKeywordsData();
-      this.fetchRecommendationsData();
+      this.fetchKeywords();
+      this.fetchRecommendations();
       this.fetchReviews();
       this.fetchSimilar();
       this.fetchVideos();
+      this.fetchProviders();
 
       // db.getImages(media_type, media_id).subscribe({
       //   next: (response) => {
@@ -57,7 +60,7 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  fetchKeywordsData(): void {
+  fetchKeywords(): void {
     this.db.getKeywords(this.media_type, this.media_id).subscribe({
       next: (response) => {
         // console.log(response);
@@ -66,7 +69,7 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  fetchRecommendationsData(page?: number): void {
+  fetchRecommendations(page?: number): void {
     this.db.getRecommendations(this.media_type, this.media_id, page).subscribe({
       next: (response) => {
         // console.log(response);
@@ -87,7 +90,7 @@ export class DetailsComponent implements OnInit {
   fetchSimilar(page?: number): void {
     this.db.getSimilar(this.media_type, this.media_id, page).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         this.similar = response;
       },
     });
@@ -96,8 +99,18 @@ export class DetailsComponent implements OnInit {
   fetchVideos(): void {
     this.db.getVideos(this.media_type, this.media_id).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         this.videos = response;
+      },
+    });
+  }
+
+  fetchProviders(): void {
+    this.db.getProviders(this.media_type, this.media_id).subscribe({
+      next: (response) => {
+        if (response.results?.BG?.flatrate) {
+          this.providers = response.results.BG.flatrate;
+        }
       },
     });
   }

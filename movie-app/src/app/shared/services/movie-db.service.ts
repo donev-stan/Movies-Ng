@@ -406,6 +406,13 @@ export class MovieDBService {
     return this.http.get(url, { params: this.params });
   }
 
+  getProviders(media_type: string, media_id: string): Observable<any> {
+    const url = this.api_url.concat(
+      `/${media_type}/${media_id}/watch/providers`
+    );
+    return this.http.get(url, { params: this.params });
+  }
+
   discover(searchFilters: any, page: number = 1): Observable<any> {
     const url = this.api_url.concat(`/discover/${searchFilters.selectedMedia}`);
     const params = this.params

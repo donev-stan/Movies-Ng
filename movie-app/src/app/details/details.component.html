@@ -15,9 +15,11 @@
           }"
         >
           <ng-container ngProjectAs="panel-content">
+            <!-- [width]="videos.results[videoIndex - 1]?.size - 10"
+            [height]="videos.results[videoIndex - 1]?.size / 1.8" -->
             <iframe
               width="100%"
-              height="600"
+              height="650px"
               [src]="
                 'https://www.youtube.com/embed/' +
                   videos.results[videoIndex - 1]?.key | safe: 'resourceUrl'
@@ -39,7 +41,7 @@
           title="Recommendations"
           description="List of TV show recommendations for this movie or show."
           [hideFiltersBtn]="true"
-          (fetchNewPage)="fetchRecommendationsData($event)"
+          (fetchNewPage)="fetchRecommendations($event)"
           [paginatorData]="{
             length: recommendations.total_results,
             pageSize: recommendations.results.length
@@ -129,7 +131,7 @@
 
     <div class="side">
       <div class="facts">
-        <mat-card>
+        <mat-card class="facts-card" [class.mat-elevation-z3]="true">
           <mat-card-content>
             <div><span>Status: </span> {{ item.status }}</div>
             <div>
@@ -153,11 +155,23 @@
       </div>
 
       <div class="keywords">
-        <mat-chip-list>
-          <mat-chip *ngFor="let keyword of keywords.keywords">{{
-            keyword.name
-          }}</mat-chip>
+        <mat-chip-list class="keywords-chip-list">
+          <mat-chip
+            *ngFor="let keyword of keywords.keywords"
+            [class.mat-elevation-z3]="true"
+            >{{ keyword.name }}</mat-chip
+          >
         </mat-chip-list>
+      </div>
+
+      <div class="providers" *ngIf="providers.length">
+        <img
+          *ngFor="let provider of providers"
+          [src]="'https://image.tmdb.org/t/p/w45' + provider.logo_path"
+          [alt]="provider.provider_name"
+          style="border-radius: 5px"
+          [class.mat-elevation-z3]="true"
+        />
       </div>
     </div>
   </div>
