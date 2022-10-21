@@ -8,20 +8,21 @@ import { Subject } from 'rxjs';
   styleUrls: ['./panel.component.scss'],
 })
 export class PanelComponent implements OnInit {
-  @Input() title: string = '';
-  @Input() description: string = '';
-  @Input() items: any[] = [];
-  // @Input() total_pages: number = 1;
-  @Input() total_results: number = 0;
-  @Input() @Output() route: string = '';
-
-  @Input() resetPage: Subject<boolean> = new Subject();
-  @Input() media_type: string = '';
-
-  @Output() fetchNewPage: Subject<number> = new Subject();
   @ViewChild('paginator') paginator: any;
 
+  @Input() title: string = '';
+  @Input() description: string = '';
+
+  @Input() total_results: number = 0;
   @Input() hideFiltersBtn: boolean = false;
+
+  @Input() resetPage: Subject<boolean> = new Subject();
+  @Output() fetchNewPage: Subject<number> = new Subject();
+
+  // To nbe removed
+  @Input() items: any[] = [];
+  @Input() media_type: string = '';
+  @Input() @Output() route: string = '';
 
   constructor() {}
 

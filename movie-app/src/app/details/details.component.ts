@@ -29,6 +29,7 @@ export class DetailsComponent implements OnInit {
       this.fetchItemData();
       this.fetchKeywordsData();
       this.fetchRecommendationsData();
+      this.fetchReviews();
 
       // db.getImages(media_type, media_id).subscribe({
       //   next: (response) => {
@@ -36,10 +37,11 @@ export class DetailsComponent implements OnInit {
       //   },
       // });
 
-      db.getReviews(media_type, media_id).subscribe({
+      this.db.getSimilar(this.media_type, this.media_id).subscribe({
         next: (response) => {
+          console.log('similar:');
+
           console.log(response);
-          this.reviews = response;
         },
       });
     });
@@ -70,6 +72,15 @@ export class DetailsComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.recommendations = response;
+      },
+    });
+  }
+
+  fetchReviews(): void {
+    this.db.getReviews(this.media_type, this.media_id).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.reviews = response;
       },
     });
   }
