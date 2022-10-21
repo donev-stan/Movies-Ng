@@ -19,6 +19,11 @@ export class PanelComponent implements OnInit {
   @Input() resetPage: Subject<boolean> = new Subject();
   @Output() fetchNewPage: Subject<number> = new Subject();
 
+  @Input() paginatorData: any = {
+    length: 0,
+    pageSize: 0,
+  };
+
   // To nbe removed
   @Input() items: any[] = [];
   @Input() media_type: string = '';

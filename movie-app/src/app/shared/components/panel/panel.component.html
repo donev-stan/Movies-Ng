@@ -43,8 +43,8 @@
 
     <div class="pagination-box">
       <mat-paginator
-        [length]="total_results ? total_results : items.length * 10"
-        [pageSize]="items.length"
+        [length]="paginatorData.length"
+        [pageSize]="paginatorData.pageSize"
         (page)="fetchNewPageData($event)"
         #paginator
       >
