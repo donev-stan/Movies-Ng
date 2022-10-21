@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MovieDBService } from '../shared/services/movie-db.service';
 
@@ -16,6 +17,9 @@ export class DetailsComponent implements OnInit {
   recommendations: any = {};
   reviews: any = {};
   reviewIndex: number = 1;
+  similar: any = {};
+  videos: any = {};
+  videoIndex: number = 1;
 
   constructor(private route: ActivatedRoute, private db: MovieDBService) {
     route.params.subscribe((params: Params) => {
@@ -31,18 +35,14 @@ export class DetailsComponent implements OnInit {
       this.fetchKeywordsData();
       this.fetchRecommendationsData();
       this.fetchReviews();
+      this.fetchSimilar();
+      this.fetchVideos();
 
       // db.getImages(media_type, media_id).subscribe({
       //   next: (response) => {
       //     console.log(response);
       //   },
       // });
-
-      this.db.getSimilar(this.media_type, this.media_id).subscribe({
-        next: (response) => {
-          // console.log(response);
-        },
-      });
     });
   }
 
@@ -69,7 +69,7 @@ export class DetailsComponent implements OnInit {
   fetchRecommendationsData(page?: number): void {
     this.db.getRecommendations(this.media_type, this.media_id, page).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         this.recommendations = response;
       },
     });
@@ -84,12 +84,39 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  dataReady(data: any) {
-    return Object.values(data).length;
+  fetchSimilar(page?: number): void {
+    this.db.getSimilar(this.media_type, this.media_id, page).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.similar = response;
+      },
+    });
   }
 
-  setReviewId(index: number) {
-    console.log(index);
+  fetchVideos(): void {
+    this.db.getVideos(this.media_type, this.media_id).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.videos = response;
+      },
+    });
+  }
+
+  isDataReady(data: any): boolean {
+    return Object.values(data).length !== 0;
+  }
+
+  setReviewIndex(index: number): void {
+    // console.log(index);
     this.reviewIndex = index;
+  }
+
+  setVideoIndex(index: number): void {
+    // console.log(index);
+    this.videoIndex = index;
+  }
+
+  returnVideoUrl(key: string): string {
+    return `https://www.youtube.com/embed/${key}`;
   }
 }

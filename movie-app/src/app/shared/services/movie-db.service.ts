@@ -389,8 +389,19 @@ export class MovieDBService {
     return this.http.get(url, { params: this.params });
   }
 
-  getSimilar(media_type: string, media_id: string): Observable<any> {
+  getSimilar(
+    media_type: string,
+    media_id: string,
+    page: number = 1
+  ): Observable<any> {
     const url = this.api_url.concat(`/${media_type}/${media_id}/similar`);
+    const params = this.params.append('page', page);
+
+    return this.http.get(url, { params });
+  }
+
+  getVideos(media_type: string, media_id: string): Observable<any> {
+    const url = this.api_url.concat(`/${media_type}/${media_id}/videos`);
 
     return this.http.get(url, { params: this.params });
   }

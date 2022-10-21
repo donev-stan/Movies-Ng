@@ -3,10 +3,36 @@
 
   <div class="content">
     <div class="main">
-      <div class="reccomendations" *ngIf="dataReady(recommendations)">
+      <div class="vidoes" *ngIf="isDataReady(videos) && videos.results.length">
         <app-panel
-          *ngIf="recommendations.results.length"
+          title="Videos"
+          [hideFiltersBtn]="true"
+          [paginatorData]="{
+            length: videos.results.length,
+            pageSize: 1
+          }"
+        >
+          <ng-container ngProjectAs="panel-content">
+            <iframe
+              width="100%"
+              height="600"
+              [src]="returnVideoUrl(videos.results[0].key)"
+              [title]="videos.results[0].name"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          </ng-container>
+        </app-panel>
+      </div>
+
+      <div
+        class="reccomendations"
+        *ngIf="isDataReady(recommendations) && recommendations.results.length"
+      >
+        <app-panel
           title="Recommendations"
+          description="List of TV show recommendations for this movie or show."
           [hideFiltersBtn]="true"
           (fetchNewPage)="fetchRecommendationsData($event)"
           [paginatorData]="{
@@ -30,11 +56,14 @@
         </app-panel>
       </div>
 
-      <div class="reviews" *ngIf="dataReady(reviews)">
+      <div
+        class="reviews"
+        *ngIf="isDataReady(reviews) && reviews.results.length"
+      >
         <app-panel
           [hideFiltersBtn]="true"
           title="Reviews"
-          (fetchNewPage)="setReviewId($event)"
+          (fetchNewPage)="setReviewIndex($event)"
           [paginatorData]="{
             length: reviews.results.length,
             pageSize: 1
@@ -60,7 +89,38 @@
           </ng-container>
         </app-panel>
       </div>
+
+      <div
+        class="similar"
+        *ngIf="isDataReady(similar) && similar.results.length"
+      >
+        <app-panel
+          title="Similar"
+          description="List of similar movies or shows."
+          [hideFiltersBtn]="true"
+          (fetchNewPage)="fetchSimilar($event)"
+          [paginatorData]="{
+            length: similar.total_results,
+            pageSize: similar.results.length
+          }"
+          height="585px"
+        >
+          <ng-container ngProjectAs="panel-content">
+            <app-loading-spinner
+              *ngIf="!similar.results.length"
+            ></app-loading-spinner>
+
+            <app-card
+              *ngFor="let item of similar.results"
+              [item]="item"
+              [media_type]="media_type"
+              route="/details"
+            ></app-card>
+          </ng-container>
+        </app-panel>
+      </div>
     </div>
+
     <div class="side">
       <div class="facts">
         <mat-card>
