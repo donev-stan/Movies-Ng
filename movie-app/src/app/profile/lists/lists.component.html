@@ -1,14 +1,23 @@
-<mat-expansion-panel *ngFor="let list of lists">
-    <mat-expansion-panel-header>
-        <mat-panel-title>
-            <h2 class="section-heading">{{list.name}}</h2>
-        </mat-panel-title>
-        <mat-panel-description>
-            {{list.description}}
-        </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <div class="section-content">
-        <app-card *ngFor="let item of list.items"></app-card>
-    </div>
-</mat-expansion-panel>
+<div class="container-lists">
+  <app-panel
+    *ngFor="let list of lists"
+    [title]="list.name"
+    [description]="list.description"
+    [expanded]="!(lists.length > 3)"
+    [hideFiltersBtn]="true"
+    [paginatorData]="{
+      length: list.items.length,
+      pageSize: 0
+    }"
+  >
+    <ng-container ngProjectAs="panel-content">
+      <app-card
+        *ngFor="let item of list.items"
+        [item]="item"
+        route="/details"
+        [media_type]="item.media_type"
+      >
+      </app-card>
+    </ng-container>
+  </app-panel>
+</div>

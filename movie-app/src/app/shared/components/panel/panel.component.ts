@@ -27,6 +27,8 @@ export class PanelComponent implements OnInit {
   @Input() height: string = 'auto';
   @Input() hidePaginationLength: boolean = false;
 
+  @Input() expanded: boolean = true;
+
   constructor() {}
 
   ngOnInit(): void {
