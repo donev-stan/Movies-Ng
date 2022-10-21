@@ -20,6 +20,12 @@ export class DiscoverComponent implements OnInit {
       selectedMedia: new FormControl('movie'),
       selectedSort: new FormControl('popularity.desc'),
       selectedGenres: new FormControl([]),
+      selectedRange: new FormGroup({
+        start: new FormControl<String | null>(null),
+        end: new FormControl<String | null>(null),
+      }),
+      adultContent: new FormControl(false),
+      videoOnly: new FormControl(false),
     });
 
     this.filtersForm.valueChanges.subscribe((filterValues: any) => {

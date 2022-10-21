@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject, tap } from 'rxjs';
@@ -24,7 +25,7 @@ export class MovieDBService {
   arrayLength: number = 12;
   loggedIn: Subject<string | boolean> = new Subject();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private datePipe: DatePipe) {
     this.checkLoggedIn();
   }
 
@@ -415,10 +416,26 @@ export class MovieDBService {
 
   discover(searchFilters: any, page: number = 1): Observable<any> {
     const url = this.api_url.concat(`/discover/${searchFilters.selectedMedia}`);
+
+    const startDate = this.datePipe.transform(
+      searchFilters.selectedRange.start,
+      'yyyy-MM-dd'
+    );
+    const endDate = this.datePipe.transform(
+      searchFilters.selectedRange.end,
+      'yyyy-MM-dd'
+    );
+
+    console.log(startDate, endDate);
+
     const params = this.params
       .append('page', page)
       .append('sort_by', searchFilters.selectedSort)
-      .append('with_genres', searchFilters.selectedGenres.join(','));
+      .append('with_genres', searchFilters.selectedGenres.join(','))
+      .append('include_adult', false)
+      .append('include_video', false)
+      .append('release_date.gte', startDate || '')
+      .append('release_date.lte', endDate || '');
 
     return this.http.get(url, { params });
   }
