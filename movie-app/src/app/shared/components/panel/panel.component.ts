@@ -25,6 +25,7 @@ export class PanelComponent implements OnInit {
   };
 
   @Input() height: string = 'auto';
+  @Input() hidePaginationLength: boolean = false;
 
   // To nbe removed
   @Input() items: any[] = [];

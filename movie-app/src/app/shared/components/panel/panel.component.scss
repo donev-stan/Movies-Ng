@@ -55,8 +55,14 @@ mat-drawer-container {
   }
 }
 
-.removed-items-length {
+.removed-items-perPage {
   ::ng-deep .mat-paginator-page-size {
+    display: none !important;
+  }
+}
+
+.removed-items-length {
+  ::ng-deep .mat-paginator-range-label {
     display: none !important;
   }
 }

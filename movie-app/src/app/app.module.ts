@@ -28,6 +28,7 @@ import { ProfileInfoComponent } from './profile/profile-info/profile-info.compon
 import { ListsComponent } from './profile/lists/lists.component';
 import { DiscoverComponent } from './home/discover/discover.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { SafePipe } from './shared/pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     ListsComponent,
     DiscoverComponent,
     ConfirmationDialogComponent,
+    SafePipe,
   ],
   imports: [
     BrowserModule,
