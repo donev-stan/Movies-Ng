@@ -89,16 +89,16 @@
         <input matStartDate formControlName="start" placeholder="Start date" />
         <input matEndDate formControlName="end" placeholder="End date" />
       </mat-date-range-input>
-      <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+      <!-- <mat-hint>DD/MM/YYYY - DD/MM/YYYY</mat-hint> -->
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
 
     <!-- Adult Content -->
-    <mat-button-toggle style="width: 80%">Adult Content</mat-button-toggle>
+    <mat-button-toggle>Adult Content</mat-button-toggle>
 
     <!-- Include Video -->
-    <mat-button-toggle style="width: 80%">Including Video</mat-button-toggle>
+    <mat-button-toggle>Including Video</mat-button-toggle>
   </ng-container>
 
   <ng-container ngProjectAs="panel-content">

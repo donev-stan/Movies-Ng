@@ -27,11 +27,6 @@ export class PanelComponent implements OnInit {
   @Input() height: string = 'auto';
   @Input() hidePaginationLength: boolean = false;
 
-  // To nbe removed
-  @Input() items: any[] = [];
-  @Input() media_type: string = '';
-  @Input() @Output() route: string = '';
-
   constructor() {}
 
   ngOnInit(): void {
@@ -41,7 +36,6 @@ export class PanelComponent implements OnInit {
   }
 
   fetchNewPageData(event: PageEvent): void {
-    this.items = [];
     const page = event ? event.pageIndex + 1 : 1;
     this.fetchNewPage.next(page);
   }

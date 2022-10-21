@@ -426,14 +426,12 @@ export class MovieDBService {
       'yyyy-MM-dd'
     );
 
-    console.log(startDate, endDate);
-
     const params = this.params
       .append('page', page)
       .append('sort_by', searchFilters.selectedSort)
       .append('with_genres', searchFilters.selectedGenres.join(','))
-      .append('include_adult', false)
-      .append('include_video', false)
+      .append('include_adult', searchFilters.adultContent)
+      .append('include_video', searchFilters.videoOnly)
       .append('release_date.gte', startDate || '')
       .append('release_date.lte', endDate || '');
 

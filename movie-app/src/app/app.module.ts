@@ -30,6 +30,7 @@ import { ListsComponent } from './profile/lists/lists.component';
 import { DiscoverComponent } from './home/discover/discover.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { SafePipe } from './shared/pipes/safe.pipe';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,7 @@ import { SafePipe } from './shared/pipes/safe.pipe';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
