@@ -25,6 +25,8 @@ export class PreviewComponent implements OnInit {
 
   ratingValue: number = 0;
 
+  showMoreBtn: boolean = true;
+
   constructor(
     private db: MovieDBService,
     private router: Router,
@@ -35,6 +37,12 @@ export class PreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedIn = this.db.checkLoggedIn();
+
+    const current_page = this.router.url.split('/')[1];
+
+    current_page === 'home'
+      ? (this.showMoreBtn = true)
+      : (this.showMoreBtn = false);
 
     this.route.params.subscribe((params: Params) => {
       this.isDataReady = false;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -6,9 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  selectedTabIndex: number = 0;
-
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {}
 }

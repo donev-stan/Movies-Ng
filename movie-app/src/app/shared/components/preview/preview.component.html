@@ -50,7 +50,7 @@
         </div>
 
         <div class="action-btns">
-          <button mat-mini-fab color="primary" title="Add to list">
+          <button mat-mini-fab color="primary" title="Add to list" disabled="true">
             <mat-icon style="margin: -1px -3px 0 0">playlist_add</mat-icon>
             <!-- <mat-icon>playlist_add_check</mat-icon> -->
           </button>
@@ -82,7 +82,7 @@
         </div>
       </div>
 
-      <div class="view-more-btn-box">
+      <div class="view-more-btn-box" *ngIf="showMoreBtn">
         <button mat-stroked-button [routerLink]="['/details', media_type, item.id]">View More</button>
       </div>
     </div>
